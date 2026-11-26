@@ -1,0 +1,132 @@
+15:05:53 | INFO: Data are loaded, start creating Blender stuff
+15:05:53 | INFO: Blender create Mesh node Object_0
+15:05:53 | INFO: Blender create Mesh node Object_1
+15:05:53 | INFO: Blender create Mesh node Object_2
+15:05:53 | INFO: Blender create Mesh node Object_3
+15:05:53 | INFO: Blender create Mesh node Object_4
+15:05:53 | INFO: Blender create Mesh node Object_5
+15:05:53 | INFO: Blender create Mesh node Object_6
+15:05:53 | INFO: Blender create Mesh node Object_7
+15:05:53 | INFO: Blender create Mesh node Object_8
+15:05:53 | INFO: Blender create Mesh node Object_9
+15:05:53 | INFO: Blender create Mesh node Object_10
+15:05:53 | INFO: Blender create Mesh node Object_11
+15:05:53 | INFO: Blender create Mesh node Object_12
+15:05:53 | INFO: Blender create Mesh node Object_13
+15:05:53 | INFO: Blender create Mesh node Object_14
+15:05:53 | INFO: Blender create Mesh node Object_15
+15:05:53 | INFO: Blender create Mesh node Object_16
+15:05:53 | INFO: Blender create Mesh node Object_17
+15:05:53 | INFO: Blender create Mesh node Object_18
+15:05:53 | INFO: Blender create Mesh node Object_19
+15:05:53 | INFO: Blender create Mesh node Object_20
+15:05:53 | INFO: Blender create Mesh node Object_21
+15:05:53 | INFO: Blender create Mesh node Object_22
+15:05:53 | INFO: Blender create Mesh node Object_23
+15:05:53 | INFO: Blender create Mesh node Object_24
+15:05:53 | INFO: Blender create Mesh node Object_25
+15:05:53 | INFO: Blender create Mesh node Object_26
+15:05:53 | INFO: Blender create Mesh node Object_27
+15:05:53 | INFO: Blender create Mesh node Object_28
+15:05:53 | INFO: Blender create Mesh node Object_29
+15:05:53 | INFO: Blender create Mesh node Object_30
+15:05:53 | INFO: Blender create Mesh node Object_31
+15:05:54 | INFO: Blender create Mesh node Object_32
+15:05:54 | INFO: Blender create Mesh node Object_33
+15:05:54 | INFO: Blender create Mesh node Object_34
+15:05:54 | INFO: Blender create Mesh node Object_35
+15:05:54 | INFO: Blender create Mesh node Object_36
+15:05:54 | INFO: Blender create Mesh node Object_37
+15:05:54 | INFO: Blender create Mesh node Object_38
+15:05:54 | INFO: Blender create Mesh node Object_39
+15:05:54 | INFO: Blender create Mesh node Object_40
+15:05:54 | INFO: Blender create Mesh node Object_41
+15:05:54 | INFO: Blender create Mesh node Object_42
+15:05:54 | INFO: Blender create Mesh node Object_43
+15:05:54 | INFO: Blender create Mesh node Object_44
+15:05:54 | INFO: Blender create Mesh node Object_45
+15:05:54 | INFO: Blender create Mesh node Object_46
+15:05:54 | INFO: Blender create Mesh node Object_47
+15:05:54 | INFO: Blender create Mesh node Object_48
+15:05:54 | INFO: Blender create Mesh node Object_49
+15:05:54 | INFO: Blender create Mesh node Object_50
+15:05:54 | INFO: Blender create Mesh node Object_51
+15:05:54 | INFO: Blender create Mesh node Object_52
+15:05:54 | INFO: Blender create Mesh node Object_53
+15:05:54 | INFO: Blender create Mesh node Object_54
+15:05:54 | INFO: Blender create Mesh node Object_55
+15:05:54 | INFO: Blender create Mesh node Object_56
+15:05:54 | INFO: Blender create Mesh node Object_57
+15:05:54 | INFO: Blender create Mesh node Object_58
+15:05:54 | INFO: Blender create Mesh node Object_59
+15:05:54 | INFO: Blender create Mesh node Object_60
+15:05:54 | INFO: Blender create Mesh node Object_61
+15:05:54 | INFO: Blender create Mesh node Object_62
+15:05:54 | INFO: glTF import finished in 0.46s
+OBJ Object_2                     parent=ac130.obj.cleaner. tris=     2  box=(-11.08,-0.35,2.34)-(-11.08,-0.22,2.44)  DefaultWhite_bkgrd.png col=(0.8, 0.8, 0.8) tex=Image_7256x256
+OBJ Object_3                     parent=ac130.obj.cleaner. tris=    36  box=(-10.90,-0.53,3.22)-(-9.97,0.53,3.98)  DefaultWhite_overhead.png col=(0.8, 0.8, 0.8) tex=Image_23512x512
+OBJ Object_4                     parent=ac130.obj.cleaner. tris=   113  box=(-7.23,-0.79,0.30)-(-0.94,1.36,1.96)  DefaultWhite_texture.png col=(0.8, 0.8, 0.8) tex=Image_29512x512
+OBJ Object_5                     parent=ac130.obj.cleaner. tris=  4314  box=(-6.60,-3.61,1.08)-(-5.03,-1.36,1.55)  DefaultWhite col=(0.8, 0.8, 0.8) tex=Image_0512x256
+OBJ Object_6                     parent=ac130.obj.cleaner. tris=  2072  box=(-6.33,-3.63,1.28)-(-5.17,-2.06,1.44)  DefaultWhite col=(0.8, 0.8, 0.8) tex=Image_0512x256
+OBJ Object_7                     parent=ac130.obj.cleaner. tris=     4  box=(-11.08,-0.42,2.62)-(-11.08,0.45,2.63)  DefaultWhite_NONE col=(0.8, 0.8, 0.8)
+OBJ Object_8                     parent=ac130.obj.cleaner. tris=   458  box=(-11.08,-0.37,2.32)-(-11.06,-0.21,2.44)  DefaultWhite_RDR160.png col=(0.8, 0.8, 0.8) tex=Image_1256x256
+OBJ Object_9                     parent=ac130.obj.cleaner. tris=   415  box=(-11.08,-0.57,2.60)-(-11.08,-0.49,2.68)  DefaultWhite_adf.png col=(0.8, 0.8, 0.8) tex=Image_2128x128
+OBJ Object_10                    parent=ac130.obj.cleaner. tris=  1228  box=(-11.17,-0.47,2.68)-(-11.08,0.50,2.79)  DefaultWhite_ai.png col=(0.8, 0.8, 0.8) tex=Image_3512x512
+OBJ Object_11                    parent=ac130.obj.cleaner. tris=   348  box=(-11.08,-0.34,2.70)-(-11.07,-0.27,2.77)  DefaultWhite_altimeter.png col=(0.8, 0.8, 0.8) tex=Image_4512x512
+OBJ Object_12                    parent=ac130.obj.cleaner. tris=  2489  box=(-4.12,-0.17,1.68)-(-3.88,-0.02,1.78)  DefaultWhite_armament-panel.png col=(0.8, 0.8, 0.8) tex=Image_52048x512
+OBJ Object_13                    parent=ac130.obj.cleaner. tris=   468  box=(-11.10,-0.37,2.30)-(-11.06,-0.20,2.50)  DefaultWhite_background.png col=(0.8, 0.8, 0.8) tex=Image_664x64
+OBJ Object_14                    parent=ac130.obj.cleaner. tris=  2276  box=(3.43,-6.15,0.63)-(3.82,-0.83,1.41)  DefaultWhite_bofor.png col=(0.8, 0.8, 0.8) tex=Image_8256x128
+OBJ Object_15                    parent=ac130.obj.cleaner. tris=  3150  box=(-6.23,-0.36,0.30)-(-1.70,1.13,1.19)  DefaultWhite_chair.png col=(0.8, 0.8, 0.8) tex=Image_9512x512
+OBJ Object_16                    parent=ac130.obj.cleaner. tris=   530  box=(-11.08,-0.63,2.49)-(-11.07,0.65,2.77)  DefaultWhite_clock.png col=(0.8, 0.8, 0.8) tex=Image_10512x512
+OBJ Object_17                    parent=ac130.obj.cleaner. tris=  4167  box=(-6.81,-0.37,1.08)-(-1.27,1.31,1.92)  DefaultWhite_comp.png col=(0.8, 0.8, 0.8) tex=Image_11512x512
+OBJ Object_18                    parent=ac130.obj.cleaner. tris=  1570  box=(-6.70,-0.28,1.09)-(-1.38,0.65,1.21)  DefaultWhite_comp.png col=(0.8, 0.8, 0.8) tex=Image_11512x512
+OBJ Object_19                    parent=ac130.obj.cleaner. tris=   100  box=(-11.15,-0.70,2.72)-(-11.06,-0.64,2.78)  DefaultWhite_compass.png col=(0.8, 0.8, 0.8) tex=Image_12128x256
+OBJ Object_20                    parent=ac130.obj.cleaner. tris=   908  box=(-11.07,-0.14,2.65)-(-11.07,0.14,2.71)  DefaultWhite_egt.png col=(0.8, 0.8, 0.8) tex=Image_13512x512
+OBJ Object_21                    parent=ac130.obj.cleaner. tris=  2496  box=(-11.07,-0.14,2.34)-(-11.07,0.14,2.83)  DefaultWhite_empty.png col=(0.8, 0.8, 0.8) tex=Image_14512x512
+OBJ Object_22                    parent=ac130.obj.cleaner. tris=  3510  box=(-4.29,0.15,0.51)-(-3.67,0.83,1.49)  DefaultWhite_fighter_pilot.png col=(0.8, 0.8, 0.8) tex=Image_15512x512
+OBJ Object_23                    parent=ac130.obj.cleaner. tris=  3510  box=(-5.04,0.15,0.51)-(-4.42,0.83,1.49)  DefaultWhite_fighter_pilot.png col=(0.8, 0.8, 0.8) tex=Image_15512x512
+OBJ Object_24                    parent=ac130.obj.cleaner. tris=  3510  box=(-6.32,0.36,0.51)-(-5.64,0.99,1.49)  DefaultWhite_fighter_pilot.png col=(0.8, 0.8, 0.8) tex=Image_15512x512
+OBJ Object_25                    parent=ac130.obj.cleaner. tris=  3510  box=(-2.28,0.54,0.51)-(-1.60,1.16,1.49)  DefaultWhite_fighter_pilot.png col=(0.8, 0.8, 0.8) tex=Image_15512x512
+OBJ Object_26                    parent=ac130.obj.cleaner. tris=   884  box=(-11.07,-0.14,2.59)-(-11.07,0.14,2.65)  DefaultWhite_fuel.png col=(0.8, 0.8, 0.8) tex=Image_16512x512
+OBJ Object_27                    parent=ac130.obj.cleaner. tris=   303  box=(-11.08,-0.65,2.61)-(-11.08,-0.58,2.68)  DefaultWhite_gmeter.png col=(0.8, 0.8, 0.8) tex=Image_17512x512
+OBJ Object_28                    parent=ac130.obj.cleaner. tris=  1058  box=(-11.08,-0.48,2.52)-(-11.06,0.50,2.66)  DefaultWhite_hsi.png col=(0.8, 0.8, 0.8) tex=Image_18512x512
+OBJ Object_29                    parent=ac130.obj.cleaner. tris=  2319  box=(-11.97,-2.15,0.15)-(10.60,2.15,4.27)  DefaultWhite_interior.png col=(0.8, 0.8, 0.8) tex=Image_19512x512
+OBJ Object_30                    parent=ac130.obj.cleaner. tris=  4026  box=(-6.70,-0.30,0.87)-(-1.41,0.87,1.05)  DefaultWhite_keyboard.png col=(0.8, 0.8, 0.8) tex=Image_20512x512
+OBJ Object_31                    parent=ac130.obj.cleaner. tris=  3990  box=(-4.20,-0.26,0.93)-(-1.37,1.04,1.05)  DefaultWhite_keyboard.png col=(0.8, 0.8, 0.8) tex=Image_20512x512
+OBJ Object_32                    parent=ac130.obj.cleaner. tris=  8570  box=(-3.43,-0.23,0.96)-(-3.00,-0.12,1.04)  DefaultWhite_keyboard.png col=(0.8, 0.8, 0.8) tex=Image_20512x512
+OBJ Object_33                    parent=ac130.obj.cleaner. tris=  8570  box=(-6.66,0.43,0.90)-(-6.56,0.87,0.98)  DefaultWhite_keyboard.png col=(0.8, 0.8, 0.8) tex=Image_20512x512
+OBJ Object_34                    parent=ac130.obj.cleaner. tris=  8570  box=(-1.51,0.60,0.96)-(-1.41,1.04,1.03)  DefaultWhite_keyboard.png col=(0.8, 0.8, 0.8) tex=Image_20512x512
+OBJ Object_35                    parent=ac130.obj.cleaner. tris=  8570  box=(-4.20,-0.23,0.96)-(-3.76,-0.12,1.04)  DefaultWhite_keyboard.png col=(0.8, 0.8, 0.8) tex=Image_20512x512
+OBJ Object_36                    parent=ac130.obj.cleaner. tris=  8570  box=(-4.98,-0.23,0.96)-(-4.54,-0.12,1.04)  DefaultWhite_keyboard.png col=(0.8, 0.8, 0.8) tex=Image_20512x512
+OBJ Object_37                    parent=ac130.obj.cleaner. tris=  8570  box=(-6.66,-0.29,0.90)-(-6.56,0.15,0.98)  DefaultWhite_keyboard.png col=(0.8, 0.8, 0.8) tex=Image_20512x512
+OBJ Object_38                    parent=ac130.obj.cleaner. tris=   264  box=(-6.66,-0.23,0.96)-(-1.41,0.87,1.04)  DefaultWhite_keyboard.png col=(0.8, 0.8, 0.8) tex=Image_20512x512
+OBJ Object_39                    parent=ac130.obj.cleaner. tris=   908  box=(-11.07,-0.14,2.46)-(-11.07,0.14,2.52)  DefaultWhite_oilpressure.png col=(0.8, 0.8, 0.8) tex=Image_21512x512
+OBJ Object_40                    parent=ac130.obj.cleaner. tris=   908  box=(-11.07,-0.14,2.53)-(-11.07,0.14,2.58)  DefaultWhite_oiltemp.png col=(0.8, 0.8, 0.8) tex=Image_22512x512
+OBJ Object_41                    parent=ac130.obj.cleaner. tris=  1356  box=(-10.84,-0.14,2.29)-(-10.49,0.19,2.52)  DefaultWhite_panel.png col=(0.8, 0.8, 0.8) tex=Image_241024x1024
+OBJ Object_42                    parent=ac130.obj.cleaner. tris=  6142  box=(-11.13,-0.74,2.09)-(-10.36,0.74,2.87)  DefaultWhite_panel.png.001 col=(0.8, 0.8, 0.8) tex=Image_241024x1024
+OBJ Object_43                    parent=ac130.obj.cleaner. tris=  1088  box=(-10.74,-0.14,2.29)-(-10.49,0.19,2.52)  DefaultWhite_panel.png.001 col=(0.8, 0.8, 0.8) tex=Image_241024x1024
+OBJ Object_44                    parent=ac130.obj.cleaner. tris=  4472  box=(-4.57,-10.24,3.21)-(-3.54,10.24,4.04)  DefaultWhite_propeller.png col=(0.8, 0.8, 0.8) tex=Image_25512x512
+OBJ Object_45                    parent=ac130.obj.cleaner. tris=  4710  box=(-3.95,-9.84,1.72)-(-3.54,11.87,5.15)  DefaultWhite_propeller.png col=(0.8, 0.8, 0.8) tex=Image_25512x512
+OBJ Object_46                    parent=ac130.obj.cleaner. tris=  4710  box=(-3.95,-11.73,1.57)-(-3.54,9.97,3.94)  DefaultWhite_propeller.png col=(0.8, 0.8, 0.8) tex=Image_25512x512
+OBJ Object_47                    parent=ac130.obj.cleaner. tris=  4710  box=(-3.95,-10.87,2.10)-(-3.54,10.23,5.68)  DefaultWhite_propeller.png col=(0.8, 0.8, 0.8) tex=Image_25512x512
+OBJ Object_48                    parent=ac130.obj.cleaner. tris=   942  box=(-3.95,-5.07,4.03)-(-3.59,-4.51,5.68)  DefaultWhite_propeller.png col=(0.8, 0.8, 0.8) tex=Image_25512x512
+OBJ Object_49                    parent=ac130.obj.cleaner. tris=   454  box=(-11.08,-0.56,2.70)-(-11.07,0.37,2.76)  DefaultWhite_speed.png col=(0.8, 0.8, 0.8) tex=Image_26512x512
+OBJ Object_50                    parent=ac130.obj.cleaner. tris=  1885  box=(-11.08,-0.33,2.50)-(-11.06,-0.18,2.57)  DefaultWhite_tacan.png col=(0.8, 0.8, 0.8) tex=Image_27512x512
+OBJ Object_51                    parent=ac130.obj.cleaner. tris=   852  box=(-11.07,-0.14,2.72)-(-11.07,0.14,2.77)  DefaultWhite_tachimeter.png col=(0.8, 0.8, 0.8) tex=Image_28512x512
+OBJ Object_52                    parent=ac130.obj.cleaner. tris=  3954  box=(-13.22,-2.15,-0.46)-(16.42,2.15,4.30)  DefaultWhite_texture.png.001 col=(0.8, 0.8, 0.8) tex=Image_302048x2048
+OBJ Object_53                    parent=ac130.obj.cleaner. tris=  3923  box=(-9.81,-20.15,-0.50)-(14.98,20.15,11.17)  DefaultWhite_texture.png.001 col=(0.8, 0.8, 0.8) tex=Image_302048x2048
+OBJ Object_54                    parent=ac130.obj.cleaner. tris=  4287  box=(-11.29,-19.85,-0.25)-(15.06,19.85,11.17)  DefaultWhite_texture.png.001 col=(0.8, 0.8, 0.8) tex=Image_302048x2048
+OBJ Object_55                    parent=ac130.obj.cleaner. tris=  3818  box=(-8.08,-14.02,-0.51)-(14.84,14.02,4.25)  DefaultWhite_texture.png.001 col=(0.8, 0.8, 0.8) tex=Image_302048x2048
+OBJ Object_56                    parent=ac130.obj.cleaner. tris=  3374  box=(-1.39,-2.67,-0.51)-(1.39,2.68,0.69)  DefaultWhite_texture.png.001 col=(0.8, 0.8, 0.8) tex=Image_302048x2048
+OBJ Object_57                    parent=ac130.obj.cleaner. tris=  4762  box=(-9.86,-10.06,-0.90)-(11.92,10.06,10.30)  DefaultWhite_texture.png.001 col=(0.8, 0.8, 0.8) tex=Image_302048x2048
+OBJ Object_58                    parent=ac130.obj.cleaner. tris=  4800  box=(-9.86,-2.26,-0.90)-(1.17,2.26,0.04)  DefaultWhite_texture.png.001 col=(0.8, 0.8, 0.8) tex=Image_302048x2048
+OBJ Object_59                    parent=ac130.obj.cleaner. tris=  4280  box=(-2.91,-8.27,-0.90)-(4.78,8.27,3.47)  DefaultWhite_texture.png.001 col=(0.8, 0.8, 0.8) tex=Image_302048x2048
+OBJ Object_60                    parent=ac130.obj.cleaner. tris=   264  box=(-5.90,0.58,1.31)-(-2.02,0.90,1.41)  DefaultWhite_transp.png col=(0.8, 0.8, 0.8) tex=Image_31128x128
+OBJ Object_61                    parent=ac130.obj.cleaner. tris=   634  box=(-11.08,-0.54,2.41)-(-11.08,-0.40,2.44)  DefaultWhite_trim.png col=(0.8, 0.8, 0.8) tex=Image_32512x512
+OBJ Object_62                    parent=ac130.obj.cleaner. tris=   426  box=(-11.08,-0.33,2.58)-(-11.07,0.59,2.66)  DefaultWhite_vsi.png col=(0.8, 0.8, 0.8) tex=Image_33512x512
+OBJ Object_63                    parent=ac130.obj.cleaner. tris=  2768  box=(-11.08,-0.70,2.32)-(-11.06,0.65,2.83)  transparent col=(0.8, 0.8, 0.8)
+OBJ Object_64                    parent=ac130.obj.cleaner. tris=   474  box=(-11.97,-2.15,0.92)-(3.83,2.15,3.50)  transparentExt col=(0.8, 0.8, 0.8)
+TOTAL tris=176349  box=(-13.22,-20.15,-0.90)-(16.42,20.15,11.17) size=(29.64,40.29,12.07)
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:37:04)
+
+Blender quit

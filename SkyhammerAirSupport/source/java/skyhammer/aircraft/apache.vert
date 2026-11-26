@@ -14,9 +14,9 @@ vec3 ry(vec3 p,float a) { float c=cos(a),s=sin(a); return vec3(c*p.x+s*p.z,p.y,-
 vec3 deform(vec3 p,vec4 pose,bool position) {
     int part=int(aPart+.1);
     if(part==1) { vec3 c=position?vec3(0.,2.65,-.45):vec3(0.);return c+ry(p-c,pose.x); }
-    if(part==2) { vec3 c=position?vec3(.48,1.05,-7.15):vec3(0.);return c+rx(p-c,pose.y); }
-    if(part==4) { vec3 c=position?vec3(0.,-1.02,2.45):vec3(0.);p=c+rx(p-c,pose.w); }
-    if(part==3 || part==4) { vec3 c=position?vec3(0.,-.73,2.45):vec3(0.);p=c+ry(p-c,pose.z); }
+    if(part==2) { vec3 c=position?vec3(-1.015,2.385,-9.31):vec3(0.);return c+rx(p-c,pose.y); }
+    if(part==4) { vec3 c=position?vec3(-.02,-.93,2.04):vec3(0.);p=c+rx(p-c,pose.w); }
+    if(part==3 || part==4) { vec3 c=position?vec3(-.02,-.75,2.04):vec3(0.);p=c+ry(p-c,pose.z); }
     return p;
 }
 void main() {

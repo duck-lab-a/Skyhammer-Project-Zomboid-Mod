@@ -1,0 +1,3 @@
+Fixed: strikes marked from an upper floor or a helicopter now hit the ground (or the roof) under the mark, and the Apache and AC-130 guns now fire at infected below you.
+--
+수정: 위층이나 헬기에서 지정한 공습이 이제 지정한 곳의 지면(또는 지붕)에 떨어지고, 아파치와 AC-130 기관포가 아래층의 감염자도 쏩니다.

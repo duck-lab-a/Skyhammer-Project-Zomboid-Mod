@@ -34,7 +34,7 @@ end
 -- Points for one sortie of a support (any of its weapon keys too), the sandbox's multiplier
 -- applied; nil for a support with no price (it cannot be called in killstreak mode). Add-ons
 -- name theirs in S.RegisterSupport (def.points).
-local COST = { apache = 80, a10 = 120, ac130 = 150, b2 = 300 }
+local COST = { apache = 80, a10 = 120, ac130 = 150, f22 = 200, b2 = 300 }
 -- (a loadout with a price of its own: the B-2 carrying the tactical nuke, napalm_nuke)
 local LOADOUT_COST = { b2 = { nuke = 600 } }
 function S.PointCost(key, armed)
@@ -56,10 +56,9 @@ end
 local function ledger()
     local p = getSpecificPlayer(0)
     if not p or p:isDead() then return nil, nil end
-    local ok, md = pcall(function() return p:getModData() end)
-    if not (ok and md) then return nil, p end
-    md.SkyhammerAirSupport = md.SkyhammerAirSupport or {}
-    local root = md.SkyhammerAirSupport
+    -- (held and put back after the server wipes the mod data: S.PlayerData, Core)
+    local ok, root = pcall(function() return S.PlayerData(p, "SkyhammerAirSupport") end)
+    if not (ok and root) then return nil, p end
     if type(root.ks) ~= "table" then
         -- first sight of this character: what it killed before earns nothing
         root.ks = { pts = 0, seen = tonumber(p:getZombieKills()) or 0, air = 0, fresh = true }
@@ -121,7 +120,7 @@ end
 -- only after they have dropped below it (spent) and come back. The first look after a load, a
 -- new character or a switch to killstreak mode only notes where things stand, so a save full
 -- of points does not open with a burst of calls.
-local LINES = { apache = "PtsApache", a10 = "PtsA10", ac130 = "PtsGun", b2 = "PtsB2" }
+local LINES = { apache = "PtsApache", a10 = "PtsA10", ac130 = "PtsGun", f22 = "PtsF22", b2 = "PtsB2" }
 local covered, synced = {}, false
 local function announce(pts)
     if not S.Killstreak() then synced = false; return end

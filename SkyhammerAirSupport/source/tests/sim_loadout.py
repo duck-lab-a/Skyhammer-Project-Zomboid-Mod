@@ -22,9 +22,10 @@ STUBS = base.STUBS.replace(
 FILES = ["shared/Skyhammer_PvP.lua", "client/Skyhammer_Core.lua", "client/Skyhammer_Killstreak.lua",
          "client/Skyhammer_Comms.lua", "client/Skyhammer_Ops.lua"]
 
-def world(opts=None, terminal=False):
+def world(opts=None, terminal=False, pre=None):
     L = lua51.LuaRuntime()
     L.execute(STUBS)
+    if pre: L.execute(pre)
     if terminal:
         # (the terminal measures fonts and derives its panel when it loads)
         L.execute("""
@@ -352,9 +353,10 @@ def terminal_weapon_colours():
             function b:setTooltip() end
             return b
         end
+        -- (the control column as wide as the terminal makes it: T.SIDE, its buttons 32 px less)
         function panel(key)
-            local o = setmetatable({ key = key, A = { control = { x = 500, y = 100, w = 260, h = 420 } },
-                btnH = 38, btnX = 516, btnW = 228, map = {} }, { __index = T })
+            local o = setmetatable({ key = key, A = { control = { x = 500, y = 100, w = T.SIDE, h = 420 } },
+                btnH = 38, btnX = 516, btnW = T.SIDE - 32, map = {} }, { __index = T })
             for _, n in ipairs({ "callBtn", "recallBtn", "actBtn", "eyeBtn", "act2Btn", "eye2Btn", "holdBtn", "gunAimBtn", "loadoutBtn", "nukeLoadoutBtn" }) do o[n] = btn() end
             o.loadoutBtn.internal = "conv"; o.nukeLoadoutBtn.internal = "nuke"
             o.drawRect = function() end; o.drawRectBorder = function() end; o.text = function() end
@@ -396,13 +398,19 @@ def terminal_weapon_colours():
     L.execute("""local gt = getText
         getText = function(k, ...)
             local t = { IGUI_SH_Pre_Napalm = 'NAPALM', IGUI_SH_Pre_A10 = 'GUN RUN', IGUI_SH_Pre_Flare = 'FLARE',
-                IGUI_SH_Loadout_conv = 'CARPET BOMBS', IGUI_SH_Loadout_nuke = 'NUKE', IGUI_SH_Btn_MarkEyes = 'EYES-ON' }
+                IGUI_SH_Loadout_conv = 'CARPET BOMBS', IGUI_SH_Loadout_nuke = 'NUKE', IGUI_SH_Btn_MarkEyes = 'EYES-ON',
+                IGUI_SH_Btn_Gunner = 'GUNNER SEAT' }
             if t[k] then return t[k] end
             return gt(k, ...)
         end
         P = panel('a10'); PA = panel('ac130'); PH = panel('apache')""")
     eq((L.eval("P.actBtn.title"), L.eval("P.act2Btn.title"), L.eval("P.eyeBtn.title")), ("GUN RUN", "NAPALM", "EYES-ON"))
-    eq((L.eval("PA.actBtn.title"), L.eval("PH.actBtn.title")), ("105MM", "FLARE"))
+    # (2026-10-24, the user: "where did the 105 map mark go") the AC-130's top row keeps the 105's map
+    # mark; its eyes-on half is the gunner seat. With the seat off in the sandbox, eyes-on as before
+    eq((L.eval("PA.actBtn.title"), L.eval("PA.eyeBtn.title"), L.eval("PA.eyeBtn.visible"), L.eval("PH.actBtn.title")),
+       ("105MM", "GUNNER SEAT", True, "FLARE"))
+    L.execute("SandboxVars = SandboxVars or {}; SandboxVars.Skyhammer = SandboxVars.Skyhammer or {}; SandboxVars.Skyhammer.GunnerSeat = false; PA = panel('ac130')")
+    eq((L.eval("PA.actBtn.title"), L.eval("PA.eyeBtn.title")), ("105MM", "EYES-ON"), "seat off: the 105's eyes-on mark")
     L.execute("S.Store().craft.b2.phase = 'ON_STATION'; P2 = panel('b2')")
     eq(L.eval("P2.actBtn.title"), "CARPET BOMBS", "the B-2's bombs")
     L.execute("S.Store().craft.b2.phase = 'READY'; S.CycleLoadout('b2'); S.Store().craft.b2.phase = 'ON_STATION'; S.Store().craft.b2.armed = 'nuke'; P2 = panel('b2')")
@@ -412,6 +420,67 @@ def terminal_weapon_colours():
     # a row: a short title would get the big font, its neighbour the small one; both small
     L.execute("local gt = getText; getText = function(k, ...) if k == 'IGUI_SH_Btn_MarkEyes' then return 'EYES' end return gt(k, ...) end; PA = panel('ac130')")
     eq(L.eval("PA.actBtn.font == PA.eyeBtn.font"), True, "105mm map mark and eyes-on: the same font")
+
+@test
+def terminal_gunner_seat_button():
+    # (2026-10-24, the user's pick: the AC-130 GUNNER SEAT button with an amber icon panel, one line
+    # "ENTER GUNNER SEAT") the terminal makes its control column wide enough for the whole line
+    # beside the panel; the style is the seat button's alone and goes when another tab shows
+    L = world(terminal=True, pre="""
+        local gt = getText
+        getText = function(k, ...) if k == 'IGUI_SH_Btn_Gunner' then return 'ENTER GUNNER SEAT' end return '' end""")
+    for f in ("client/Skyhammer_Apache.lua", "client/Skyhammer_Napalm.lua", "client/Skyhammer_A10.lua",
+              "shared/Skyhammer_NukeZones.lua", "client/Skyhammer_Nuke.lua"):
+        L.execute(io.open(os.path.join(LUA, f), encoding="utf-8").read())
+    L.execute("""
+        T = SkyhammerTerminal
+        local function btn()
+            local b = { title = "", height = 38, width = 200, y = 0, visible = true, enable = false, drawn = {} }
+            function b:setVisible(v) self.visible = v end
+            function b:setY(v) self.y = v end
+            function b:setX(v) self.x = v end
+            function b:setWidth(v) self.width = v end
+            function b:setTitle(v) self.title = v end
+            function b:setTooltip(v) self.tooltip = v; self.tip = v end   -- (as ISButton keeps it)
+            function b:drawRect(...) self.drawn[#self.drawn + 1] = 'rect' end
+            function b:drawRectBorder(...) self.drawn[#self.drawn + 1] = 'border' end
+            function b:drawTextureScaled(...) self.drawn[#self.drawn + 1] = 'icon' end
+            function b:drawText(t) self.drawn[#self.drawn + 1] = 'text:' .. t end
+            return b
+        end
+        getTexture = function(p) return p == 'media/ui/SH_Btn_GunnerSeat.png' and {} or nil end
+        function panel(key)
+            local o = setmetatable({ key = key, A = { control = { x = 500, y = 100, w = T.SIDE, h = 420 } },
+                btnH = 38, btnX = 516, btnW = T.SIDE - 32, map = {} }, { __index = T })
+            for _, n in ipairs({ "callBtn", "recallBtn", "actBtn", "eyeBtn", "act2Btn", "eye2Btn", "holdBtn", "gunAimBtn", "loadoutBtn", "nukeLoadoutBtn" }) do o[n] = btn() end
+            o.loadoutBtn.internal = "conv"; o.nukeLoadoutBtn.internal = "nuke"
+            o.drawRect = function() end; o.drawRectBorder = function() end; o.text = function() end
+            o:drawControl(true, false, nil)
+            return o
+        end
+        S.Call('ac130'); advance(60000); S.Update('ac130')
+        PA = panel('ac130')""")
+    eq(L.eval("PA.eyeBtn.title"), "ENTER GUNNER SEAT", "the whole line, never cut")
+    eq(L.eval("PA.eyeBtn.gunnerIcon"), True, "the seat's own look")
+    eq(L.eval("PA.eyeBtn.tip"), None, "no hover tooltip (no new ones on Skyhammer buttons)")
+    ok(L.eval("T.textW(PA.eyeBtn.title, PA.eyeBtn.font) <= PA.eyeBtn.width - T.iconRoom(PA.eyeBtn) - 8"),
+       "the text beside the panel fits")
+    eq(L.eval("T.iconRoom(PA.eyeBtn)"), L.eval("PA.eyeBtn.height + 12"), "the panel as tall as the button, then a gap")
+    L.execute("PA.eyeBtn.drawn = {}; T.buttonRender(PA.eyeBtn)")
+    drawn = [L.eval(f"PA.eyeBtn.drawn[{i}]") for i in range(1, L.eval("#PA.eyeBtn.drawn") + 1)]
+    ok("icon" in drawn and "text:ENTER GUNNER SEAT" in drawn and drawn[-1] == "border", f"panel icon, the text, the edge: {drawn}")
+    # the same panel on another aircraft: the eyes-on button looks like the others again
+    L.execute("PA.key = 'apache'; PA:drawControl(true, false, nil)")
+    eq(L.eval("PA.eyeBtn.gunnerIcon"), False, "not on the Apache's tab")
+    L.execute("PA.key = 'ac130'; PA:drawControl(true, false, nil)")
+    eq(L.eval("PA.eyeBtn.gunnerIcon"), True, "and back on the AC-130's")
+    # the actual texts: one line each
+    import json
+    for lang, want in (("en", "ENTER GUNNER SEAT"), ("ko", "사수석 진입"), ("cn", "进入炮手席")):
+        src = json.load(open(os.path.join(HERE, "..", "ui_%s.json" % lang), encoding="utf-8"))
+        built = json.load(open(os.path.join(LUA, "shared", "Translate", lang.upper(), "IG_UI.json"), encoding="utf-8"))
+        eq((src["IGUI_SH_Btn_Gunner"], built["IGUI_SH_Btn_Gunner"]), (want, want), lang)
+
 
 @test
 def terminal_a10_info_texts_follow_the_napalm_load():

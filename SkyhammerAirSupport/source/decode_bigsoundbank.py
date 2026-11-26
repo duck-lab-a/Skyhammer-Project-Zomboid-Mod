@@ -1,5 +1,6 @@
 # Decodes the BigSoundBank CC0 recordings (source/cc0/bigsoundbank/*.ogg; Joseph Sardin,
-# bigsoundbank.com) to source/decoded/<name>.wav, 44.1 kHz mono 16-bit, the form build.js's
+# bigsoundbank.com) and the Freesound CC0 ones (source/cc0/freesound/*.ogg, their HQ previews;
+# authors in CREDITS.txt) to source/decoded/<name>.wav, 44.1 kHz mono 16-bit, the form build.js's
 # decoded() reads. Blender's audaspace does the decoding and resampling (no ffmpeg here).
 # Run (once, or after adding a recording):
 #   & "C:\Program Files\Blender Foundation\Blender 5.2\blender.exe" -b --factory-startup --python decode_bigsoundbank.py
@@ -9,12 +10,12 @@ import aud, os, struct, sys
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SRC = os.path.join(HERE, "cc0", "bigsoundbank")
+SRCS = [os.path.join(HERE, "cc0", d) for d in ("bigsoundbank", "freesound")]
 OUT = os.path.join(HERE, "decoded")
 RATE = 44100
 
 lines = {}
-for f in sorted(os.listdir(SRC)):
+for SRC, f in sorted((d, f) for d in SRCS if os.path.isdir(d) for f in os.listdir(d)):
     if not f.endswith(".ogg"):
         continue
     snd = aud.Sound(os.path.join(SRC, f))

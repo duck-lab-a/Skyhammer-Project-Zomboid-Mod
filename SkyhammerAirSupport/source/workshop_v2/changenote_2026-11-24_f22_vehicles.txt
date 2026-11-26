@@ -1,0 +1,9 @@
+F-22 strike: vehicles
+- The F-22's bombs now wreck the vehicles in their strip. Within 9 tiles of a bomb a vehicle is wrecked (flat tyres, smashed glass, a dead engine); up to 14 tiles it is damaged. Before, they wrecked only within 4.5 tiles, like a B-2 bomb, so many vehicles in the strip were just dented.
+- A vehicle parked near the strip can be wrecked too, your own included.
+- The sandbox option "Strikes damage vehicles" now lists the F-22 in its description.
+--
+F-22 폭격: 차량
+- F-22 폭탄이 폭격 지역 안의 차량을 완파합니다. 폭탄에서 9타일 안의 차는 완파(타이어 펑크, 유리 박살, 엔진 고장)되고, 14타일까지는 손상됩니다. 전에는 B-2 폭탄처럼 4.5타일 안만 완파돼서 폭격 지역 안의 차가 살짝 찌그러지기만 하는 경우가 많았습니다.
+- 폭격 지역 근처에 세워 둔 차도 완파될 수 있습니다. 내 차도 마찬가지입니다.
+- 샌드박스 옵션 "공습이 차량을 파손" 설명에 F-22를 추가했습니다.

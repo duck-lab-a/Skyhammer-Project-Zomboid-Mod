@@ -21,7 +21,8 @@ S.UPLINK = "Skyhammer.HavenUplinkRadio"
 S.UPLINK_RECIPE = "CraftHavenUplinkRadio"
 
 local BROADCAST = { "QBroadcast1", "QBroadcast2", "QBroadcast3" }
-local CONTACT = { "QContact1", "QContact2", "QContact3", "QContact4", "QContact5" }
+-- (QContact6, the A-10, came after the quest: it checks in before Aegis closes)
+local CONTACT = { "QContact1", "QContact2", "QContact3", "QContact4", "QContact6", "QContact5" }
 local STAGES = { [1] = { "broadcast", "manual", "relay", "radio", "contact" }, [2] = { "manual", "radio" } }
 
 local function sandbox(name, default)
@@ -69,9 +70,8 @@ end
 local function quest(p)
     p = p or getSpecificPlayer(0)
     if not p then return {} end
-    local md = p:getModData()
-    md.SkyhammerQuest = md.SkyhammerQuest or {}
-    return md.SkyhammerQuest
+    -- (held and put back after the server wipes the mod data: S.PlayerData, Core)
+    return S.PlayerData(p, "SkyhammerQuest")
 end
 S.Quest = quest
 

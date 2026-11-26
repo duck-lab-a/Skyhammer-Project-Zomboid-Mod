@@ -1,0 +1,314 @@
+15:05:56 | INFO: Data are loaded, start creating Blender stuff
+15:05:56 | INFO: Blender create Mesh node ah21a03-FACES
+15:05:56 | INFO: Blender create Mesh node ah18b02-FACES
+15:05:56 | INFO: Blender create Mesh node ah86b01-FACES
+15:05:56 | INFO: Blender create Mesh node Object01-FACES
+15:05:56 | INFO: Blender create Mesh node Object01-FACES
+15:05:56 | INFO: Blender create Mesh node ah05-FACES
+15:05:56 | INFO: Blender create Mesh node ah05-FACES
+15:05:56 | INFO: Blender create Mesh node ah05-FACES
+15:05:56 | INFO: Blender create Mesh node ah05-FACES
+15:05:56 | INFO: Blender create Mesh node ah34b01-FACES
+15:05:56 | INFO: Blender create Mesh node ah12a03-FACES
+15:05:56 | INFO: Blender create Mesh node ah12a02-FACES
+15:05:56 | INFO: Blender create Mesh node ah70r01-FACES
+15:05:56 | INFO: Blender create Mesh node ah71r01-FACES
+15:05:56 | INFO: Blender create Mesh node ah12a01-FACES
+15:05:56 | INFO: Blender create Mesh node ah89b01-FACES
+15:05:56 | INFO: Blender create Mesh node ah9L09-FACES
+15:05:56 | INFO: Blender create Mesh node ah9L08-FACES
+15:05:56 | INFO: Blender create Mesh node ah9L07-FACES
+15:05:56 | INFO: Blender create Mesh node ah9L06-FACES
+15:05:56 | INFO: Blender create Mesh node ah9L05-FACES
+15:05:56 | INFO: Blender create Mesh node ah9L04-FACES
+15:05:56 | INFO: Blender create Mesh node ah30b01-FACES
+15:05:56 | INFO: Blender create Mesh node ah5L01-FACES
+15:05:56 | INFO: Blender create Mesh node ah7L01-FACES
+15:05:56 | INFO: Blender create Mesh node ah21a01-FACES
+15:05:56 | INFO: Blender create Mesh node ah1_2-FACES
+15:05:56 | INFO: Blender create Mesh node ah2_2-FACES
+15:05:56 | INFO: Blender create Mesh node ah50-FACES
+15:05:56 | INFO: Blender create Mesh node ah9L1-FACES
+15:05:56 | INFO: Blender create Mesh node ah17b-FACES
+15:05:56 | INFO: Blender create Mesh node ah17a-FACES
+15:05:56 | INFO: Blender create Mesh node ah47d-FACES
+15:05:56 | INFO: Blender create Mesh node ah47c-FACES
+15:05:56 | INFO: Blender create Mesh node ah47b-FACES
+15:05:56 | INFO: Blender create Mesh node ah47a-FACES
+15:05:56 | INFO: Blender create Mesh node ah46-FACES
+15:05:56 | INFO: Blender create Mesh node ah44c-FACES
+15:05:56 | INFO: Blender create Mesh node ah44b-FACES
+15:05:56 | INFO: Blender create Mesh node ah44a-FACES
+15:05:56 | INFO: Blender create Mesh node ah49b-FACES
+15:05:56 | INFO: Blender create Mesh node ah49a-FACES
+15:05:56 | INFO: Blender create Mesh node ah48b-FACES
+15:05:56 | INFO: Blender create Mesh node ah48a-FACES
+15:05:56 | INFO: Blender create Mesh node ah45d-FACES
+15:05:56 | INFO: Blender create Mesh node ah45b-FACES
+15:05:56 | INFO: Blender create Mesh node ah45a-FACES
+15:05:56 | INFO: Blender create Mesh node ah101-FACES
+15:05:56 | INFO: Blender create Mesh node ah53-FACES
+15:05:56 | INFO: Blender create Mesh node ah96-FACES
+15:05:56 | INFO: Blender create Mesh node ah32-FACES
+15:05:56 | INFO: Blender create Mesh node ah30b-FACES
+15:05:56 | INFO: Blender create Mesh node ah2-FACES
+15:05:56 | INFO: Blender create Mesh node ah15BRB-FACES
+15:05:56 | INFO: Blender create Mesh node ah15BRB-FACES
+15:05:56 | INFO: Blender create Mesh node ah15TRB-FACES
+15:05:56 | INFO: Blender create Mesh node ah15TRB-FACES
+15:05:56 | INFO: Blender create Mesh node ah15BLB-FACES
+15:05:56 | INFO: Blender create Mesh node ah15BLB-FACES
+15:05:56 | INFO: Blender create Mesh node ah16TLB-FACES
+15:05:56 | INFO: Blender create Mesh node ah16TLB-FACES
+15:05:56 | INFO: Blender create Mesh node ah14b-FACES
+15:05:57 | INFO: Blender create Mesh node ah13b-FACES
+15:05:57 | INFO: Blender create Mesh node ah86b-FACES
+15:05:57 | INFO: Blender create Mesh node ah71r-FACES
+15:05:57 | INFO: Blender create Mesh node ah70r-FACES
+15:05:57 | INFO: Blender create Mesh node ah14a-FACES
+15:05:57 | INFO: Blender create Mesh node ah13a-FACES
+15:05:57 | INFO: Blender create Mesh node ah12a-FACES
+15:05:57 | INFO: Blender create Mesh node ah28b-FACES
+15:05:57 | INFO: Blender create Mesh node ah29b-FACES
+15:05:57 | INFO: Blender create Mesh node ah29a-FACES
+15:05:57 | INFO: Blender create Mesh node ah28a-FACES
+15:05:57 | INFO: Blender create Mesh node ah77-FACES
+15:05:57 | INFO: Blender create Mesh node ah60-FACES
+15:05:57 | INFO: Blender create Mesh node ah78-FACES
+15:05:57 | INFO: Blender create Mesh node ah61-FACES
+15:05:57 | INFO: Blender create Mesh node ah59b-FACES
+15:05:57 | INFO: Blender create Mesh node ah59a-FACES
+15:05:57 | INFO: Blender create Mesh node ah67-FACES
+15:05:57 | INFO: Blender create Mesh node ah65-FACES
+15:05:57 | INFO: Blender create Mesh node ah66-FACES
+15:05:57 | INFO: Blender create Mesh node ah69-FACES
+15:05:57 | INFO: Blender create Mesh node ah9L10-FACES
+15:05:57 | INFO: Blender create Mesh node ah56-FACES
+15:05:57 | INFO: Blender create Mesh node ah94-FACES
+15:05:57 | INFO: Blender create Mesh node ah93-FACES
+15:05:57 | INFO: Blender create Mesh node ah57-FACES
+15:05:57 | INFO: Blender create Mesh node ah58-FACES
+15:05:57 | INFO: Blender create Mesh node ah95-FACES
+15:05:57 | INFO: Blender create Mesh node ah55-FACES
+15:05:57 | INFO: Blender create Mesh node ah54-FACES
+15:05:57 | INFO: Blender create Mesh node ah39-FACES
+15:05:57 | INFO: Blender create Mesh node ah52b-FACES
+15:05:57 | INFO: Blender create Mesh node ah36b-FACES
+15:05:57 | INFO: Blender create Mesh node ah36a-FACES
+15:05:57 | INFO: Blender create Mesh node ah52a-FACES
+15:05:57 | INFO: Blender create Mesh node ah81-FACES
+15:05:57 | INFO: Blender create Mesh node ah84-FACES
+15:05:57 | INFO: Blender create Mesh node ah102-FACES
+15:05:57 | INFO: Blender create Mesh node ah85-FACES
+15:05:57 | INFO: Blender create Mesh node ah82-FACES
+15:05:57 | INFO: Blender create Mesh node ah80-FACES
+15:05:57 | INFO: Blender create Mesh node ah40-FACES
+15:05:57 | INFO: Blender create Mesh node ah98-FACES
+15:05:57 | INFO: Blender create Mesh node ah83-FACES
+15:05:57 | INFO: Blender create Mesh node ah38b-FACES
+15:05:57 | INFO: Blender create Mesh node ah38a-FACES
+15:05:57 | INFO: Blender create Mesh node ah35b-FACES
+15:05:57 | INFO: Blender create Mesh node ah35a-FACES
+15:05:57 | INFO: Blender create Mesh node ah41-FACES
+15:05:57 | INFO: Blender create Mesh node ah42-FACES
+15:05:57 | INFO: Blender create Mesh node ah7L-FACES
+15:05:57 | INFO: Blender create Mesh node ah5L-FACES
+15:05:57 | INFO: Blender create Mesh node ah97b-FACES
+15:05:57 | INFO: Blender create Mesh node ah68-FACES
+15:05:57 | INFO: Blender create Mesh node ah4-FACES
+15:05:57 | INFO: Blender create Mesh node ah3-FACES
+15:05:57 | INFO: Blender create Mesh node ah89b-FACES
+15:05:57 | INFO: Blender create Mesh node ah34b-FACES
+15:05:57 | INFO: Blender create Mesh node ah15BL-FACES
+15:05:57 | INFO: Blender create Mesh node ah15BL-FACES
+15:05:57 | INFO: Blender create Mesh node ah15TL-FACES
+15:05:57 | INFO: Blender create Mesh node ah15TL-FACES
+15:05:57 | INFO: Blender create Mesh node ah15BR-FACES
+15:05:57 | INFO: Blender create Mesh node ah15BR-FACES
+15:05:57 | INFO: Blender create Mesh node ah15TR-FACES
+15:05:57 | INFO: Blender create Mesh node ah15TR-FACES
+15:05:57 | INFO: Blender create Mesh node ah792-FACES
+15:05:57 | INFO: Blender create Mesh node ah791-FACES
+15:05:57 | INFO: Blender create Mesh node ah732-FACES
+15:05:57 | INFO: Blender create Mesh node ah731-FACES
+15:05:57 | INFO: Blender create Mesh node ah64-FACES
+15:05:57 | INFO: Blender create Mesh node ah100-FACES
+15:05:57 | INFO: Blender create Mesh node ah624-FACES
+15:05:57 | INFO: Blender create Mesh node ah623-FACES
+15:05:57 | INFO: Blender create Mesh node ah97a-FACES
+15:05:57 | INFO: Blender create Mesh node ah622-FACES
+15:05:57 | INFO: Blender create Mesh node ah621-FACES
+15:05:57 | INFO: Blender create Mesh node ah63-FACES
+15:05:57 | INFO: Blender create Mesh node ah75-FACES
+15:05:57 | INFO: Blender create Mesh node ah74-FACES
+15:05:57 | INFO: Blender create Mesh node ah72-FACES
+15:05:57 | INFO: Blender create Mesh node ah26b-FACES
+15:05:57 | INFO: Blender create Mesh node ah27b-FACES
+15:05:57 | INFO: Blender create Mesh node ah27a-FACES
+15:05:57 | INFO: Blender create Mesh node ah26a-FACES
+15:05:57 | INFO: Blender create Mesh node ah18b-FACES
+15:05:57 | INFO: Blender create Mesh node ah23b-FACES
+15:05:57 | INFO: Blender create Mesh node ah23a-FACES
+15:05:57 | INFO: Blender create Mesh node ah76-FACES
+15:05:57 | INFO: Blender create Mesh node ah45c-FACES
+15:05:57 | INFO: Blender create Mesh node ah1-FACES
+15:05:57 | INFO: Blender create Mesh node ah43-FACES
+15:05:57 | INFO: glTF import finished in 0.65s
+OBJ ah21a03-FACES.001            parent=ah21a03-FACES      tris=   783  box=(0.36,0.61,2.41)-(2.76,1.42,2.91)  ah21a01-FACES col=(0.8, 0.8, 0.8) tex=Image_22128x128
+OBJ ah18b02-FACES.001            parent=ah18b02-FACES      tris=   659  box=(0.36,0.62,2.89)-(2.75,1.42,3.29)  ah18b-FACES col=(0.8, 0.8, 0.8) tex=Image_3128x128
+OBJ ah86b01-FACES.001            parent=ah86b01-FACES      tris=   808  box=(-1.36,2.60,1.94)-(1.53,3.10,2.44)  ah86b-FACES col=(0.8, 0.8, 0.8) tex=Image_17256x256
+OBJ Object01-FACES.001           parent=Object01-FACES     tris=   116  box=(-3.70,-0.61,2.03)-(-1.14,0.65,3.34)  Object01-FACES col=(0.8, 0.8, 0.8)
+OBJ Object01-FACES.003           parent=Object01-FACES.002 tris=   130  box=(-3.70,-0.61,2.09)-(-1.14,0.65,3.34)  Object01-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_23256x256
+OBJ ah05-FACES.001               parent=ah05-FACES         tris=    77  box=(-3.70,-0.61,2.03)-(-1.14,0.45,3.34)  ah05-FACES col=(0.8, 0.8, 0.8)
+OBJ ah05-FACES.003               parent=ah05-FACES.002     tris=    83  box=(-3.70,-0.61,2.09)-(-1.14,0.44,3.34)  ah05-FACES_0 col=(0.8, 0.8, 0.8)
+OBJ ah05-FACES.005               parent=ah05-FACES.004     tris=    42  box=(-3.70,0.40,2.03)-(-1.14,0.65,3.27)  ah05-FACES col=(0.8, 0.8, 0.8)
+OBJ ah05-FACES.007               parent=ah05-FACES.006     tris=    46  box=(-3.70,0.36,2.09)-(-1.14,0.65,3.34)  ah05-FACES_1 col=(0.8, 0.8, 0.8)
+OBJ ah34b01-FACES.001            parent=ah34b01-FACES      tris=  1352  box=(-2.20,0.44,0.62)-(-1.00,1.23,1.59)  ah34b-FACES col=(0.8, 0.8, 0.8) tex=Image_7512x512
+OBJ ah12a03-FACES.001            parent=ah12a03-FACES      tris=   707  box=(-1.00,-2.36,1.45)-(0.12,-2.19,1.90)  ah12a-FACES col=(0.8, 0.8, 0.8) tex=Image_14128x128
+OBJ ah12a02-FACES.001            parent=ah12a02-FACES      tris=   707  box=(-1.00,-2.53,1.45)-(0.12,-2.36,1.90)  ah12a-FACES col=(0.8, 0.8, 0.8) tex=Image_14128x128
+OBJ ah70r01-FACES.001            parent=ah70r01-FACES      tris=  1078  box=(-0.97,-1.86,1.49)-(0.15,-1.42,1.91)  ah70r-FACES col=(0.8, 0.8, 0.8) tex=Image_15128x128
+OBJ ah71r01-FACES.001            parent=ah71r01-FACES      tris=   646  box=(-0.97,-1.86,1.30)-(0.15,-1.42,1.52)  ah71r-FACES col=(0.8, 0.8, 0.8) tex=Image_16128x128
+OBJ ah12a01-FACES.001            parent=ah12a01-FACES      tris=   707  box=(-1.00,2.40,1.45)-(0.12,2.57,1.90)  ah12a-FACES col=(0.8, 0.8, 0.8) tex=Image_14128x128
+OBJ ah89b01-FACES.001            parent=ah89b01-FACES      tris=   926  box=(-1.31,2.55,2.09)-(1.52,2.78,2.35)  ah89b-FACES col=(0.8, 0.8, 0.8) tex=Image_8256x256
+OBJ ah9L09-FACES.001             parent=ah9L09-FACES       tris=   292  box=(-0.99,2.31,1.82)-(0.63,2.40,2.20)  ah9L1-FACES col=(0.8, 0.8, 0.8) tex=Image_21128x128
+OBJ ah9L08-FACES.001             parent=ah9L08-FACES       tris=   292  box=(-0.99,1.58,1.82)-(0.63,1.67,2.20)  ah9L1-FACES col=(0.8, 0.8, 0.8) tex=Image_21128x128
+OBJ ah9L07-FACES.001             parent=ah9L07-FACES       tris=   292  box=(-0.99,1.67,1.82)-(0.63,1.76,2.20)  ah9L1-FACES col=(0.8, 0.8, 0.8) tex=Image_21128x128
+OBJ ah9L06-FACES.001             parent=ah9L06-FACES       tris=   292  box=(-0.99,-1.63,1.82)-(0.63,-1.54,2.20)  ah9L1-FACES col=(0.8, 0.8, 0.8) tex=Image_21128x128
+OBJ ah9L05-FACES.001             parent=ah9L05-FACES       tris=   292  box=(-0.99,-1.72,1.82)-(0.63,-1.63,2.20)  ah9L1-FACES col=(0.8, 0.8, 0.8) tex=Image_21128x128
+OBJ ah9L04-FACES.001             parent=ah9L04-FACES       tris=   292  box=(-0.99,-2.36,1.82)-(0.63,-2.27,2.20)  ah9L1-FACES col=(0.8, 0.8, 0.8) tex=Image_21128x128
+OBJ ah30b01-FACES.001            parent=ah30b01-FACES      tris=  1472  box=(-3.96,0.41,1.08)-(0.79,1.04,2.25)  ah30b-FACES col=(0.8, 0.8, 0.8) tex=Image_19256x256
+OBJ ah5L01-FACES.001             parent=ah5L01-FACES       tris=   297  box=(-0.56,0.65,2.15)-(0.87,2.59,2.44)  ah5L-FACES col=(0.8, 0.8, 0.8) tex=Image_11128x128
+OBJ ah7L01-FACES.001             parent=ah7L01-FACES       tris=   281  box=(-0.38,-0.56,2.01)-(0.87,2.59,2.23)  ah7L-FACES col=(0.8, 0.8, 0.8) tex=Image_12128x128
+OBJ ah21a01-FACES.001            parent=ah21a01-FACES      tris=   781  box=(0.36,-1.38,2.41)-(2.76,-0.58,2.91)  ah21a01-FACES col=(0.8, 0.8, 0.8) tex=Image_22128x128
+OBJ ah1_2-FACES.001              parent=ah1_2-FACES        tris=  2539  box=(-4.97,0.01,1.28)-(2.90,0.78,3.62)  ah2_2-FACES col=(0.8, 0.8, 0.8)
+OBJ ah2_2-FACES.001              parent=ah2_2-FACES        tris=  2538  box=(-4.97,-0.74,0.99)-(3.06,0.05,3.62)  ah2_2-FACES col=(0.8, 0.8, 0.8)
+OBJ ah50-FACES.001               parent=ah50-FACES         tris=   156  box=(-2.22,0.80,1.17)-(-2.10,0.97,1.45)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah9L1-FACES.001              parent=ah9L1-FACES        tris=   292  box=(-0.99,-2.45,1.82)-(0.63,-2.36,2.20)  ah9L1-FACES col=(0.8, 0.8, 0.8) tex=Image_21128x128
+OBJ ah17b-FACES.001              parent=ah17b-FACES        tris=    20  box=(0.19,-0.48,3.37)-(1.56,-0.31,3.60)  ah17a-FACES col=(0.8, 0.8, 0.8) tex=Image_564x64
+OBJ ah17a-FACES.001              parent=ah17a-FACES        tris=    20  box=(0.19,0.35,3.37)-(1.56,0.52,3.60)  ah17a-FACES col=(0.8, 0.8, 0.8) tex=Image_564x64
+OBJ ah47d-FACES.001              parent=ah47d-FACES        tris=   144  box=(-3.54,0.55,2.10)-(-3.35,0.66,2.13)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah47c-FACES.001              parent=ah47c-FACES        tris=   144  box=(-3.54,0.63,2.10)-(-3.35,0.74,2.13)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah47b-FACES.001              parent=ah47b-FACES        tris=   144  box=(-2.15,0.53,2.36)-(-1.96,0.63,2.39)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah47a-FACES.001              parent=ah47a-FACES        tris=   144  box=(-2.15,0.62,2.36)-(-1.96,0.73,2.39)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah46-FACES.001               parent=ah46-FACES         tris=   204  box=(3.05,-0.55,1.38)-(3.36,-0.35,1.50)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah44c-FACES.001              parent=ah44c-FACES        tris=   124  box=(8.35,-0.11,1.43)-(8.61,-0.01,1.62)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah44b-FACES.001              parent=ah44b-FACES        tris=   124  box=(7.66,-0.50,1.96)-(7.92,-0.31,1.99)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah44a-FACES.001              parent=ah44a-FACES        tris=   116  box=(2.72,-0.70,1.93)-(2.98,-0.51,1.96)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah49b-FACES.001              parent=ah49b-FACES        tris=   124  box=(-0.66,-0.75,2.97)-(-0.37,-0.58,3.00)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah49a-FACES.001              parent=ah49a-FACES        tris=   124  box=(-0.66,-0.76,2.53)-(-0.36,-0.58,2.56)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah48b-FACES.001              parent=ah48b-FACES        tris=   196  box=(-1.04,0.98,1.56)-(-0.77,1.19,1.63)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah48a-FACES.001              parent=ah48a-FACES        tris=   204  box=(-0.94,-1.14,1.64)-(-0.67,-0.93,1.72)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah45d-FACES.001              parent=ah45d-FACES        tris=   276  box=(-1.75,0.68,2.27)-(-1.58,0.75,2.30)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah45b-FACES.001              parent=ah45b-FACES        tris=   276  box=(-0.61,0.62,2.43)-(-0.58,0.71,2.61)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah45a-FACES.001              parent=ah45a-FACES        tris=   276  box=(-1.74,-0.71,2.25)-(-1.56,-0.64,2.28)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah101-FACES.001              parent=ah101-FACES        tris=    34  box=(-4.47,-0.31,2.20)-(-4.31,0.35,2.34)  ah54-FACES col=(0.8, 0.8, 0.8)
+OBJ ah53-FACES.001               parent=ah53-FACES         tris=  1920  box=(9.39,-0.06,1.24)-(9.79,0.10,1.63)  ah54-FACES col=(0.8, 0.8, 0.8)
+OBJ ah96-FACES.001               parent=ah96-FACES         tris=   206  box=(-2.48,0.63,1.38)-(-2.30,0.79,1.44)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah32-FACES.001               parent=ah32-FACES         tris=  1478  box=(-3.32,-0.85,1.33)-(-1.13,0.89,1.52)  ah32-FACES col=(0.8, 0.8, 0.8) tex=Image_20128x128
+OBJ ah30b-FACES.001              parent=ah30b-FACES        tris=  1472  box=(-3.96,-1.01,1.08)-(0.79,-0.37,2.25)  ah30b-FACES col=(0.8, 0.8, 0.8) tex=Image_19256x256
+OBJ ah2-FACES.001                parent=ah2-FACES          tris=  6165  box=(-4.99,-0.75,0.98)-(9.96,0.33,4.68)  ah2-FACES col=(0.8, 0.8, 0.8) tex=Image_181024x1024
+OBJ ah15BRB-FACES.001            parent=ah15BRB-FACES      tris=   696  box=(-1.14,-1.61,1.07)-(0.34,-1.36,1.32)  ah15TR-FACES col=(0.8, 0.8, 0.8) tex=Image_564x64
+OBJ ah15BRB-FACES.003            parent=ah15BRB-FACES.002  tris=   224  box=(-1.27,-1.58,1.09)-(-1.14,-1.39,1.28)  ah15TR-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_664x64
+OBJ ah15TRB-FACES.001            parent=ah15TRB-FACES      tris=   696  box=(-1.15,-1.61,1.37)-(0.34,-1.36,1.62)  ah15TR-FACES col=(0.8, 0.8, 0.8) tex=Image_564x64
+OBJ ah15TRB-FACES.003            parent=ah15TRB-FACES.002  tris=   224  box=(-1.27,-1.58,1.39)-(-1.14,-1.39,1.58)  ah15TR-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_664x64
+OBJ ah15BLB-FACES.001            parent=ah15BLB-FACES      tris=   696  box=(-1.14,-1.92,1.07)-(0.34,-1.67,1.32)  ah15TR-FACES col=(0.8, 0.8, 0.8) tex=Image_564x64
+OBJ ah15BLB-FACES.003            parent=ah15BLB-FACES.002  tris=   224  box=(-1.27,-1.89,1.09)-(-1.14,-1.70,1.28)  ah15TR-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_664x64
+OBJ ah16TLB-FACES.001            parent=ah16TLB-FACES      tris=   696  box=(-1.15,-1.92,1.37)-(0.34,-1.67,1.62)  ah15TR-FACES col=(0.8, 0.8, 0.8) tex=Image_564x64
+OBJ ah16TLB-FACES.003            parent=ah16TLB-FACES.002  tris=   224  box=(-1.27,-1.89,1.39)-(-1.14,-1.70,1.58)  ah15TR-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_664x64
+OBJ ah14b-FACES.001              parent=ah14b-FACES        tris=  2122  box=(0.07,-2.54,1.45)-(0.18,-2.18,1.80)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah13b-FACES.001              parent=ah13b-FACES        tris=  1862  box=(-1.02,-2.54,1.44)-(-0.92,-2.18,1.79)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah86b-FACES.001              parent=ah86b-FACES        tris=   808  box=(-1.36,-3.01,1.95)-(1.53,-2.51,2.45)  ah86b-FACES col=(0.8, 0.8, 0.8) tex=Image_17256x256
+OBJ ah71r-FACES.001              parent=ah71r-FACES        tris=   646  box=(-0.97,1.46,1.30)-(0.15,1.90,1.52)  ah71r-FACES col=(0.8, 0.8, 0.8) tex=Image_16128x128
+OBJ ah70r-FACES.001              parent=ah70r-FACES        tris=  1078  box=(-0.97,1.46,1.49)-(0.15,1.90,1.91)  ah70r-FACES col=(0.8, 0.8, 0.8) tex=Image_15128x128
+OBJ ah14a-FACES.001              parent=ah14a-FACES        tris=  2122  box=(0.07,2.22,1.45)-(0.18,2.58,1.80)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah13a-FACES.001              parent=ah13a-FACES        tris=  1862  box=(-1.02,2.22,1.44)-(-0.92,2.58,1.79)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah12a-FACES.001              parent=ah12a-FACES        tris=   707  box=(-1.00,2.23,1.45)-(0.12,2.40,1.90)  ah12a-FACES col=(0.8, 0.8, 0.8) tex=Image_14128x128
+OBJ ah28b-FACES.001              parent=ah28b-FACES        tris=  1296  box=(-1.47,1.14,0.43)-(-0.82,1.28,1.08)  ah54-FACES col=(0.8, 0.8, 0.8)
+OBJ ah29b-FACES.001              parent=ah29b-FACES        tris=  1932  box=(-1.47,1.25,0.43)-(-0.82,1.37,1.08)  ah54-FACES col=(0.8, 0.8, 0.8)
+OBJ ah29a-FACES.001              parent=ah29a-FACES        tris=  1932  box=(-1.47,-1.33,0.43)-(-0.82,-1.21,1.08)  ah54-FACES col=(0.8, 0.8, 0.8)
+OBJ ah28a-FACES.001              parent=ah28a-FACES        tris=  1296  box=(-1.47,-1.23,0.43)-(-0.82,-1.10,1.08)  ah54-FACES col=(0.8, 0.8, 0.8)
+OBJ ah77-FACES.001               parent=ah77-FACES         tris=   444  box=(8.69,-0.58,4.01)-(8.99,-0.39,4.32)  ah75-FACES col=(0.8, 0.8, 0.8)
+OBJ ah60-FACES.001               parent=ah60-FACES         tris=   470  box=(8.76,-0.51,4.04)-(9.13,-0.23,4.37)  ah23a-FACES col=(0.8, 0.8, 0.8) tex=Image_2128x64
+OBJ ah78-FACES.001               parent=ah78-FACES         tris=   440  box=(8.69,-0.14,4.01)-(9.00,-0.02,4.32)  ah75-FACES col=(0.8, 0.8, 0.8)
+OBJ ah61-FACES.001               parent=ah61-FACES         tris=   436  box=(8.71,-1.10,4.06)-(8.98,-0.02,4.27)  ah23a-FACES col=(0.8, 0.8, 0.8) tex=Image_2128x64
+OBJ ah59b-FACES.001              parent=ah59b-FACES        tris=   932  box=(7.48,-1.14,3.57)-(10.20,-1.06,4.75)  ah59a-FACES col=(0.8, 0.8, 0.8) tex=Image_13128x128
+OBJ ah59a-FACES.001              parent=ah59a-FACES        tris=   932  box=(8.46,-0.95,2.76)-(9.22,-0.87,5.57)  ah59a-FACES col=(0.8, 0.8, 0.8) tex=Image_13128x128
+OBJ ah67-FACES.001               parent=ah67-FACES         tris=   292  box=(-2.75,-0.29,0.77)-(-2.24,0.02,1.38)  ah54-FACES col=(0.8, 0.8, 0.8)
+OBJ ah65-FACES.001               parent=ah65-FACES         tris=   928  box=(-3.90,-0.26,0.75)-(-2.20,0.20,0.95)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah66-FACES.001               parent=ah66-FACES         tris=   192  box=(-2.80,-0.08,0.63)-(-2.20,0.12,0.81)  ah54-FACES col=(0.8, 0.8, 0.8)
+OBJ ah69-FACES.001               parent=ah69-FACES         tris=   158  box=(-2.67,-0.16,0.77)-(-2.33,0.03,1.38)  ah76-FACES col=(0.8, 0.8, 0.8)
+OBJ ah9L10-FACES.001             parent=ah9L10-FACES       tris=   292  box=(-0.99,2.40,1.82)-(0.63,2.49,2.20)  ah9L1-FACES col=(0.8, 0.8, 0.8) tex=Image_21128x128
+OBJ ah56-FACES.001               parent=ah56-FACES         tris=   824  box=(-5.00,-0.13,1.62)-(-4.55,0.17,2.11)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah94-FACES.001               parent=ah94-FACES         tris=    52  box=(-5.01,-0.23,1.74)-(-4.98,-0.14,1.99)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah93-FACES.001               parent=ah93-FACES         tris=    32  box=(-4.99,0.18,1.74)-(-4.96,0.38,2.00)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah57-FACES.001               parent=ah57-FACES         tris=   705  box=(-5.00,-0.38,1.65)-(-4.76,0.42,2.07)  ah54-FACES col=(0.8, 0.8, 0.8)
+OBJ ah58-FACES.001               parent=ah58-FACES         tris=   481  box=(-4.79,-0.38,1.65)-(-4.55,0.42,2.07)  ah54-FACES col=(0.8, 0.8, 0.8)
+OBJ ah95-FACES.001               parent=ah95-FACES         tris=   310  box=(-4.91,-0.08,2.31)-(-4.84,0.11,2.50)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah55-FACES.001               parent=ah55-FACES         tris=   160  box=(-4.74,-0.09,2.09)-(-4.52,0.13,2.16)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah54-FACES.001               parent=ah54-FACES         tris=   614  box=(-4.87,-0.21,2.09)-(-4.40,0.25,2.51)  ah54-FACES col=(0.8, 0.8, 0.8)
+OBJ ah39-FACES.001               parent=ah39-FACES         tris=  1401  box=(-3.66,-0.14,2.12)-(-3.23,0.18,2.41)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah52b-FACES.001              parent=ah52b-FACES        tris=   726  box=(-2.01,-0.37,1.94)-(-1.28,-0.23,2.30)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah36b-FACES.001              parent=ah36b-FACES        tris=  1922  box=(-2.06,-0.08,1.93)-(-1.78,0.10,2.64)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah36a-FACES.001              parent=ah36a-FACES        tris=  1922  box=(-3.65,-0.08,1.50)-(-3.37,0.10,2.20)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah52a-FACES.001              parent=ah52a-FACES        tris=   726  box=(-3.62,-0.37,1.68)-(-2.93,-0.23,2.03)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah81-FACES.001               parent=ah81-FACES         tris=  2143  box=(-2.32,-0.29,2.03)-(-1.26,0.23,3.12)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah84-FACES.001               parent=ah84-FACES         tris=  1199  box=(-2.13,-0.27,1.98)-(-1.17,0.23,3.07)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah102-FACES.001              parent=ah102-FACES        tris=   392  box=(-1.93,0.01,2.41)-(-1.31,0.29,2.73)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah85-FACES.001               parent=ah85-FACES         tris=  1099  box=(-3.67,-0.25,1.54)-(-2.82,0.23,2.70)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah82-FACES.001               parent=ah82-FACES         tris=  2191  box=(-3.89,-0.25,1.57)-(-2.92,0.23,2.75)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah80-FACES.001               parent=ah80-FACES         tris=   392  box=(-3.54,0.12,2.00)-(-2.94,0.31,2.36)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah40-FACES.001               parent=ah40-FACES         tris=   312  box=(-3.90,-0.49,1.76)-(-3.43,0.53,2.37)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah98-FACES.001               parent=ah98-FACES         tris=    92  box=(-2.41,-0.51,2.65)-(-2.33,0.55,3.17)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah83-FACES.001               parent=ah83-FACES         tris=   178  box=(-2.63,-0.54,2.34)-(-2.17,0.58,2.80)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah38b-FACES.001              parent=ah38b-FACES        tris=   310  box=(-2.52,-0.29,2.04)-(-2.29,0.37,2.39)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah38a-FACES.001              parent=ah38a-FACES        tris=   302  box=(-4.10,-0.29,1.57)-(-3.87,0.37,1.91)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah35b-FACES.001              parent=ah35b-FACES        tris=   716  box=(-1.86,-0.51,2.10)-(-0.97,0.52,3.14)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah35a-FACES.001              parent=ah35a-FACES        tris=   716  box=(-3.48,-0.51,1.68)-(-2.58,0.52,2.71)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah41-FACES.001               parent=ah41-FACES         tris=   484  box=(-2.31,-0.54,1.92)-(-2.01,0.58,2.85)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah42-FACES.001               parent=ah42-FACES         tris=  2090  box=(-4.22,-0.54,1.51)-(0.52,0.58,3.75)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah7L-FACES.001               parent=ah7L-FACES         tris=   281  box=(-0.38,-2.55,2.01)-(0.87,0.60,2.23)  ah7L-FACES col=(0.8, 0.8, 0.8) tex=Image_12128x128
+OBJ ah5L-FACES.001               parent=ah5L-FACES         tris=   297  box=(-0.56,-2.55,2.15)-(0.87,-0.61,2.44)  ah5L-FACES col=(0.8, 0.8, 0.8) tex=Image_11128x128
+OBJ ah97b-FACES.001              parent=ah97b-FACES        tris=   292  box=(-0.10,-2.65,2.18)-(0.17,-2.55,2.29)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah68-FACES.001               parent=ah68-FACES         tris=   380  box=(-2.83,0.02,0.77)-(-2.26,0.28,1.38)  ah54-FACES col=(0.8, 0.8, 0.8)
+OBJ ah4-FACES.001                parent=ah4-FACES          tris=   216  box=(8.64,-1.72,2.10)-(9.69,1.76,2.46)  ah4-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ ah3-FACES.001                parent=ah3-FACES          tris=   181  box=(8.65,-1.72,2.11)-(9.69,1.76,2.50)  ah3-FACES col=(0.8, 0.8, 0.8) tex=Image_9128x128
+OBJ ah89b-FACES.001              parent=ah89b-FACES        tris=   926  box=(-1.31,-2.73,2.09)-(1.52,-2.51,2.35)  ah89b-FACES col=(0.8, 0.8, 0.8) tex=Image_8256x256
+OBJ ah34b-FACES.001              parent=ah34b-FACES        tris=  1352  box=(-2.20,-1.19,0.62)-(-1.00,-0.40,1.59)  ah34b-FACES col=(0.8, 0.8, 0.8) tex=Image_7512x512
+OBJ ah15BL-FACES.001             parent=ah15BL-FACES       tris=   696  box=(-1.14,1.39,1.07)-(0.34,1.65,1.32)  ah15TR-FACES col=(0.8, 0.8, 0.8) tex=Image_564x64
+OBJ ah15BL-FACES.003             parent=ah15BL-FACES.002   tris=   224  box=(-1.27,1.42,1.09)-(-1.14,1.61,1.28)  ah15TR-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_664x64
+OBJ ah15TL-FACES.001             parent=ah15TL-FACES       tris=   696  box=(-1.15,1.39,1.37)-(0.34,1.65,1.62)  ah15TR-FACES col=(0.8, 0.8, 0.8) tex=Image_564x64
+OBJ ah15TL-FACES.003             parent=ah15TL-FACES.002   tris=   224  box=(-1.27,1.42,1.39)-(-1.14,1.62,1.58)  ah15TR-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_664x64
+OBJ ah15BR-FACES.001             parent=ah15BR-FACES       tris=   696  box=(-1.14,1.71,1.07)-(0.34,1.96,1.32)  ah15TR-FACES col=(0.8, 0.8, 0.8) tex=Image_564x64
+OBJ ah15BR-FACES.003             parent=ah15BR-FACES.002   tris=   224  box=(-1.27,1.74,1.09)-(-1.14,1.93,1.28)  ah15TR-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_664x64
+OBJ ah15TR-FACES.001             parent=ah15TR-FACES       tris=   696  box=(-1.15,1.71,1.37)-(0.34,1.96,1.62)  ah15TR-FACES col=(0.8, 0.8, 0.8) tex=Image_564x64
+OBJ ah15TR-FACES.003             parent=ah15TR-FACES.002   tris=   224  box=(-1.27,1.74,1.39)-(-1.14,1.93,1.58)  ah15TR-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_664x64
+OBJ ah792-FACES.001              parent=ah792-FACES        tris=   580  box=(-0.39,0.06,4.02)-(-0.08,0.38,4.36)  ah76-FACES col=(0.8, 0.8, 0.8)
+OBJ ah791-FACES.001              parent=ah791-FACES        tris=   580  box=(0.01,-0.35,3.99)-(0.34,-0.04,4.33)  ah76-FACES col=(0.8, 0.8, 0.8)
+OBJ ah732-FACES.001              parent=ah732-FACES        tris=   772  box=(-0.44,-0.39,3.95)-(0.26,0.38,4.48)  ah75-FACES col=(0.8, 0.8, 0.8)
+OBJ ah731-FACES.001              parent=ah731-FACES        tris=   772  box=(-0.39,-0.38,3.95)-(0.31,0.39,4.44)  ah75-FACES col=(0.8, 0.8, 0.8)
+OBJ ah64-FACES.001               parent=ah64-FACES         tris=  1764  box=(-0.16,-0.17,4.46)-(0.16,0.19,5.49)  ah23a-FACES col=(0.8, 0.8, 0.8) tex=Image_2128x64
+OBJ ah100-FACES.001              parent=ah100-FACES        tris=   358  box=(-0.18,-0.07,2.89)-(0.05,0.10,4.29)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah624-FACES.001              parent=ah624-FACES        tris=  1772  box=(-0.56,-7.30,4.21)-(0.21,-0.23,4.57)  ah621-FACES col=(0.8, 0.8, 0.8) tex=Image_4256x256
+OBJ ah623-FACES.001              parent=ah623-FACES        tris=  1772  box=(-7.32,-0.22,4.23)-(-0.27,0.56,5.05)  ah621-FACES col=(0.8, 0.8, 0.8) tex=Image_4256x256
+OBJ ah97a-FACES.001              parent=ah97a-FACES        tris=   292  box=(-0.10,2.59,2.18)-(0.17,2.69,2.29)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+OBJ ah622-FACES.001              parent=ah622-FACES        tris=  1772  box=(-0.25,0.26,4.20)-(0.53,7.33,4.53)  ah621-FACES col=(0.8, 0.8, 0.8) tex=Image_4256x256
+OBJ ah621-FACES.001              parent=ah621-FACES        tris=  1772  box=(0.22,-0.53,3.89)-(7.28,0.25,4.47)  ah621-FACES col=(0.8, 0.8, 0.8) tex=Image_4256x256
+OBJ ah63-FACES.001               parent=ah63-FACES         tris= 12782  box=(-1.00,-0.96,4.25)-(0.96,0.99,4.62)  ah23a-FACES col=(0.8, 0.8, 0.8) tex=Image_2128x64
+OBJ ah75-FACES.001               parent=ah75-FACES         tris=  1036  box=(-0.43,-0.35,3.31)-(0.30,0.37,3.95)  ah75-FACES col=(0.8, 0.8, 0.8)
+OBJ ah74-FACES.001               parent=ah74-FACES         tris=   360  box=(-0.08,-0.42,3.13)-(0.33,-0.01,3.76)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah72-FACES.001               parent=ah72-FACES         tris=   240  box=(-0.22,-0.08,2.90)-(-0.02,0.12,3.04)  ah72-FACES col=(0.8, 0.8, 0.8)
+OBJ ah26b-FACES.001              parent=ah26b-FACES        tris=   437  box=(-0.21,-1.20,2.66)-(0.04,-0.57,3.08)  ah23a-FACES col=(0.8, 0.8, 0.8) tex=Image_2128x64
+OBJ ah27b-FACES.001              parent=ah27b-FACES        tris=   404  box=(0.03,-1.20,2.66)-(0.31,-0.57,3.08)  ah23a-FACES col=(0.8, 0.8, 0.8) tex=Image_2128x64
+OBJ ah27a-FACES.001              parent=ah27a-FACES        tris=   380  box=(0.03,0.61,2.66)-(0.31,1.24,3.08)  ah23a-FACES col=(0.8, 0.8, 0.8) tex=Image_2128x64
+OBJ ah26a-FACES.001              parent=ah26a-FACES        tris=   423  box=(-0.21,0.61,2.66)-(0.04,1.24,3.08)  ah23a-FACES col=(0.8, 0.8, 0.8) tex=Image_2128x64
+OBJ ah18b-FACES.001              parent=ah18b-FACES        tris=   659  box=(0.36,-1.39,2.89)-(2.75,-0.58,3.29)  ah18b-FACES col=(0.8, 0.8, 0.8) tex=Image_3128x128
+OBJ ah23b-FACES.001              parent=ah23b-FACES        tris=   594  box=(0.24,-1.32,2.57)-(0.41,-0.60,3.20)  ah23a-FACES col=(0.8, 0.8, 0.8) tex=Image_2128x64
+OBJ ah23a-FACES.001              parent=ah23a-FACES        tris=   594  box=(0.24,0.64,2.57)-(0.41,1.36,3.20)  ah23a-FACES col=(0.8, 0.8, 0.8) tex=Image_2128x64
+OBJ ah76-FACES.001               parent=ah76-FACES         tris=   818  box=(8.66,-0.80,3.95)-(9.03,-0.63,4.38)  ah76-FACES col=(0.8, 0.8, 0.8)
+OBJ ah45c-FACES.001              parent=ah45c-FACES        tris=   276  box=(-2.34,0.47,2.92)-(-2.29,0.58,3.10)  ah45c-FACES col=(0.8, 0.8, 0.8)
+OBJ ah1-FACES.001                parent=ah1-FACES          tris=  5324  box=(-4.99,-0.10,1.25)-(9.97,0.79,4.68)  ah1-FACES col=(0.8, 0.8, 0.8) tex=Image_11024x1024
+OBJ ah43-FACES.001               parent=ah43-FACES         tris=   686  box=(-2.29,-0.51,2.76)-(-1.13,-0.32,3.26)  ah43-FACES col=(0.8, 0.8, 0.8) tex=Image_02x2
+TOTAL tris=127084  box=(-7.32,-7.30,0.43)-(10.20,7.33,5.57) size=(17.52,14.63,5.13)
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:37:04)
+
+Blender quit

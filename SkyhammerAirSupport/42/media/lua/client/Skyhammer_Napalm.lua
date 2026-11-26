@@ -281,7 +281,7 @@ function N.Add(x1, y1, x2, y2, z, untilMs)
     zones[#zones + 1] = zn
     -- the ground burnt black at the quarter points of the zone
     for _, t in ipairs({ 0.25, 0.75 }) do
-        K.scorch(x1 + (x2 - x1) * t, y1 + (y2 - y1) * t, zn.z, 1.5, 3.5)
+        K.scorch(x1 + (x2 - x1) * t, y1 + (y2 - y1) * t, zn.z, 1.5, 3.5, true)   -- (burns, fells no trees)
     end
     realFire(zn)
     ignite(zn)

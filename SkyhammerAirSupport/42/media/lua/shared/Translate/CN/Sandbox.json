@@ -6,7 +6,7 @@
   "Sandbox_Skyhammer_CallMode_option2": "仅标准模式",
   "Sandbox_Skyhammer_CallMode_option3": "仅连杀模式",
   "Sandbox_Skyhammer_PointScale": "连杀点数消耗倍率",
-  "Sandbox_Skyhammer_PointScale_tooltip": "仅在连杀模式下生效。乘以所有消耗：100%% 时幽魂小队 50、阿帕奇 80、A-10 120、AC-130 150、B-2 300、战术核弹 600。",
+  "Sandbox_Skyhammer_PointScale_tooltip": "仅在连杀模式下生效。乘以所有消耗：100%% 时幽魂小队 50、阿帕奇 80、A-10 120、AC-130 150、F-22 200、B-2 300、战术核弹 600。",
   "Sandbox_Skyhammer_PointScale_option1": "50%%",
   "Sandbox_Skyhammer_PointScale_option2": "75%%",
   "Sandbox_Skyhammer_PointScale_option3": "100%%",
@@ -40,7 +40,9 @@
   "Sandbox_Skyhammer_EnableB2": "启用 B-2（泰坦）",
   "Sandbox_Skyhammer_EnableB2_tooltip": "关闭后无法呼叫 B-2 地毯式轰炸，终端中也不显示其标签页。已出动的会返航。",
   "Sandbox_Skyhammer_VehicleDamage": "空袭损坏车辆",
-  "Sandbox_Skyhammer_VehicleDamage_tooltip": "AC-130 的 105mm、A-10 的机炮扫射、B-2 的炸弹和战术核弹会损坏附近的车辆。最近的车辆会报废（爆胎、玻璃粉碎、引擎损坏），稍远的车辆会爆胎、玻璃开裂、车身凹陷。",
+  "Sandbox_Skyhammer_VehicleDamage_tooltip": "AC-130 的 105mm、A-10 的机炮扫射、B-2 的炸弹、F-22 编队的轰炸和战术核弹会损坏附近的车辆。最近的车辆会报废（爆胎、玻璃粉碎、引擎损坏），稍远的车辆会爆胎、玻璃开裂、车身凹陷。",
+  "Sandbox_Skyhammer_GunnerSeat": "AC-130 炮手席",
+  "Sandbox_Skyhammer_GunnerSeat_tooltip": "开启：终端的 AC-130 标签页提供炮手席，玩家在热成像传感器画面上亲手发射 40mm 和 105mm（身体留在原地，可能遭到攻击）。关闭：105mm 照旧对指定地点射击。",
   "Sandbox_Skyhammer_Radiation": "战术核弹留下放射性落尘",
   "Sandbox_Skyhammer_Radiation_tooltip": "开启：核弹会在爆心周围留下放射区，越靠近中心越强。停留其中会生病；戴装好滤芯的防毒面具或穿防护服可挡住大部分，屋顶下减半。会在下方设定的时间内逐渐消退，并显示在传感器地图上。",
   "Sandbox_Skyhammer_RadiationHours": "落尘持续（游戏小时）",
@@ -77,5 +79,9 @@
   "Sandbox_Skyhammer_NukePvP": "战术核弹会伤害玩家",
   "Sandbox_Skyhammer_NukePvP_tooltip": "仅限联机（原版版本），且战术核弹可用时有效。开启后，爆心 90 格内的玩家会死亡，140 格内的玩家会受伤。关闭（默认）时只影响感染者。",
   "Sandbox_Skyhammer_NukeCooldownMin": "投下战术核弹后 B-2 重新武装（联机，现实分钟）",
-  "Sandbox_Skyhammer_NukeCooldownMin_tooltip": "仅限联机。投下战术核弹的出击之后，玩家的 B-2 重新武装所需的现实时间（10 到 1440）。单人游戏使用模组选项。连杀模式不适用：改以战术核弹的 600 点消耗为限制。"
+  "Sandbox_Skyhammer_NukeCooldownMin_tooltip": "仅限联机。投下战术核弹的出击之后，玩家的 B-2 重新武装所需的现实时间（10 到 1440）。单人游戏使用模组选项。连杀模式不适用：改以战术核弹的 600 点消耗为限制。",
+  "Sandbox_Skyhammer_NukeDestroyBuildings": "核爆摧毁建筑",
+  "Sandbox_Skyhammer_NukeDestroyBuildings_tooltip": "仅限多人游戏。服务器拆除爆心周围50格内的建筑，并向所有玩家同步。地形变化会保存在世界中。关闭此项不影响对丧尸的伤害和辐射。",
+  "Sandbox_Skyhammer_EnableF22": "启用 F-22（渡鸦）",
+  "Sandbox_Skyhammer_EnableF22_tooltip": "关闭后无法呼叫 F-22 编队轰炸，终端中也不显示其标签页。已出动的会返航。"
 }

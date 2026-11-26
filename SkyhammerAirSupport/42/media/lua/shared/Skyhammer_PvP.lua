@@ -42,6 +42,8 @@ P.KINDS = {
     napalm = { auto = false, bands = { { 4.0, 100, 35 } } },
     -- the B-2's tactical nuke (Skyhammer_NukeZones): only with the sandbox's NukePvP on (the server)
     nuke   = { auto = false, bands = { { 90, 100, 100 }, { 140, 100, 60 } } },
+    -- the F-22 flight's bombs (Skyhammer_F22): a B-2 bomb's blast (2026-11-23), twenty over a strip
+    raid   = { auto = false, bands = { { 6.0, 100, 100 }, { 10.0, 100, 60 }, { 14.0, 75, 30 } } },
 }
 
 -- ---------------------------------------------------------------- the server's sortie record
@@ -62,15 +64,21 @@ P.SORTIES = {
     -- zones, each reported every 2 s for the longest burn, napalmBurnSec 180, the first at once)
     a10    = { ms = (20 + 60 + 180 + (2 + 1) * 25 + 60) * 1000, arriveMs = 18000,
                rounds = { strafe = 2 * 21, napalm = 1 * 4 * (180 / 2 + 1) } },
+    -- (one strike at the default, twenty bombs; time on station: Skyhammer_Core f22StationMin,
+    -- 150 s and 30 s a strike)
+    f22    = { ms = (20 + 60 + 150 + 1 * 30 + 60) * 1000, arriveMs = 18000, rounds = { raid = 1 * 20 } },
 }
 P.STRAFE_IMPACTS = 21         -- impacts in one gun run (Skyhammer_A10)
 P.GRACE_MS = 15000
 -- a weapon that goes on landing long after its sortie is over: how long, instead of GRACE_MS
 -- (the napalm burns up to 180 s after the A-10 has gone home; the nuke goes off its 15 s
 -- countdown after the release, whatever the B-2 does: Skyhammer_NukeZones countdownMs)
-P.LINGER_MS = { napalm = 180000 + 15000, nuke = 15000 + 15000 }
+P.LINGER_MS = { napalm = 180000 + 15000, nuke = 15000 + 15000,
+    -- (the F-22's jets come one after another: its last bombs land up to 11 s after the mark;
+    -- kept above GRACE_MS so a recall right after it never cuts them off)
+    raid = 20000 }
 P.KIND_CRAFT = { cannon = "apache", rocket = "apache", he = "ac130", gunaim = "ac130", bomb = "b2", strafe = "a10",
-    napalm = "a10", nuke = "b2" }
+    napalm = "a10", nuke = "b2", raid = "f22" }
 -- how fast each weapon's rounds can land: one every gap ms, with a short burst allowed (the
 -- network may bring several at once)
 P.FIRE = {
@@ -82,6 +90,9 @@ P.FIRE = {
     strafe = { gap = 50, burst = 8 },
     -- (four zones every 2 s; the zones' reports drift a little apart, Skyhammer_Napalm's 0.5 s tick)
     napalm = { gap = 500, burst = 8 }, nuke = { gap = 1000, burst = 1 },
+    -- (the F-22's twenty land a jet's pair every 0.4 s, its two 0.15 s apart; a whole strike may
+    -- still come at once over the network)
+    raid = { gap = 100, burst = 20 },
 }
 
 -- ---------------------------------------------------------------- balance (pvp_design.md 1b)
@@ -123,9 +134,11 @@ local LOCKED = {}
 for _, id in ipairs({ "apacheInboundSec", "apacheStationMin", "apacheRearmMin", "apacheAmmo", "apacheInterval",
     "apacheRange", "apacheRockets", "apacheSalvo", "apacheRocketEvery", "apacheRocketMin",
     "ac130InboundSec", "ac130StationMin", "ac130RearmMin", "gunAmmo2", "gunInterval2", "gunRange2",
-    "heAmmo", "heRounds",
+    "ac130Aggressive",
+    "heAmmo",
     "b2InboundSec", "b2StationMin", "b2RearmMin", "b2NukeRearmMin", "b2Area", "b2Bombs2",
-    "a10InboundSec", "a10RearmMin", "a10Passes", "a10NapalmRuns", "napalmBurnSec", "indoorHits" }) do
+    "a10InboundSec", "a10RearmMin", "a10Passes", "a10NapalmRuns", "napalmBurnSec", "indoorHits",
+    "f22InboundSec", "f22RearmMin", "f22Raids", "f22Bombs" }) do
     LOCKED[id] = true
 end
 function P.Locked(id) return LOCKED[id] == true end

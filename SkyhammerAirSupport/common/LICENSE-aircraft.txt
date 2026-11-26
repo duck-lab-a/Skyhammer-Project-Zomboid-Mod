@@ -20,6 +20,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-This license covers only the original addon code and aircraft geometry in
-this package. Project Zomboid, Viewpoint, and ZombieBuddy remain the property
-of their respective authors and are not redistributed here.
+This license covers only the original addon code and the UH-60 and napalm
+canister geometry in this package. The AC-130, AH-64, A-10, B-2 and F-22
+models are Creative Commons Attribution 4.0 works by their authors, not under
+this license: see CREDITS.txt. Project Zomboid, Viewpoint, and ZombieBuddy
+remain the property of their respective authors and are not redistributed here.

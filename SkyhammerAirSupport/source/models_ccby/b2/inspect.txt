@@ -1,0 +1,118 @@
+15:05:55 | INFO: Data are loaded, start creating Blender stuff
+15:05:55 | INFO: Blender create Mesh node Object_0
+15:05:55 | INFO: Blender create Mesh node Object_1
+15:05:55 | INFO: Blender create Mesh node Object_2
+15:05:55 | INFO: Blender create Mesh node Object_3
+15:05:55 | INFO: Blender create Mesh node Object_4
+15:05:55 | INFO: Blender create Mesh node Object_5
+15:05:55 | INFO: Blender create Mesh node Object_6
+15:05:55 | INFO: Blender create Mesh node Object_7
+15:05:55 | INFO: Blender create Mesh node Object_8
+15:05:55 | INFO: Blender create Mesh node Object_9
+15:05:55 | INFO: Blender create Mesh node Object_10
+15:05:55 | INFO: Blender create Mesh node Object_11
+15:05:55 | INFO: Blender create Mesh node Object_12
+15:05:55 | INFO: Blender create Mesh node Object_13
+15:05:55 | INFO: Blender create Mesh node Object_14
+15:05:55 | INFO: Blender create Mesh node Object_15
+15:05:55 | INFO: Blender create Mesh node Object_16
+15:05:55 | INFO: Blender create Mesh node Object_17
+15:05:55 | INFO: Blender create Mesh node Object_18
+15:05:55 | INFO: Blender create Mesh node Object_19
+15:05:55 | INFO: Blender create Mesh node Object_20
+15:05:55 | INFO: Blender create Mesh node Object_21
+15:05:55 | INFO: Blender create Mesh node Object_22
+15:05:55 | INFO: Blender create Mesh node Object_23
+15:05:55 | INFO: Blender create Mesh node Object_24
+15:05:55 | INFO: Blender create Mesh node Object_25
+15:05:55 | INFO: Blender create Mesh node Object_26
+15:05:55 | INFO: Blender create Mesh node Object_27
+15:05:55 | INFO: Blender create Mesh node Object_28
+15:05:55 | INFO: Blender create Mesh node Object_29
+15:05:55 | INFO: Blender create Mesh node Object_30
+15:05:55 | INFO: Blender create Mesh node Object_31
+15:05:55 | INFO: Blender create Mesh node Object_32
+15:05:55 | INFO: Blender create Mesh node Object_33
+15:05:55 | INFO: Blender create Mesh node Object_34
+15:05:55 | INFO: Blender create Mesh node Object_35
+15:05:55 | INFO: Blender create Mesh node Object_36
+15:05:55 | INFO: Blender create Mesh node Object_37
+15:05:55 | INFO: Blender create Mesh node Object_38
+15:05:55 | INFO: Blender create Mesh node Object_39
+15:05:55 | INFO: Blender create Mesh node Object_40
+15:05:55 | INFO: Blender create Mesh node Object_41
+15:05:55 | INFO: Blender create Mesh node Object_42
+15:05:55 | INFO: Blender create Mesh node Object_43
+15:05:55 | INFO: Blender create Mesh node Object_44
+15:05:55 | INFO: Blender create Mesh node Object_45
+15:05:55 | INFO: Blender create Mesh node Object_46
+15:05:55 | INFO: Blender create Mesh node Object_47
+15:05:55 | INFO: Blender create Mesh node Object_48
+15:05:55 | INFO: Blender create Mesh node Object_49
+15:05:55 | INFO: Blender create Mesh node Object_50
+15:05:55 | INFO: Blender create Mesh node Object_51
+15:05:55 | INFO: Blender create Mesh node Object_52
+15:05:55 | INFO: Blender create Mesh node Object_53
+15:05:55 | INFO: Blender create Mesh node Object_54
+15:05:55 | INFO: Blender create Mesh node Object_55
+15:05:55 | INFO: glTF import finished in 0.23s
+OBJ Object_4                     parent=3DSMeshMatrix      tris=  1912  box=(-1.83,-5.23,-0.64)-(-0.84,-4.89,0.69)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_7                     parent=3DSMeshMatrix.001  tris=  1912  box=(-0.25,0.13,-0.64)-(0.75,0.47,0.69)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_10                    parent=3DSMeshMatrix.002  tris=   276  box=(-4.70,-1.24,-0.07)-(-4.45,-1.11,0.72)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_13                    parent=3DSMeshMatrix.003  tris=   438  box=(-4.74,-1.23,-0.47)-(-4.50,-1.10,-0.37)  B2TrenAt col=(0.88, 0.88, 0.9)
+OBJ Object_16                    parent=3DSMeshMatrix.004  tris=   418  box=(-4.74,-1.23,-0.56)-(-4.50,-1.10,-0.45)  B2TrenAt col=(0.88, 0.88, 0.9)
+OBJ Object_19                    parent=3DSMeshMatrix.005  tris=   308  box=(-1.63,-5.37,-0.76)-(-0.88,-4.79,-0.65)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_22                    parent=3DSMeshMatrix.006  tris=   308  box=(-0.04,-0.01,-0.76)-(0.70,0.57,-0.65)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_25                    parent=3DSMeshMatrix.007  tris=    80  box=(-4.80,-1.15,-0.52)-(-4.75,-1.10,-0.42)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_28                    parent=3DSMeshMatrix.008  tris=   792  box=(-1.77,-3.17,0.44)-(-0.11,-2.51,0.67)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_31                    parent=3DSMeshMatrix.009  tris=  5078  box=(-1.63,-5.48,-0.65)-(-0.88,-4.74,0.32)  B2TrenAt col=(0.88, 0.88, 0.9)
+OBJ Object_34                    parent=3DSMeshMatrix.010  tris=  5078  box=(-0.05,-0.11,-0.65)-(0.70,0.62,0.32)  B2TrenAt col=(0.88, 0.88, 0.9)
+OBJ Object_37                    parent=3DSMeshMatrix.011  tris=   940  box=(-4.92,-1.42,-0.65)-(-4.60,-0.87,0.71)  B2TrenAt col=(0.88, 0.88, 0.9)
+OBJ Object_38                    parent=3DSMeshMatrix.011  tris=  1873  box=(-4.92,-1.42,-0.66)-(-4.60,-0.86,0.71)  B2TrenAt col=(0.88, 0.88, 0.9)
+OBJ Object_41                    parent=3DSMeshMatrix.012  tris=   250  box=(-0.25,-3.52,0.46)-(0.03,-2.66,1.00)  B2ChapOs col=(0.03, 0.02, 0.02)
+OBJ Object_44                    parent=3DSMeshMatrix.013  tris=   684  box=(-2.09,-2.99,0.36)-(-1.68,-2.13,1.00)  B2ChapOs col=(0.03, 0.02, 0.02)
+OBJ Object_47                    parent=3DSMeshMatrix.014  tris=  1032  box=(-3.96,-1.88,0.79)-(-3.42,-1.53,1.35)  B2Rueda col=(0.12, 0.1, 0.1)
+OBJ Object_50                    parent=3DSMeshMatrix.015  tris=  1032  box=(-3.81,-1.39,0.79)-(-3.28,-1.04,1.35)  B2Rueda col=(0.12, 0.1, 0.1)
+OBJ Object_53                    parent=3DSMeshMatrix.016  tris=  1920  box=(0.29,-0.21,-0.85)-(0.79,0.07,-0.36)  B2Rueda col=(0.12, 0.1, 0.1)
+OBJ Object_56                    parent=3DSMeshMatrix.017  tris=  1920  box=(-1.14,-5.05,-0.85)-(-0.64,-4.76,-0.36)  B2Rueda col=(0.12, 0.1, 0.1)
+OBJ Object_59                    parent=3DSMeshMatrix.018  tris=  1920  box=(-1.29,-5.57,-0.85)-(-0.79,-5.29,-0.36)  B2Rueda col=(0.12, 0.1, 0.1)
+OBJ Object_62                    parent=3DSMeshMatrix.019  tris=  1920  box=(0.45,0.32,-0.85)-(0.95,0.60,-0.36)  B2Rueda col=(0.12, 0.1, 0.1)
+OBJ Object_65                    parent=3DSMeshMatrix.020  tris=  1632  box=(-4.99,-1.44,-0.83)-(-4.57,-1.19,-0.41)  B2Rueda col=(0.12, 0.1, 0.1)
+OBJ Object_68                    parent=3DSMeshMatrix.021  tris=  1632  box=(-4.89,-1.09,-0.83)-(-4.46,-0.84,-0.41)  B2Rueda col=(0.12, 0.1, 0.1)
+OBJ Object_71                    parent=3DSMeshMatrix.022  tris=  1920  box=(-1.71,-4.87,-0.85)-(-1.21,-4.59,-0.36)  B2Rueda col=(0.12, 0.1, 0.1)
+OBJ Object_74                    parent=3DSMeshMatrix.023  tris=  1920  box=(-1.87,-5.40,-0.85)-(-1.37,-5.12,-0.36)  B2Rueda col=(0.12, 0.1, 0.1)
+OBJ Object_77                    parent=3DSMeshMatrix.024  tris=  1920  box=(-0.13,0.49,-0.85)-(0.37,0.77,-0.36)  B2Rueda col=(0.12, 0.1, 0.1)
+OBJ Object_80                    parent=3DSMeshMatrix.025  tris=  1920  box=(-0.28,-0.04,-0.85)-(0.21,0.25,-0.36)  B2Rueda col=(0.12, 0.1, 0.1)
+OBJ Object_83                    parent=3DSMeshMatrix.026  tris=   402  box=(-2.01,-3.01,0.63)-(-0.13,-2.37,0.94)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_86                    parent=3DSMeshMatrix.027  tris=   402  box=(-1.97,-2.96,0.50)-(-0.11,-2.24,0.79)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_89                    parent=3DSMeshMatrix.028  tris=   402  box=(-1.98,-2.97,0.25)-(-0.11,-2.27,0.53)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_92                    parent=3DSMeshMatrix.029  tris=   402  box=(-2.03,-3.10,0.16)-(-0.15,-2.43,0.47)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_95                    parent=3DSMeshMatrix.030  tris=   402  box=(-2.09,-3.34,0.17)-(-0.23,-2.63,0.48)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_98                    parent=3DSMeshMatrix.031  tris=   402  box=(-2.12,-3.43,0.32)-(-0.25,-2.76,0.60)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_101                   parent=3DSMeshMatrix.032  tris=   402  box=(-2.11,-3.42,0.58)-(-0.24,-2.73,0.86)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_104                   parent=3DSMeshMatrix.033  tris=   402  box=(-2.07,-3.28,0.65)-(-0.20,-2.57,0.94)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_107                   parent=3DSMeshMatrix.034  tris=  2200  box=(0.39,-0.18,-0.74)-(0.69,0.07,-0.47)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_110                   parent=3DSMeshMatrix.035  tris=  2206  box=(0.55,0.33,-0.74)-(0.85,0.57,-0.47)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_113                   parent=3DSMeshMatrix.036  tris=  2202  box=(-1.04,-5.04,-0.74)-(-0.74,-4.79,-0.47)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_116                   parent=3DSMeshMatrix.037  tris=  2206  box=(-1.61,-4.87,-0.73)-(-1.32,-4.62,-0.47)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_119                   parent=3DSMeshMatrix.038  tris=  2208  box=(-1.19,-5.54,-0.74)-(-0.89,-5.30,-0.47)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_122                   parent=3DSMeshMatrix.039  tris=  2204  box=(-1.77,-5.37,-0.73)-(-1.47,-5.13,-0.47)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_125                   parent=3DSMeshMatrix.040  tris=  2202  box=(-0.18,-0.01,-0.73)-(0.11,0.24,-0.47)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_128                   parent=3DSMeshMatrix.041  tris=  2202  box=(-0.03,0.50,-0.73)-(0.27,0.74,-0.47)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_131                   parent=3DSMeshMatrix.042  tris=  1212  box=(-4.90,-1.42,-0.72)-(-4.66,-1.21,-0.52)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_134                   parent=3DSMeshMatrix.043  tris=  1212  box=(-4.79,-1.07,-0.72)-(-4.56,-0.86,-0.52)  B2Crom col=(0.13, 0.09, 0.1)
+OBJ Object_137                   parent=3DSMeshMatrix.044  tris=   885  box=(-4.11,-1.66,0.79)-(-3.97,-1.56,1.05)  B2Rueda col=(0.12, 0.1, 0.1)
+OBJ Object_140                   parent=3DSMeshMatrix.045  tris=   885  box=(-3.96,-1.17,0.79)-(-3.83,-1.07,1.05)  B2Rueda col=(0.12, 0.1, 0.1)
+OBJ Object_143                   parent=3DSMeshMatrix.046  tris=   758  box=(-4.93,-6.05,0.03)-(3.36,1.01,1.74)  B2Gomi col=(0.05, 0.05, 0.06)
+OBJ Object_146                   parent=3DSMeshMatrix.047  tris=    96  box=(-4.68,-2.22,1.07)-(-3.15,-0.77,1.43)  B2Glass col=(0.05, 0.2, 0.0)
+OBJ Object_149                   parent=3DSMeshMatrix.048  tris=   364  box=(-0.11,-6.07,0.16)-(2.36,-3.97,0.90)  B2ChapOs col=(0.03, 0.02, 0.02)
+OBJ Object_152                   parent=3DSMeshMatrix.049  tris=   364  box=(0.89,-2.49,0.16)-(3.46,-0.45,0.90)  B2ChapOs col=(0.03, 0.02, 0.02)
+OBJ Object_155                   parent=3DSMeshMatrix.050  tris=  6537  box=(-5.05,-14.26,0.48)-(6.34,7.67,1.74)  B2ChaTop col=(0.8, 0.8, 0.8) tex=Image_12048x512
+OBJ Object_158                   parent=3DSMeshMatrix.051  tris=   140  box=(-4.94,-1.36,0.00)-(-4.75,-0.84,0.69)  B2Ch210 col=(0.06, 0.06, 0.06)
+OBJ Object_161                   parent=3DSMeshMatrix.052  tris=  1863  box=(-5.00,-13.56,-0.65)-(6.26,7.35,1.01)  B2Ch210 col=(0.06, 0.06, 0.06)
+OBJ Object_164                   parent=3DSMeshMatrix.053  tris=  1722  box=(-5.33,-14.68,0.50)-(6.68,8.07,0.98)  B2ChapOs col=(0.03, 0.02, 0.02)
+OBJ Object_167                   parent=3DSMeshMatrix.054  tris=  3652  box=(-5.05,-14.26,0.03)-(6.34,7.67,0.75)  B2ChaBoo col=(0.8, 0.8, 0.8) tex=Image_01024x256
+TOTAL tris=81571  box=(-5.33,-14.68,-0.85)-(6.68,8.07,1.74) size=(12.01,22.75,2.59)
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:37:04)
+
+Blender quit

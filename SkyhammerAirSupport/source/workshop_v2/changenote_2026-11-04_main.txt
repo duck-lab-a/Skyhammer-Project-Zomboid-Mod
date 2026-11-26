@@ -1,0 +1,11 @@
+AC-130 Gunner Seat
+- Viewpoint 0.1.7: leaving the seat no longer throws you back into the isometric view. The seat now switches Viewpoint's view straight to isometric and back (with 0.1.7's camera move) instead of stepping through third person, so you come back in the view you had, and Viewpoint's saved third-person setting is left alone. Viewpoint 0.1.6 works the same way.
+- 25mm: no impact sound and no barrel spin any more; the "brrrr" stream plays at full level from the first round.
+Roaming Survivors
+- Roaming Survivors people are no longer hit by air strikes unless they are hostile to you. The gunner seat still hits anyone, as before.
+--
+AC-130 사수석
+- Viewpoint 0.1.7: 사수석에서 나올 때 등각 시점으로 다시 튕기던 문제를 고쳤습니다. 이제 3인칭을 거치지 않고 Viewpoint 시점을 바로 등각으로 바꿨다가 되돌립니다(0.1.7의 카메라 이동 포함). 그래서 들어가기 전 시점으로 돌아오고, Viewpoint에 저장된 3인칭 설정도 바뀌지 않습니다. Viewpoint 0.1.6에서도 같은 방식으로 동작합니다.
+- 25mm: 탄착음과 총열 회전음을 뺐습니다. "브르르르" 연사음이 첫 발부터 제 음량으로 나옵니다.
+Roaming Survivors
+- Roaming Survivors 사람들은 나에게 적대적이지 않으면 공습에 맞지 않습니다. 사수석은 예전처럼 누구든 맞힙니다.

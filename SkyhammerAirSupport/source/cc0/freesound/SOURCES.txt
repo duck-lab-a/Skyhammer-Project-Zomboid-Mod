@@ -1,0 +1,10 @@
+Freesound recordings used by build.js (downloaded 2026-11-23: the HQ previews from cdn.freesound.org).
+Both pages showed the license Creative Commons 0 (https://creativecommons.org/publicdomain/zero/1.0/)
+when downloaded; the page HTML saved then is kept next to this file (page_*.html).
+
+fs135496_f18_pass_freqman.ogg    "F-18 pass 02" by FreqMan
+  https://freesound.org/people/FreqMan/sounds/135496/
+  preview https://cdn.freesound.org/previews/135/135496_92661-hq.ogg (1,051,953 bytes)
+fs182050_sonic_boom_qubodup.ogg  "Sonic Boom" by qubodup (a jet fighter's boom, from a US government video)
+  https://freesound.org/people/qubodup/sounds/182050/
+  preview https://cdn.freesound.org/previews/182/182050_71257-hq.ogg (112,063 bytes)

@@ -758,7 +758,7 @@ function U.Detonate(rec)
     K.attract(x, y, z, U.ZONE.noise)
     hurtMe(x, y)
     lap("noise")
-    K.scorch(x, y, z, 25, 50)
+    K.scorch(x, y, z, 25, 50, true)   -- (no felling: the fireball's levelling is the craters option's)
     lap("scorch")
     -- (and, with the same option, the fireball's buildings levelled: Skyhammer_Level)
     if SkyhammerLevel then

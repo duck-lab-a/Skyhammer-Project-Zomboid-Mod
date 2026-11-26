@@ -29,6 +29,8 @@ explosion_far_away_1.ogg rate=48000 ch=1 dur=4.53 peak=0.995 rms=0.0243
 fall_2_sheet_steel_bars_1.ogg rate=48000 ch=1 dur=3.41 peak=0.687 rms=0.0315
 falling_sheet_steel_bar_1.ogg rate=48000 ch=1 dur=1.03 peak=0.433 rms=0.0449
 falling_sheet_steel_bar_2.ogg rate=48000 ch=1 dur=1.59 peak=0.680 rms=0.0597
+fs135496_f18_pass_freqman.ogg rate=44100 ch=2 dur=60.45 peak=1.199 rms=0.0748
+fs182050_sonic_boom_qubodup.ogg rate=44100 ch=1 dur=9.76 peak=1.035 rms=0.1948
 gasoline_fire_2.ogg rate=48000 ch=1 dur=28.69 peak=1.002 rms=0.0261
 gun_loading_1.ogg rate=48000 ch=1 dur=0.77 peak=1.025 rms=0.0141
 gun_loading_2.ogg rate=48000 ch=1 dur=0.75 peak=0.990 rms=0.0235

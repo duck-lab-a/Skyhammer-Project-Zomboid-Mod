@@ -2,7 +2,9 @@
 --   gun  Banshee's 40mm: bursts at the infected nearest the player, on its own. Each round picks
 --        its aim as it leaves the gun; a hit marks that zombie as done, so the next round already
 --        swings to the next one.
---   he   Banshee's 105mm: rounds around a marked point (Mod Options: per sortie, per mark). Same aircraft as the 40mm.
+--   he   Banshee's 105mm: fired by hand from the gunner seat (Skyhammer_Gunner), one shell a
+--        click; with the seat switched off in the sandbox, HE.rounds around a marked point.
+--        Same aircraft as the 40mm.
 --   b2   Titan's carpet strike: a score of heavy bombs spread evenly over a wide circle around a
 --        marked point, once per sortie.
 -- Ammunition is spent as each round or the strike actually leaves. The player is spared unless
@@ -18,6 +20,9 @@
 -- passed on to the other players nearby, who see and hear it too.
 
 require "Skyhammer_Core"
+require "Skyhammer_25mmAudio"
+require "Skyhammer_SeatShotAudio"
+require "Skyhammer_GunnerTracers"
 require "Skyhammer_Comms"
 require "Skyhammer_Craters"
 require "Skyhammer_PvP"
@@ -31,12 +36,36 @@ local GUN = {
     splashRadius = 1.6, splashChance = 35,
     orbitRadius = 30, orbitPeriodMs = 40000,
 }
+-- (2026-10-24, the user: the gunner seat fires the 105 a shell a click, so the "rounds per mark"
+-- option went; a marked mission, with the seat off in the sandbox, fires its old default of 2)
 local HE = {
-    rounds = 4, firstShotMs = 1800, spacingMs = 2500, flightMs = 3000,
+    rounds = 2, firstShotMs = 1800, spacingMs = 2500, flightMs = 3000,
     ringMin = 2.5, ringMax = 6.0, separation = 2.0,
     bands = { { 1.25, 100 }, { 4.2, 93 }, { 7.0, 62 }, { 9.5, 24 } },
     noise = 120,
 }
+-- (2026-11-14, the user) the AC-130's aggressive fire (Mod Options ac130Aggressive; "aggressive
+-- fire" below): the 40mm's gap between bursts (instead of gunInterval2); the 25mm's bursts, each
+-- round aimed at the nearest infected, perTarget rounds a body; the 105 a shell every gapMs at the
+-- biggest group (most infected within groupRadius) at least minDist from the player (its blast
+-- reaches HE.bands' 9.5 tiles), among the first `candidates` found; its call at most every lineGapMs.
+-- (2026-11-15, the user: "3 or more together") the 105 only at a group of at least minGroup
+-- infected (the aimed one counted); lone ones and pairs are left to the 40mm and 25mm
+local AGGRO = {
+    gunGapMs = 1200,
+    g25 = { burstMin = 14, burstMax = 22, spacingMs = 70, perTarget = 4, gapMs = 1200, waitMs = 700 },
+    he = { gapMs = 5000, minDist = 12, groupRadius = 4, minGroup = 3, candidates = 80, waitMs = 1000, lineGapMs = 30000 },
+    arriveMs = 2500,
+    -- (same day, the user: it fired without a breath -> in waves) fireMs of all three guns, then
+    -- restMs of quiet while it circles; each gun's rounds are shared out over the waves its time
+    -- on station still holds (Core S.SecondsLeft less endSlackMs), so it fires all through its
+    -- time and runs dry near the end. (2026-11-15, the user: "15 s firing, 5 s rest"; was 10/6)
+    -- quietMs: inside a wave each gun fires at least that often (AG.bursts)
+    wave = { fireMs = 15000, restMs = 5000, endSlackMs = 3000, quietMs = 2500 },
+}
+-- the aggressive fire's own state and steps (Skyhammer_Ops "aggressive fire" below; one table:
+-- this file is close to Lua's 200 locals a chunk; declared here for gunTick)
+local AG = { st = { sortie = nil } }
 -- fewer, heavier bombs: each one clears a wide circle
 local B2 = {
     firstImpactMs = 7000, passSpeed = 20,
@@ -96,8 +125,22 @@ end
 local DOOMED_MS = 4000
 local doomedOnline = {}         -- zombie -> until (S.now)
 local killBatch = {}            -- online ids to send to the server this tick
+local seatKillBatch = {}        -- the gunner seat's, sent marked: the server lets friendly NPCs go down
+-- B42 isDead() only checks health; Kill() sets health to zero BEFORE onKilled.
+-- A failed onKilled must not make a still-present zombie immune to every later shot.
+local pendingDeaths = {}
+local function deathHandled(z)
+    local ok, done = pcall(function() return z:isOnDeathDone() end)
+    if ok and done == true then return true end
+    local okK, killed = pcall(function() return z:isOnKillDone() end)
+    if okK and type(killed) == "boolean" then return killed end
+    return z:isDead() -- compatibility for older engines without the completion flags
+end
 local function alive(z)
-    if z == nil or z:isDead() or z:getHealth() <= 0 then return false end
+    if z == nil or pendingDeaths[z] then return false end
+    if z:isDead() or z:getHealth() <= 0 then
+        if online() or deathHandled(z) then return false end
+    end
     local upTo = doomedOnline[z]
     return upTo == nil or upTo <= S.now()
 end
@@ -130,15 +173,29 @@ local function stayWithMe(z)
     end)
     return ok and f == true
 end
+-- Roaming Survivors (Workshop 3797874733; 2026-11-01, the user): its people are infected bodies
+-- too, marked RNPCHuman (or stamped in mod data before the variable arrives). Friendly unless RS's
+-- own rule makes them hostile to `player`. Any error leaves them as targets, as before.
+local function rsFriendly(z, player)
+    local R = RNPC
+    if type(R) ~= "table" or not player then return false end
+    local ok, f = pcall(function()
+        if z:getVariableBoolean("RNPCHuman") ~= true
+            and not (z:hasModData() and z:getModData().RNPC) then return false end
+        local rec = R.recFor(z)
+        return rec ~= nil and not R.hostileToUser(rec, player)
+    end)
+    return ok and f == true
+end
 -- friendly NPCs (a Bandits companion or friendly clan: brain.hostile == false, the Wraith Team
--- included; a friendly A-Life person; a Stay With Me companion) are never hit and show green on
+-- included; a friendly A-Life person; a Stay With Me companion; an RS person not hostile) are never hit and show green on
 -- the sensor map
 local function friendly(z)
     local ok, f = pcall(function()
         local brain = z:getModData().brain
         return type(brain) == "table" and brain.hostile == false
     end)
-    return (ok and f == true) or stayWithMe(z) or alifeFriendly(z, getPlayer())
+    return (ok and f == true) or stayWithMe(z) or alifeFriendly(z, getPlayer()) or rsFriendly(z, getPlayer())
 end
 S.IsFriendlyNPC = friendly
 local function dist(ax, ay, bx, by) return math.sqrt((ax - bx) ^ 2 + (ay - by) ^ 2) end
@@ -213,7 +270,15 @@ local function playAt(sq, name, radius)
     if not sq then return end
     -- (2026-10-18) B-2 impacts play like every other sound again: the overlap guard that turned
     -- older tails down for each new hit left a carpet run sounding like one bomb at a time
-    pcall(function() getSoundManager():PlayWorldSound(name, false, sq, 0, radius, 1.0, false) end)
+    -- (2026-10-25, Codex's MP audio audit) for this player only: on a client the game's
+    -- PlayWorldSound also sends the sound to the server, and Skyhammer relays it itself ("fx",
+    -- soundAt below), so the others heard it twice. PlayWorldSoundImpl is the same playback
+    -- without the send (single player: the same thing); should a game not offer it to Lua, the
+    -- sound still plays the old way
+    local sm = getSoundManager()
+    if not pcall(function() sm:PlayWorldSoundImpl(name, false, sq:getX(), sq:getY(), sq:getZ(), 0, radius, 1.0, false) end) then
+        pcall(function() sm:PlayWorldSound(name, false, sq, 0, radius, 1.0, false) end)
+    end
 end
 -- (online the other players nearby hear it too)
 local function soundAt(sq, name, radius)
@@ -224,7 +289,13 @@ end
 local function attract(x, y, z, radius)
     if online() then send("noise", { x = x, y = y, z = z, r = radius }); return end
     local p = getSpecificPlayer(0)
-    if p then pcall(function() addSound(p, math.floor(x), math.floor(y), math.floor(z), math.floor(radius), 100) end) end
+    if not p then return end
+    -- (2026-10-25, the user: infected bit the air over the aim point) while the character is the
+    -- gunner seat's camera the noise names no source (the engine takes none): the infected still
+    -- go to it, but no mod's hunter (Blackout Predators) takes the camera as its target
+    local src = p
+    if S.GunnerBodyAt and S.GunnerBodyAt() then src = nil end
+    pcall(function() addSound(src, math.floor(x), math.floor(y), math.floor(z), math.floor(radius), 100) end)
 end
 
 -- the player gets the kill: Kill() alone does not add to the count (online the server reports
@@ -237,38 +308,66 @@ local kills = 0
 -- for every 20 still waiting, at most KILLS_MAX: a B-2 run falls 4-6 a tick, while a nuke's
 -- hundreds (it queues up to 15 a frame) do not stand there fighting for seconds.
 local KILLS_PER_TICK, KILLS_MAX = 4, 30
+local KILL_ATTEMPTS, KILL_RETRY_MS = 3, 250
 local dying, dyingHead = {}, 1
+local lastKillError = -10000
 local function fallDying()
-    local n = 0
-    local budget = math.min(KILLS_MAX, KILLS_PER_TICK + math.floor((#dying - dyingHead + 1) / 20))
-    while n < budget and dyingHead <= #dying do
+    local n, now, last = 0, S.now(), #dying
+    local budget = math.min(KILLS_MAX, KILLS_PER_TICK + math.floor((last - dyingHead + 1) / 20))
+    while n < budget and dyingHead <= last do
         local d = dying[dyingHead]
         dyingHead = dyingHead + 1
-        local okD, dead = pcall(function() return d.z:isDead() end)
-        if okD and not dead then
-            local p = getSpecificPlayer(0)
-            if pcall(function() d.z:Kill(p) end) then
-                n = n + 1
-                if p then
-                    p:setZombieKills(p:getZombieKills() + 1)
-                    if S.AirKills then S.AirKills(1) end     -- (a kill, but never a killstreak point)
+        n = n + 1 -- failures and deferred retries must consume the frame budget too
+        if d.retryAt and d.retryAt > now then
+            dying[#dying + 1] = d
+        else
+            local okD, done = pcall(deathHandled, d.z)
+            if not okD or done then
+                pendingDeaths[d.z] = nil
+            else
+                local p = getSpecificPlayer(0)
+                d.attempts = (d.attempts or 0) + 1
+                -- A retry without a killer avoids the held-weapon/XP path of onKilled.
+                -- Keep ordinary kills unchanged; never bypass death hooks or delete the zombie.
+                local ok, err = pcall(function()
+                    if d.attempts == 1 then d.z:Kill(p) else d.z:Kill(nil) end
+                end)
+                local checked, finished = pcall(deathHandled, d.z)
+                if checked and finished then
+                    pendingDeaths[d.z] = nil
+                    if p then
+                        p:setZombieKills(p:getZombieKills() + 1)
+                        if S.AirKills then S.AirKills(1) end
+                    end
+                    if d.sq then pcall(function() d.sq:splatBlood(d.blood or 2, 0.6) end) end
+                elseif d.attempts < KILL_ATTEMPTS then
+                    d.retryAt = now + KILL_RETRY_MS
+                    dying[#dying + 1] = d
+                else
+                    pendingDeaths[d.z] = nil
+                    doomedOnline[d.z] = now + DOOMED_MS
+                    if now - lastKillError >= 10000 then
+                        lastKillError = now
+                        S.log("death could not finish after 3 attempts: " .. tostring(not ok and err or "onKilled did not complete"))
+                    end
                 end
-                if d.sq then pcall(function() d.sq:splatBlood(d.blood or 2, 0.6) end) end
             end
         end
     end
     if dyingHead > #dying then dying, dyingHead = {}, 1 end
 end
-local function takeDown(z, sq, blood)
+local function takeDown(z, sq, blood, seat)
     if not alive(z) then return false end
     if online() then
         local ok, id = pcall(function() return z:getOnlineID() end)
         if not ok or not tonumber(id) or id < 0 then return false end
         doomedOnline[z] = S.now() + DOOMED_MS
-        killBatch[#killBatch + 1] = id
+        local batch = seat and seatKillBatch or killBatch
+        batch[#batch + 1] = id
         if sq then pcall(function() sq:splatBlood(blood or 2, 0.6) end) end
     else
         doomedOnline[z] = S.now() + DOOMED_MS
+        pendingDeaths[z] = true
         dying[#dying + 1] = { z = z, sq = sq, blood = blood }
     end
     kills = kills + 1
@@ -290,8 +389,9 @@ local function vaporize(z)
     return true
 end
 
--- live zombies within r of (x, y) on floor z, with their distance
-local function zombiesNear(x, y, z, r)
+-- live zombies within r of (x, y) on floor z, with their distance; friendly NPCs too when
+-- `anyone` (the gunner seat's rounds)
+local function zombiesNear(x, y, z, r, anyone)
     local out, cell = {}, getCell()
     if not cell then return out end
     local seen = {}
@@ -302,7 +402,7 @@ local function zombiesNear(x, y, z, r)
             if objs then
                 for i = 0, objs:size() - 1 do
                     local o = objs:get(i)
-                    if instanceof(o, "IsoZombie") and not seen[o] and alive(o) and not friendly(o) then
+                    if instanceof(o, "IsoZombie") and not seen[o] and alive(o) and (anyone or not friendly(o)) then
                         seen[o] = true
                         local d = dist(o:getX(), o:getY(), x, y)
                         if d <= r then out[#out + 1] = { z = o, d = d, sq = sq } end
@@ -325,6 +425,7 @@ local function wound(p, dmg)
     pcall(function()
         local body = p:getBodyDamage()
         body:ReduceGeneralHealth(dmg)
+        if type(S.GunnerBodyHit) == "function" then pcall(S.GunnerBodyHit, p, dmg) end
         if dmg >= 25 and dmg < 100 then
             local part = body:getBodyPart(BodyPartType.FromIndex(ZombRand(BodyPartType.ToIndex(BodyPartType.MAX))))
             if part then part:setBleedingTime(5 + ZombRand(10)) end
@@ -337,9 +438,16 @@ local function hurtPlayer(x, y, z, bands, hurt)
     -- (PvP's lone test: the caller's own hits come back from the server, as another player's would)
     if pvpOn() and PvP.SelfTest() then return end
     local p = getSpecificPlayer(0)
-    if not p or p:isDead() or math.floor(p:getZ()) ~= math.floor(z) then return end
-    if not exposed(p:getCurrentSquare()) then return end
-    local d = dist(p:getX(), p:getY(), x, y)
+    if not p or p:isDead() then return end
+    -- (2026-10-25, the user: "the body is hit all the time in the seat") in the gunner seat's real
+    -- view the character is the camera over the aim point; the body is where it was left
+    local px, py, pz, psq = p:getX(), p:getY(), p:getZ(), p:getCurrentSquare()
+    local hx, hy, hz = nil, nil, nil
+    if S.GunnerBodyAt then hx, hy, hz = S.GunnerBodyAt() end
+    if hx then px, py, pz, psq = hx, hy, hz, square(hx, hy, hz) end
+    if math.floor(pz) ~= math.floor(z) then return end
+    if not exposed(psq) then return end
+    local d = dist(px, py, x, y)
     for i, b in ipairs(bands) do
         if d <= b[1] then
             if S.chance(b[2]) then wound(p, hurt[math.min(i, #hurt)]) end
@@ -353,15 +461,16 @@ end
 -- 2,000 lb bomb goes through a roof, so it reaches indoors and up to HEAVY_FLOORS floors above
 -- whatever the "indoor hits" option says (the option still rules the lighter rounds); the B-2
 -- passes it in single player only. Players are never reached this way (PvP has its own rules).
+-- seat: the gunner seat's 105 (friendly NPCs hit too)
 local HEAVY_FLOORS = 3
-local function blast(x, y, z, bands, blood, kind, heavy)
+local function blast(x, y, z, bands, blood, kind, heavy, seat)
     local reach = bands[#bands][1]
     for fz = z, z + (heavy and HEAVY_FLOORS or 0) do
-        for _, t in ipairs(zombiesNear(x, y, fz, reach)) do
+        for _, t in ipairs(zombiesNear(x, y, fz, reach, seat)) do
             if heavy or exposed(t.sq) then
                 for _, b in ipairs(bands) do
                     if t.d <= b[1] then
-                        if S.chance(b[2]) then takeDown(t.z, t.sq, blood) end
+                        if S.chance(b[2]) then takeDown(t.z, t.sq, blood, seat) end
                         break
                     end
                 end
@@ -373,11 +482,17 @@ local function blast(x, y, z, bands, blood, kind, heavy)
 end
 
 -- Craters (the "craters" option, Skyhammer_Craters): burnt here in single player, by the
--- server online (it alone can change the map for everyone)
-local function scorch(cx, cy, z, core, edge)
-    if not S.opt("craters") then return end
-    if online() then send("scorch", { x = cx, y = cy, z = z, core = core, edge = edge }); return end
-    SkyhammerCraters.add(cx, cy, z, core, edge)
+-- server online (it alone can change the map for everyone). (2026-11-25) With "fellTrees" the
+-- trees within core fall the same way; noTrees: a strike that does not knock trees down (napalm).
+local function scorch(cx, cy, z, core, edge, noTrees)
+    local burn = S.opt("craters") == true
+    local fell = not noTrees and S.opt("fellTrees") == true
+    if not (burn or fell) then return end
+    if online() then
+        send("scorch", { x = cx, y = cy, z = z, core = core, edge = edge, burn = burn, fell = fell })
+        return
+    end
+    SkyhammerCraters.add(cx, cy, z, core, edge, burn, fell)
 end
 
 -- Vehicles (the sandbox's VehicleDamage, Skyhammer_VehicleDamage): damaged here in single
@@ -480,20 +595,33 @@ local function toScreen(x, y, z, mode)
 end
 
 -- the floor square under the pointer: Viewpoint's while its 3D view is on, otherwise the
--- game's own (the plain isometric view), on the player's floor
+-- game's own (the plain isometric view). (2026-10-22, a Workshop comment: marks made from an upper
+-- floor or a helicopter landed in the air and missed the infected below) From the player's floor
+-- down, the first square with a floor under the pointer: a roof or a balcony, else the ground.
+local function hasFloor(sq)
+    local ok, floor = pcall(function() return sq:getFloor() end)
+    return ok and floor ~= nil
+end
 local function lookedAtSquare(p)
-    local z = math.floor(p:getZ())
-    local ok, x, y
-    if S.Viewpoint3D() then
-        ok, x, y = pcall(function() return Viewpoint.Mouse.worldX(), Viewpoint.Mouse.worldY() end)
-    else
-        ok, x, y = pcall(function()
-            local mx, my = getMouseX(), getMouseY()
-            return screenToIsoX(0, mx, my, z), screenToIsoY(0, mx, my, z)
-        end)
+    local top = math.floor(p:getZ())
+    local view3D = S.Viewpoint3D()
+    local fallback
+    for z = top, math.min(top, 0), -1 do
+        local ok, x, y
+        if view3D then
+            ok, x, y = pcall(function() return Viewpoint.Mouse.worldX(), Viewpoint.Mouse.worldY() end)
+        else
+            ok, x, y = pcall(function()
+                local mx, my = getMouseX(), getMouseY()
+                return screenToIsoX(0, mx, my, z), screenToIsoY(0, mx, my, z)
+            end)
+        end
+        if not ok or not x or not y or x ~= x or y ~= y then return nil end
+        local sq = square(x, y, z)
+        if sq and (z == math.min(top, 0) or hasFloor(sq)) then return sq end
+        fallback = fallback or sq
     end
-    if not ok or not x or not y or x ~= x or y ~= y then return nil end
-    return square(x, y, z)
+    return fallback
 end
 
 -- ---------------------------------------------------------------- sprites and blasts
@@ -514,6 +642,7 @@ local function sprite(name, x, y, z, h, tiles, alpha, mode)
     local t = texture(name); if not t or alpha <= 0.01 then return end
     local sx, sy, ppt = toScreen(x, y, z + h / FLOOR, mode); if not sx then return end
     local w = tiles * ppt
+    if sx+w<0 or sy+w<0 or sx-w>getCore():getScreenWidth() or sy-w>getCore():getScreenHeight() then return end
     if string.byte(name, 1) == 64 then     -- "@": a vanilla atlas frame (no new string per sprite)
         local q = texLayout[name]
         if not q then
@@ -587,6 +716,49 @@ local function animName(prefix, i)
 end
 local function hasSet(prefix, last)
     return texture(flipName(prefix, 1)) ~= nil and texture(flipName(prefix, last)) ~= nil
+end
+-- Seat 25mm: distinct impact on every hit; a small, bounded shared dust cloud.
+-- This pool is visual only. Damage, ammunition and the impact sound still run on every hit.
+local function compactSeat25(x,y,z,size)
+    local now=S.now()
+    local q=S.opt("fxQuality")
+    local count=0
+    local cloud
+    for i=#effects,1,-1 do
+        local e=effects[i]
+        if e.seat25 then
+            if now>=e.born+e.life then table.remove(effects,i)
+            else
+                count=count+1
+                if e.cloud and e.z==z and (e.x-x)^2+(e.y-y)^2<9 then cloud=e end
+            end
+        end
+    end
+    -- Reserve two slots. Persistent fire/other aircraft effects are never evicted here.
+    for i=#effects,1,-1 do
+        if count<=14 then break end
+        if effects[i].seat25 and effects[i]~=cloud then table.remove(effects,i);count=count-1 end
+    end
+    if hasSet("SH_FX_Blast_",32) then
+        effects[#effects+1]={seat25=true,kind="flip",prefix="SH_FX_Blast_",frames=32,
+            x=x,y=y,z=z,born=now,life=120,size=size,h0=.18,h1=.35,
+            w0=.45,w1=.85,a0=.95,fadeFrom=.5}
+    else
+        effects[#effects+1]={seat25=true,kind="fire",x=x,y=y,z=z,born=now,life=120,size=size*.65}
+    end
+    if q>=2 and not cloud then
+        if hasSet("SH_FX_Plume_",32) then
+            effects[#effects+1]={seat25=true,cloud=true,kind="flip",prefix="SH_FX_Plume_",frames=32,
+                x=x,y=y,z=z,born=now,life=400,size=size*.9,w0=.65,w1=1.1,
+                ground=true,a0=.6,fadeFrom=.35}
+        else
+            effects[#effects+1]={seat25=true,cloud=true,kind="dust",x=x,y=y,z=z,born=now,life=400,size=size*.75}
+        end
+    end
+    -- Repeated hits do not reset a cloud's age, keeping smoke from building up forever.
+    trimEffects()
+    S.blasts[#S.blasts+1]={x=x,y=y,born=now,size=1.4}
+    while #S.blasts>80 do table.remove(S.blasts,1) end
 end
 local function boomLocal(x, y, z, size, noLight, vis, lite, b2, he)
     local now = S.now()
@@ -748,6 +920,10 @@ local aiming = nil   -- { kind = "he" | "b2" | an add-on's kind, openedMs }
 --   prompt    the radio line asking for the point (optional)
 --   commit(sq) -> true when the point is taken (false keeps the mark open for another click)
 --   spread, danger   the ring drawn on the map: the area and the reach beyond it (tiles)
+--   preview(x, y, z) -> ax, ay, bx, by: a mark that is a line (the A-10's run), drawn as the line
+--             it would take from there, or nil (no line there: drawn in red)
+--   width, edge      (a line mark) the strip it strikes round the line, tiles wide, and the reach
+--             past it: the sensor map draws both round the line
 --   bad(sq, player)  -> true draws the mark in red (optional); label: the map's text key
 --   prefix    a short text key naming it on the terminal's mark buttons (optional)
 --   harmless  true: the sensor map never draws it as a warning for the player inside it
@@ -851,6 +1027,9 @@ end
 
 -- ---------------------------------------------------------------- 40mm
 local gun = { hold = false, nextBurstMs = 0, target = nil, roundsOnTarget = 0, doomed = {}, spoke = false, dry = false }
+-- the gunner seat (Skyhammer_Gunner): manned, the 40mm's own fire waits; the 105's reload is
+-- kept with its sortie, so leaving and re-entering the seat never reloads it
+local seat = { manned = false, sortie = nil, heReadyMs = 0, ready = {}, reportMs = {} }
 
 -- Crew chatter while the gunship circles (combat clock). It only reports: no shot waits for it.
 -- The idle calls are made only when the radio is free, so each plays at once and never stands
@@ -880,6 +1059,7 @@ local function killCount() return kills end
 local function killCall(craft, before)
     local set = KILLCALL[craft]
     local n = kills - (before or kills)
+    if craft == "ac130" and n > 0 and S.GunnerManned() then S.GunnerHitmarker() end
     if not set or n <= 0 or not S.RadioIdle() then return end
     local sortie = S.Sortie(craft)
     local c = killCalls[craft]
@@ -897,7 +1077,9 @@ end
 
 local function gunCanShoot(z, p)
     if not alive(z) or gun.doomed[z] or friendly(z) then return false end
-    if math.floor(z:getZ()) ~= math.floor(p:getZ()) then return false end
+    -- (2026-10-22) infected on the player's floor or below: from an upper floor or a helicopter the
+    -- guns still reach the ground; never one above the player
+    if math.floor(z:getZ()) > math.floor(p:getZ()) then return false end
     local d = dist(z:getX(), z:getY(), p:getX(), p:getY())
     if d < 1 or d > S.opt("gunRange2") then return false end
     return outdoors(z:getCurrentSquare()), d
@@ -958,12 +1140,15 @@ local function incomingSound(name)
     return soundDefined(name) and name or "SH_Incoming"
 end
 -- the reload: for this player only, not in 3D, at the radio's volume. One at a time: a round fired
--- while the last reload still plays adds none.
-local RELOAD = { he = { sound = "SH_Reload_105", ms = 1000, delayMs = 250 } }
+-- while the last reload still plays adds none. (2026-10-24, the user) In the gunner seat it is
+-- louder: SH_Reload_105_Gunner, the same take at twice the volume (the usual one without it).
+local RELOAD = { he = { sound = "SH_Reload_105", seat = "SH_Reload_105_Gunner", ms = 1000, delayMs = 250 } }
 local reloadUntil = {}
-local function reloadSound(kind)
+local function reloadSound(kind, inSeat)
     local r = RELOAD[kind]
-    if not r or not soundDefined(r.sound) then return end
+    if not r then return end
+    local name = inSeat and r.seat and soundDefined(r.seat) and r.seat or r.sound
+    if not soundDefined(name) then return end
     local now = S.combatMs()
     if now < (reloadUntil[kind] or 0) then return end
     reloadUntil[kind] = now + r.delayMs + r.ms
@@ -972,7 +1157,7 @@ local function reloadSound(kind)
         pcall(function()
             local e = IsoWorld.instance:getFreeEmitter()
             e:setPos(p:getX(), p:getY(), p:getZ())
-            local id = e:playSoundImpl(r.sound, false, nil)
+            local id = e:playSoundImpl(name, false, nil)
             if not id or id == 0 or id == -1 then return end
             e:setVolume(id, math.max(0, math.min(1, (S.opt("voiceVolume") or 0.8) * 0.8)))
             e:tick(); e:set3D(id, false); e:tick()
@@ -989,20 +1174,26 @@ local function flights()
     d.inflight = d.inflight or {}
     return d.inflight
 end
+-- (the gunner seat draws the shells still in the air: { k, x, y, z, at } by id; read only)
+function S.InFlight() return flights() end
 local IMPACT = {}
 local function land(id)
     local f = flights()[id]
     if not f then return end
     flights()[id] = nil
+    pcall(S.GunnerTracerImpact, id) -- a visual failure must never suppress the real impact
     local ok, err = pcall(IMPACT[f.k], f)
     if not ok then S.log("impact failed: " .. tostring(err)) end
 end
--- kind "he" or "bomb"; loud / light: whether this one carries the blast sound / a real light
-local function launch(kind, x, y, z, delayMs, loud, light)
+-- kind "he" or "bomb"; loud / light: whether this one carries the blast sound / a real light;
+-- seat: fired from the gunner seat (it hits friendly NPCs too)
+local function launch(kind, x, y, z, delayMs, loud, light, seat)
     seq = seq + 1
     local id = kind .. "-" .. math.floor(S.combatMs()) .. "-" .. seq
-    flights()[id] = { k = kind, x = x, y = y, z = z, at = S.combatMs() + delayMs, loud = loud == true, light = light == true }
+    flights()[id] = { k = kind, x = x, y = y, z = z, at = S.combatMs() + delayMs, loud = loud == true, light = light == true,
+        seat = seat == true or nil }
     after(delayMs, function() land(id) end)
+    return id
 end
 -- The ground shock reaching this player: their own view shakes (the Java part's rumble, in the 3D
 -- view and the plain one; nothing in the Vanilla edition), full strength within `near` tiles and
@@ -1042,12 +1233,12 @@ local function shake(x, y, kind)
     pcall(b.rumble, 0, amp, duration)
 end
 IMPACT.he = function(f)
-    soundAt(square(f.x, f.y, f.z), "SH_105_Impact", 380)
+    if not S.GunnerImpactAudio("he", f.x, f.y, f.z) then soundAt(square(f.x, f.y, f.z), "SH_105_Impact", 380) end
     boom(f.x, f.y, f.z, 4.5, false, VIS.he, false, false, true)
     shake(f.x, f.y, "he")
     attract(f.x, f.y, f.z, HE.noise)
     local before = killCount()
-    blast(f.x, f.y, f.z, HE.bands, 3, "he")
+    blast(f.x, f.y, f.z, HE.bands, 3, "he", nil, f.seat == true)
     killCall("ac130", before)
     scorch(f.x, f.y, f.z, 1.0, 2.2)
     wreck(f.x, f.y, f.z, "he")
@@ -1062,6 +1253,9 @@ IMPACT.bomb = function(f)
     scorch(f.x, f.y, f.z, 2.5, 4.5)
     wreck(f.x, f.y, f.z, "bomb")
 end
+-- another file's own kind of round (the F-22 flight's bombs, Skyhammer_F22): launched with
+-- S.Kit.launch(kind, ...), kept in the save, and landed by fn(f) like the two above
+function S.RegisterImpact(kind, fn) IMPACT[kind] = fn end
 local function restoreFlights()
     local n, now = 0, S.combatMs()
     for id, f in pairs(flights()) do
@@ -1080,12 +1274,12 @@ local function gunEmptied()
     if aiming and aiming.kind == "gunaim" then aiming = nil end
     after(2000, function()
         S.Say("GunDry")
-        if S.CraftDry("ac130") then S.Release("ac130"); S.Say("GunRtbAck") end
+        if S.CraftDry("ac130") and S.Release("ac130") then S.Say("GunRtbAck") end
     end, "ac130")
 end
 -- one 40mm round: aimed and spent as it leaves the gun (a round never fired costs nothing)
 local function gunRound()
-    if gun.hold then return end
+    if gun.hold or seat.manned then return end
     local p = getSpecificPlayer(0); if not p then return end
     local z = gunPickTarget(p)
     if not z or not S.Spend("gun", 1) then return end
@@ -1133,15 +1327,22 @@ local function burstCalls(now, t)
 end
 
 local function gunTick(now)
-    if gun.hold or gun.dry or now < gun.nextBurstMs then return end
+    if gun.hold or seat.manned or gun.dry or now < gun.nextBurstMs then return end
+    -- (aggressive fire: only in a wave, and no more than its share of the wave)
+    local aggro = S.Ac130Aggressive()
+    if aggro and not AG.wave(now) then return end
     local p = getSpecificPlayer(0); if not p then return end
     local target = gunPickTarget(p)
     if not target then gun.nextBurstMs = now + 700; return end
-    local rounds = math.min(S.Ammo("gun"), S.roll(GUN.burstMin, GUN.burstMax))
+    local rounds = math.min(S.Ammo("gun"), S.roll(GUN.burstMin, GUN.burstMax),
+        aggro and AG.burstSize("gun", now, (GUN.burstMin + GUN.burstMax) / 2) or 1e9)
     if rounds <= 0 then return end
+    if aggro then AG.used("gun", rounds) end
     gun.doomed = {}
     for k = 0, rounds - 1 do after(k * GUN.spacingMs, gunRound, "ac130") end
-    gun.nextBurstMs = now + (rounds - 1) * GUN.spacingMs + S.opt("gunInterval2") * 1000 * (0.75 + S.frac() * 0.5)
+    local gap = S.Ac130Aggressive() and AG.paceGap("gun", now + (rounds - 1) * GUN.spacingMs, AGGRO.gunGapMs, (GUN.burstMin + GUN.burstMax) / 2)
+        or S.opt("gunInterval2") * 1000 * (0.75 + S.frac() * 0.5)
+    gun.nextBurstMs = now + (rounds - 1) * GUN.spacingMs + gap
     burstCalls(now, target)
 end
 
@@ -1214,7 +1415,7 @@ local function heFire(cx, cy, z, n, mission)
         if heBusy == mission then heBusy = false end
         if S.Ammo("he") > 0 then S.Say("HeDone", nil, { craft = "ac130" }); return end
         S.Say("HeDry")
-        if S.CraftDry("ac130") then S.Release("ac130"); S.Say("GunRtbAck") end
+        if S.CraftDry("ac130") and S.Release("ac130") then S.Say("GunRtbAck") end
     end, "ac130")
 end
 
@@ -1225,7 +1426,7 @@ local function heCommit(sq)
     missionSeq = missionSeq + 1
     heBusy = missionSeq
     local x, y, z = sq:getX() + 0.5, sq:getY() + 0.5, sq:getZ()
-    local n = math.min(math.max(1, math.floor(S.opt("heRounds") or HE.rounds)), S.Ammo("he"))
+    local n = math.min(HE.rounds, S.Ammo("he"))
     S.log("105 mission " .. missionSeq .. " at " .. math.floor(x) .. "," .. math.floor(y) .. ", " .. n .. " rounds")
     heFire(x, y, z, n, missionSeq)
     pvpWarn(x, y, z, HE.ringMax + HE.bands[#HE.bands][1])
@@ -1252,20 +1453,10 @@ local function aimedImpact(x, y, z)
     hurtPlayer(x, y, z, { { GUN.splashRadius, GUN.splashChance } }, { 20 })
     pvpBlast(x, y, z, "gunaim")
 end
--- one click: false keeps the aiming open for the next one
-local function gunAimCommit(sq)
-    if S.Phase("gun") ~= "ON_STATION" or S.Ammo("gun") <= 0 then
-        S.Say("NotReady"); aiming = nil; return true
-    end
-    local now = S.combatMs()
-    if gunAimMs and now - gunAimMs < GUNAIM.gapMs then return false end
-    if not outdoors(sq) then S.Say("Indoor", nil, { priority = true }); return false end
-    gunAimMs = now
-    -- the gunner answers the click (the first of a session always, later ones when the radio is free)
-    if aiming and (not aiming.answered or S.RadioIdle()) then
-        aiming.answered = true
-        S.Say("GunAimShot", nil, { craft = "ac130", priority = true })
-    end
+-- one burst at a square (the aimed 40mm): each round spent as it leaves the
+-- gun, so a burst cut short by the sortie's end costs only what was fired
+local function gunAimBurst(sq)
+    gunAimMs = S.combatMs()
     local x, y, z = sq:getX() + 0.5, sq:getY() + 0.5, sq:getZ()
     for k = 0, GUNAIM.rounds - 1 do
         after(k * GUNAIM.spacingMs, function()
@@ -1279,7 +1470,453 @@ local function gunAimCommit(sq)
             gunEmptied()
         end, "ac130")
     end
+end
+-- one click: false keeps the aiming open for the next one
+local function gunAimCommit(sq)
+    if S.Phase("gun") ~= "ON_STATION" or S.Ammo("gun") <= 0 then
+        S.Say("NotReady"); aiming = nil; return true
+    end
+    local now = S.combatMs()
+    if gunAimMs and now - gunAimMs < GUNAIM.gapMs then return false end
+    if not outdoors(sq) then S.Say("Indoor", nil, { priority = true }); return false end
+    -- the gunner answers the click (the first of a session always, later ones when the radio is free)
+    if aiming and (not aiming.answered or S.RadioIdle()) then
+        aiming.answered = true
+        S.Say("GunAimShot", nil, { craft = "ac130", priority = true })
+    end
+    gunAimBurst(sq)
     return false
+end
+
+-- ---------------------------------------------------------------- the gunner seat
+-- (2026-10-24, the user; source/ac130_gunner_design.md) The AC-130's guns fired by hand from the
+-- gunner seat (Skyhammer_Gunner): the 40mm and the 25mm a round at a time while held (SEATGUNS), the 105 one shell a
+-- click, fired at once (no mission lead), then its reload. They spend the sortie's own rounds and
+-- land, kill, burn and reach players (PvP) exactly as the aimed 40mm and a 105 mission do, so
+-- online they go through the server the same way. A point under a roof (the 105: unless "indoor
+-- hits" is on) or on ground not loaded is refused without spending and without a radio line: the
+-- seat shows why.
+local function seatSortie()
+    local s = S.Sortie("ac130")
+    if seat.sortie ~= s then seat.sortie, seat.heReadyMs, seat.ready, seat.reportMs = s, 0, {}, {} end
+end
+-- (2026-10-24, the user: "held, like Call of Duty: du-du-du-du", and "check the hit area") the
+-- seat's 40mm streams a round every reloadMs while the trigger is held, each one tighter and
+-- deadlier than the aimed 40mm's from the ground: sure within 1.25 tiles, 6 in 10 out to 2.5
+-- (2026-10-25, the user: "a little wider"; was 1 / 2)
+local SEATGUN = { reloadMs = 333, flightMs = 250, scatter = 0.5, bands = { { 1.25, 100 }, { 2.5, 60 } },
+    report = "SH_40mm_Report", impact = "SH_40mm_Impact", vis = VIS.gun, hurt = 20 }
+-- (2026-10-24, the user: "add the 25mm too") the 25mm Gatling, the seat's alone: about fourteen rounds a
+-- second, each wider and lighter than a 40mm round. (2026-10-31, the user) It lands without a sound:
+-- the impacts buried the gun.
+local SEATGUN25 = { reloadMs = 70, flightMs = 150, scatter = 1.2, bands = { { 0.7, 80 }, { 1.3, 30 } },
+    report = "SH_25mm_Rotary_Local", reportEveryMs = 1600,
+    vis = VIS.cannon, hurt = 10 }
+local SEATGUNS = { gun = SEATGUN, gun25 = SEATGUN25 }
+local SEAT_HE_FLIGHT_MS = 2200 -- reference 23.6s launch -> ~25.8s blast; automatic missions keep HE.flightMs
+function S.SetGunnerManned(on)
+    seat.manned = on == true
+    if not seat.manned then S.StopGunner25Audio(true); S.StopGunnerShotAudio(); S.ClearGunnerTracers() end
+end
+function S.GunnerManned() return seat.manned end
+-- ms until the weapon ("gun" | "he" | "gun25") can fire again, 0 when ready; and its whole reload
+function S.GunnerReload(weapon)
+    seatSortie()
+    local now = S.combatMs()
+    if weapon == "he" then return math.max(0, seat.heReadyMs - now) end
+    return math.max(0, (seat.ready[weapon == "gun25" and "gun25" or "gun"] or 0) - now)
+end
+function S.GunnerReloadTotal(weapon)
+    if weapon == "he" then return HE.spacingMs end
+    return (SEATGUNS[weapon] or SEATGUN).reloadMs
+end
+-- how far the rounds of each weapon scatter and how far beyond that their blast still reaches
+function S.GunnerSpread(weapon)
+    if weapon == "he" then return 0.5, HE.bands[#HE.bands][1] end
+    local g = SEATGUNS[weapon] or SEATGUN
+    return g.scatter, g.bands[#g.bands][1]
+end
+function S.HeRounds() return HE.rounds end
+
+local function seatShell(sq)
+    if not S.Spend("he", 1) then return false end
+    seat.heReadyMs = S.combatMs() + HE.spacingMs
+    local x, y, z = sq:getX() + 0.5, sq:getY() + 0.5, sq:getZ()
+    local p = getSpecificPlayer(0)
+    local reportPlayed = not online() and S.GunnerShotAudio("he")
+    if not reportPlayed and p then soundAt(gunshipSquare(p), "SH_105_Report", 650) end
+    muzzleFlash()
+    if not reportPlayed then reloadSound("he", true) end
+    -- (players near the point are warned as for a mission, the moment it is fired)
+    pvpWarn(x, y, z, HE.bands[#HE.bands][1])
+    -- as long as WHISTLE_LEAD_MS and ending at the impact
+    if not reportPlayed then
+        local incoming = incomingSound("SH_Incoming_105")
+        after(math.max(0, SEAT_HE_FLIGHT_MS - WHISTLE_LEAD_MS), function() soundAt(square(x, y, z), incoming, 200) end)
+    end
+    local flightId = launch("he", x, y, z, SEAT_HE_FLIGHT_MS, nil, nil, true)
+    S.AddGunnerTracer("he", x, y, z, SEAT_HE_FLIGHT_MS, flightId)
+    -- the last shell gone: the crew says so once it has landed, and the gunship goes home if the
+    -- 40mm is empty too
+    if S.Ammo("he") <= 0 then
+        after(SEAT_HE_FLIGHT_MS + 1500, function()
+            S.Say("HeDry")
+            if S.CraftDry("ac130") and S.Release("ac130") then S.Say("GunRtbAck") end
+        end, "ac130")
+    end
+    return true
+end
+
+local function seatImpact(w, g, x, y, z)
+    if g.impact and not S.GunnerImpactAudio(w, x, y, z) then soundAt(square(x, y, z), g.impact, 200) end
+    if w=="gun25" and S.GunnerManned() then
+        compactSeat25(x,y,z,1.4*g.vis*.62)
+        if online() then send("fx",{x=x,y=y,z=z,b=1.4,nl=true,v=g.vis,li=true}) end
+    else boom(x, y, z, 1.4, true, g.vis) end
+    local before = killCount()
+    -- (2026-10-25, the user) the seat hits friendly NPCs too
+    for _, t in ipairs(zombiesNear(x, y, z, g.bands[#g.bands][1], true)) do
+        if exposed(t.sq) then
+            for _, b in ipairs(g.bands) do
+                if t.d <= b[1] then
+                    if S.chance(b[2]) then takeDown(t.z, t.sq, 2, true) end
+                    break
+                end
+            end
+        end
+    end
+    killCall("ac130", before)
+    hurtPlayer(x, y, z, g.bands, { g.hurt, g.hurt })
+    -- (2026-11-18) under PvP the server keeps count of the 40mm's aimed rounds ("gunaim", 60 a
+    -- sortie, Skyhammer_PvP SORTIES / FIRE) and knows no 25mm: its 600 rounds at 14 a second would
+    -- use up the 40mm's allowance and run past its pace. So the 25mm never reaches other players.
+    if w ~= "gun25" then pvpBlast(x, y, z, "gunaim") end
+end
+-- one round of the 40mm ("gun") or the 25mm ("gun25"), spent as it leaves the gun
+local function seatRound(w, sq)
+    local g = SEATGUNS[w]
+    if not S.Spend(w, 1) then return false end
+    local now = S.combatMs()
+    -- Keep phase across render frames; do not let every 70ms interval round up to 90/100ms.
+    local ready = seat.ready[w]
+    if ready and now >= ready and now - ready < g.reloadMs then seat.ready[w] = ready + g.reloadMs
+    else seat.ready[w] = now + g.reloadMs end
+    local x, y, z = sq:getX() + 0.5, sq:getY() + 0.5, sq:getZ()
+    local p = getSpecificPlayer(0)
+    if w == "gun25" and not online() then
+        S.Gunner25AudioPulse()
+    elseif w == "gun" and not online() and S.GunnerManned() then
+        if not S.GunnerShotAudio("gun") and p then soundAt(gunshipSquare(p), g.report, 420) end
+    elseif p and (not g.reportEveryMs or now - (seat.reportMs[w] or -1e9) >= g.reportEveryMs) then
+        seat.reportMs[w] = now
+        soundAt(gunshipSquare(p), g.report, 420)
+    end
+    muzzleFlash()
+    local a, r = S.frac() * math.pi * 2, S.frac() * g.scatter
+    local ix, iy = x + math.cos(a) * r, y + math.sin(a) * r
+    -- Don't let scatter turn a roof-edge hit into an explosion floating beside it.
+    if z>0 and not S.GunnerSkySurface(square(ix,iy,z)) then ix,iy=x,y end
+    local tracer = S.AddGunnerTracer(w, ix, iy, z, g.flightMs)
+    after(g.flightMs, function()
+        pcall(S.GunnerTracerImpact, tracer) -- visuals cannot cancel damage/audio
+        seatImpact(w, g, ix, iy, z)
+    end, "ac130")
+    if w == "gun" then gunEmptied() elseif w == "gun25" then AG.gun25Emptied() end
+    return true
+end
+
+-- A real roof/floor tile, including the engine's sloping roof pieces.
+function S.GunnerSurface(sq)
+    if not sq then return false end
+    local ok,yes=pcall(function()return sq:getFloor()~=nil or sq:HasSlopedRoof() or sq:hasRainBlockingTile()end)
+    return ok and yes==true
+end
+local function gunnerColumnTop(sq)
+    local chunk=sq:getChunk()
+    return chunk and chunk:getMaxLevel()
+end
+function S.GunnerOpenSky(sq)
+    if not sq then return false end
+    -- Inspect actual surfaces, not room metadata: a demolished roof can leave
+    -- its old room ID, and haveRoofFull also looks below upper-floor targets.
+    local x,y,base=sq:getX(),sq:getY(),sq:getZ()
+    local top=31
+    -- IsoChunk updates its upper bound when squares are added. Above it every
+    -- square is nil. Read it live (no stale roof cache); older APIs fall back.
+    local ok,level=pcall(gunnerColumnTop,sq)
+    if ok and type(level)=="number" and level>=base and level<=31 and level==math.floor(level) then
+        top=level
+    end
+    for z=base+1,top do
+        if S.GunnerSurface(square(x,y,z)) then return false end
+    end
+    return true
+end
+function S.GunnerSkySurface(sq)
+    return S.GunnerSurface(sq) and S.GunnerOpenSky(sq)
+end
+-- fire weapon "gun" | "he" | "gun25" at the selected world point and floor: true, or false
+-- and why ("notready", "empty", "reload", "busy", "far", "roof")
+function S.GunnerFire(weapon, wx, wy, wz)
+    seatSortie()
+    local w = (weapon == "he" or weapon == "gun25") and weapon or "gun"
+    if S.Phase(w) ~= "ON_STATION" then return false, "notready" end
+    if S.Ammo(w) <= 0 then return false, "empty" end
+    if S.GunnerReload(w) > 0 then return false, "reload" end
+    -- (a 105 mission marked before the seat was taken is still firing)
+    if w == "he" and heBusy then return false, "busy" end
+    local z=wz or 0
+    if type(z)~="number" or z~=z or z<0 or z>31 then return false,"far" end
+    z=math.floor(z)
+    local sq = square(wx, wy, z)
+    if not sq then return false, "far" end
+    local roof=S.GunnerSkySurface(sq)
+    if z>0 and not roof then return false,"roof" end
+    if w == "he" then
+        if not roof and not outdoors(sq) and not S.opt("indoorHits") then return false, "roof" end
+        return seatShell(sq), nil
+    end
+    if not roof and not outdoors(sq) then return false, "roof" end
+    return seatRound(w, sq), nil
+end
+
+-- ---------------------------------------------------------------- aggressive fire
+-- (2026-11-14, the user: Mod Options "AC-130 aggressive fire"; "while the AC-130 is up, everything
+-- around it is flattened - it is the Angel of Death"; "no line at every shot, now and then for a
+-- big one like the 105") On, the gunship works all three guns on its own while it circles, from
+-- the rounds the gunner seat shows: the 40mm in quick bursts (gunTick, AGGRO.gunGapMs), the 25mm
+-- in sweeping bursts (each round aimed as it leaves the gun, AGGRO.g25.perTarget rounds a body,
+-- then the nearest next one; not the 40mm's own target while there is another), the 105 a shell
+-- every AGGRO.he.gapMs at the biggest group in the open at least AGGRO.he.minDist from the player.
+-- As under the 40mm's own fire, friendly NPCs are never aimed at or hit, and the player only with
+-- "protect the player" off. All of it waits while the gunner seat is manned or the crew holds
+-- fire, the 105 also while a 105 mission is in hand. The 25mm is then a weapon like the others
+-- (Core S.CraftDry): the gunship goes home once all three are empty. Off: none of this runs.
+-- The guns fire in waves (AGGRO.wave, AG.wave): all three together for a while, then quiet.
+-- AG.st: this sortie's state (made anew for each sortie by AG.sortie, on each arrival and at each
+-- game start: a save counts its sorties from 1, so the number alone can repeat in one run)
+function AG.sortie()
+    local s = S.Sortie("ac130")
+    if AG.st.sortie == s then return AG.st end
+    AG.st = { sortie = s, g25NextMs = 0, g25Target = nil, g25OnTarget = 0, g25Done = {}, g25ReportMs = -1e9,
+        g25Dry = false, heNextMs = 0, heLineMs = nil,
+        fireEndMs = -1e9, restEndMs = -1e9, share = { gun = 0, he = 0, gun25 = 0 },
+        frac = { gun = 0.5, he = 0.5, gun25 = 0.5 } }
+    return AG.st
+end
+-- on arriving the guns open up a moment after the crew reports on station (as the 40mm's 2.5 s)
+function AG.arrive(now)
+    AG.st = { sortie = nil }
+    local st = AG.sortie()
+    st.restEndMs = now + AGGRO.arriveMs
+end
+-- in a wave now? A new one starts once the last one's quiet is over (or at once, the first): the
+-- waves its time on station still holds share what each gun has left, its whole rounds a wave
+-- (the fraction carried on, so a gun with fewer rounds than waves fires in every few)
+function AG.wave(now)
+    local st = AG.sortie()
+    if now < st.restEndMs then return now < st.fireEndMs end
+    local w = AGGRO.wave
+    local cycle = w.fireMs + w.restMs
+    local waves = math.max(1, math.floor((S.SecondsLeft("ac130") * 1000 - w.endSlackMs + w.restMs) / cycle))
+    for _, k in ipairs({ "gun", "he", "gun25" }) do
+        local share = st.frac[k] + S.Ammo(k) / waves
+        st.share[k], st.frac[k] = math.floor(share), share - math.floor(share)
+    end
+    st.fireEndMs, st.restEndMs = now + w.fireMs, now + cycle
+    st.g25NextMs, st.heNextMs = now, now
+    -- (the wave's 105s spread over it from the share it starts with, AGGRO.he.gapMs apart at most)
+    st.heGapMs = math.min(AGGRO.he.gapMs, w.fireMs / math.max(1, st.share.he))
+    gun.nextBurstMs = math.min(gun.nextBurstMs, now)
+    return true
+end
+-- rounds gun k may still fire this wave; n of them fired (scheduled)
+function AG.allowed(k) return AG.st.share[k] or 0 end
+function AG.used(k, n) AG.st.share[k] = (AG.st.share[k] or 0) - n end
+-- (2026-11-15, the user: "15 s firing") each gun's share is spread over the whole wave: before,
+-- each fired it at its shortest gap and fell silent well before the wave was over. The bursts
+-- still to come this wave from `from`: about avg rounds each, but at least one every
+-- AGGRO.wave.quietMs, so no gun is quiet for long inside a wave (smaller bursts then)
+-- (never more bursts than rounds left: a gun short of rounds fires them one at a time, spread out)
+function AG.bursts(k, from, avg)
+    local left = AG.allowed(k)
+    return math.max(1, math.min(left, math.max(math.ceil(left / avg),
+        math.ceil((AG.st.fireEndMs - from) / AGGRO.wave.quietMs))))
+end
+-- the size of gun k's burst starting now: the share left over the bursts left, rounded down so
+-- the rounds are not spent early (at least 1 while any is left, 0 once the share is spent)
+function AG.burstSize(k, now, avg)
+    if AG.allowed(k) <= 0 then return 0 end
+    return math.max(1, math.floor(AG.allowed(k) / AG.bursts(k, now, avg)))
+end
+-- the wait after a burst of gun k that ends at `from`: the bursts left, evenly over the rest of the
+-- wave (the last one just before it ends), never closer than minGap
+function AG.paceGap(k, from, minGap, avg)
+    if AG.allowed(k) <= 0 then return minGap end
+    return math.max(minGap, (AG.st.fireEndMs - from) / (AG.bursts(k, from, avg) + 0.2))
+end
+-- the gunship goes home once every gun is empty (said once: the guns can run dry together)
+function AG.homeIfDry()
+    if S.CraftDry("ac130") and S.Release("ac130") then S.Say("GunRtbAck") end
+end
+function AG.gun25Emptied()
+    if not S.Ac130Aggressive() or S.Ammo("gun25") > 0 then return end
+    local st = AG.sortie()
+    if st.g25Dry then return end
+    st.g25Dry = true
+    after(2000, AG.homeIfDry, "ac130")
+end
+
+-- the 25mm's body: the one it is on until perTarget rounds have gone, then the nearest in the open
+-- not yet worked this burst (the 40mm's own target only when there is no other)
+function AG.g25Pick(p)
+    local st = AG.st
+    local t = st.g25Target
+    if t and st.g25OnTarget < AGGRO.g25.perTarget and gunCanShoot(t, p) then return t end
+    if t then st.g25Done[t] = true end
+    st.g25Target, st.g25OnTarget = nil, 0
+    local px, py = p:getX(), p:getY()
+    local range = S.opt("gunRange2")
+    local list = getCell():getZombieList()
+    local best, bestD2, shared, sharedD2 = nil, range * range, nil, range * range
+    for i = 0, list:size() - 1 do
+        local z = list:get(i)
+        if not st.g25Done[z] then
+            local dx, dy = z:getX() - px, z:getY() - py
+            local d2 = dx * dx + dy * dy
+            if z == gun.target then
+                if d2 >= 1 and d2 < sharedD2 and gunCanShoot(z, p) then shared, sharedD2 = z, d2 end
+            elseif d2 >= 1 and d2 < bestD2 and gunCanShoot(z, p) then
+                best, bestD2 = z, d2
+            end
+        end
+    end
+    st.g25Target = best or shared
+    return st.g25Target
+end
+-- a 25mm round lands as the seat's do (its bands, no impact sound, the seat's small dust pool),
+-- but never on a friendly NPC
+function AG.g25Impact(x, y, z)
+    local g = SEATGUN25
+    compactSeat25(x, y, z, 1.4 * g.vis * 0.62)
+    if online() then send("fx", { x = x, y = y, z = z, b = 1.4, nl = true, v = g.vis, li = true }) end
+    local before = killCount()
+    for _, t in ipairs(zombiesNear(x, y, z, g.bands[#g.bands][1])) do
+        if exposed(t.sq) then
+            for _, b in ipairs(g.bands) do
+                if t.d <= b[1] then
+                    if S.chance(b[2]) then takeDown(t.z, t.sq, 2) end
+                    break
+                end
+            end
+        end
+    end
+    killCall("ac130", before)
+    hurtPlayer(x, y, z, g.bands, { g.hurt, g.hurt })
+end
+-- one 25mm round of a burst: aimed and spent as it leaves the gun; the gun's sound once a stream
+function AG.g25Round()
+    if gun.hold or seat.manned or not S.Ac130Aggressive() then return end
+    local p = getSpecificPlayer(0); if not p then return end
+    local st = AG.sortie()
+    local t = AG.g25Pick(p)
+    if not t or not S.Spend("gun25", 1) then return end
+    st.g25OnTarget = st.g25OnTarget + 1
+    local g, now = SEATGUN25, S.combatMs()
+    if now - st.g25ReportMs >= g.reportEveryMs then
+        st.g25ReportMs = now
+        soundAt(gunshipSquare(p), g.report, 420)
+    end
+    muzzleFlash()
+    local a, r = S.frac() * math.pi * 2, S.frac() * g.scatter
+    local x, y, z = t:getX() + math.cos(a) * r, t:getY() + math.sin(a) * r, math.floor(t:getZ())
+    -- (a round in the air lands even if the gunship leaves, as the 40mm's)
+    after(g.flightMs, function() AG.g25Impact(x, y, z) end)
+    AG.gun25Emptied()
+end
+function AG.g25Tick(now, p)
+    local st = AG.st
+    if now < st.g25NextMs or S.Ammo("gun25") <= 0 or AG.allowed("gun25") <= 0 then return end
+    st.g25Done, st.g25Target, st.g25OnTarget = {}, nil, 0
+    if not AG.g25Pick(p) then st.g25NextMs = now + AGGRO.g25.waitMs; return end
+    local k = AGGRO.g25
+    local rounds = math.min(S.Ammo("gun25"), S.roll(k.burstMin, k.burstMax), AG.burstSize("gun25", now, (k.burstMin + k.burstMax) / 2))
+    AG.used("gun25", rounds)
+    for i = 0, rounds - 1 do after(i * k.spacingMs, AG.g25Round, "ac130") end
+    local ends = now + (rounds - 1) * k.spacingMs
+    st.g25NextMs = ends + AG.paceGap("gun25", ends, k.gapMs, (k.burstMin + k.burstMax) / 2)
+end
+
+-- the 105's aim: of the infected the 40mm could shoot at, the one with the most others around
+-- it on its floor (then the nearest), at least minDist from the player; none unless that group
+-- holds AGGRO.he.minGroup (itself counted)
+function AG.heGroupPick(p)
+    local px, py = p:getX(), p:getY()
+    local k = AGGRO.he
+    local minD2, range = k.minDist * k.minDist, S.opt("gunRange2")
+    local list = getCell():getZombieList()
+    local cands = {}
+    for i = 0, list:size() - 1 do
+        local z = list:get(i)
+        local dx, dy = z:getX() - px, z:getY() - py
+        local d2 = dx * dx + dy * dy
+        if d2 >= minD2 and d2 <= range * range and gunCanShoot(z, p) then
+            cands[#cands + 1] = { x = z:getX(), y = z:getY(), z = math.floor(z:getZ()), d2 = d2 }
+            if #cands >= k.candidates then break end
+        end
+    end
+    local best, bestN, r2 = nil, -1, k.groupRadius * k.groupRadius
+    for _, c in ipairs(cands) do
+        local n = 0
+        for _, o in ipairs(cands) do
+            if o.z == c.z and (o.x - c.x) ^ 2 + (o.y - c.y) ^ 2 <= r2 then n = n + 1 end
+        end
+        if n > bestN or (n == bestN and c.d2 < best.d2) then best, bestN = c, n end
+    end
+    if bestN < k.minGroup then return nil end
+    return best
+end
+-- one 105 shell on its own, fired as a mission's are (report, reload, whistle, kept in the save)
+function AG.heTick(now, p)
+    local st = AG.st
+    local n = AG.allowed("he")
+    if heBusy or now < st.heNextMs or S.Ammo("he") <= 0 or n < 1 then return end
+    local c = AG.heGroupPick(p)
+    if not c then st.heNextMs = now + AGGRO.he.waitMs; return end
+    if not S.Spend("he", 1) then return end
+    AG.used("he", 1)
+    -- (the wave's first opens it; more in one wave spread over it, AG.wave's heGapMs apart)
+    st.heNextMs = now + (st.heGapMs or AGGRO.he.gapMs)
+    local x, y, z = c.x, c.y, c.z
+    soundAt(gunshipSquare(p), "SH_105_Report", 650)
+    muzzleFlash()
+    reloadSound("he")
+    local incoming = incomingSound("SH_Incoming_105")
+    after(HE.flightMs - WHISTLE_LEAD_MS, function() soundAt(square(x, y, z), incoming, 200) end)
+    launch("he", x, y, z, HE.flightMs)
+    pvpWarn(x, y, z, HE.bands[#HE.bands][1])
+    -- the crew calls the first of a sortie, then one now and then with the radio free
+    if not st.heLineMs or (now - st.heLineMs >= AGGRO.he.lineGapMs and S.RadioIdle()) then
+        st.heLineMs = now
+        S.Say("HeShot", nil, { craft = "ac130", stale = 3000 })
+    end
+    if S.Ammo("he") <= 0 then
+        after(HE.flightMs + 1500, function() S.Say("HeDry"); AG.homeIfDry() end, "ac130")
+    end
+end
+function AG.tick(now)
+    if not S.Ac130Aggressive() then
+        -- switched off while out: the 25mm is a spare again, so empty 40mm and 105 send it home
+        if AG.st.on and AG.st.sortie == S.Sortie("ac130") then AG.st.on = false; AG.homeIfDry() end
+        return
+    end
+    if S.Phase("ac130") ~= "ON_STATION" then return end
+    AG.sortie().on = true      -- (also on hold or with the seat manned: switching off still counts)
+    if gun.hold or seat.manned then return end
+    local p = getSpecificPlayer(0); if not p then return end
+    if not AG.wave(now) then return end
+    AG.g25Tick(now, p)
+    AG.heTick(now, p)
 end
 
 -- ---------------------------------------------------------------- B-2
@@ -1450,6 +2087,9 @@ end
 --   change(craft, "arrived" | "timeout" | "ready"), released(craft), tick(combatMs, dtMs),
 --   gameStart() (after this file's own start)
 S.Hooks = S.Hooks or { change = {}, released = {}, tick = {}, gameStart = {} }
+table.insert(S.Hooks.released, function(craft)
+    if craft == "ac130" then S.StopGunner25Audio(true); S.StopGunnerShotAudio(); S.ClearGunnerTracers() end
+end)
 local function hook(list, ...)
     for _, f in ipairs(S.Hooks[list]) do
         local ok, err = pcall(f, ...)
@@ -1667,32 +2307,17 @@ local function engineLoop(sound, volumeId)
     end
 end
 local engine = { lastMs = nil }
-local engineTick, engineStop = engineLoop("SH_Engine_Loop")
+-- the gunship's engines while it is on station, and once going away when it leaves
+-- (Skyhammer_SeatSounds.txt: SH_AC130_EngineLoop, SH_AC130_EngineDepart)
+local engineTick, engineStop = engineLoop("SH_AC130_EngineLoop")
 local function gunshipEngine(combat, dt)
     local on = S.Phase("ac130") == "ON_STATION"
-    local gain = 1
-    if on then
-        engine.departMs = nil
-    elseif engine.wasStation then
-        engine.departMs = combat
+    if engine.wasStation and not on then
+        engineStop()
+        S.GunshipDepartSound()
     end
     engine.wasStation = on
-    if not on and engine.departMs then
-        local t = math.max(0, (combat - engine.departMs) / 1000)
-        -- Plain view / older Java: the same 18 tiles/s, 12-second departure, with a soft final tail.
-        local r = tonumber(S.opt("visRadius")) or 65
-        local h = tonumber(S.opt("visAltitude")) or 52
-        r, h = math.max(30, math.min(150, r)), math.max(25, math.min(150, h))
-        local tail = math.max(0, math.min(1, (12 - t) / 3))
-        gain = (r*r + h*h) / (r*r + (18*t)^2 + (h+2*t)^2) * tail*tail*(3-2*tail)
-        local b, v, p = SkyhammerAircraft, SkyhammerAircraftVisual, getSpecificPlayer(0)
-        if b and b.ac130DepartureGain and v and v.enabled and S.opt("aircraftVisual") and not S.Multiplayer() and p then
-            local ok, value = pcall(b.ac130DepartureGain, p:getX(), p:getY(), p:getZ())
-            if ok and type(value) == "number" and value == value and value >= 0 and value <= 1 then gain = value end
-        end
-        if gain <= 0 then engine.departMs = nil end
-    end
-    engineTick(on or engine.departMs ~= nil, dt, on and 1 or (engine.departMs and gain or 0), true)
+    engineTick(on, dt, 1, true)
 end
 
 -- ---------------------------------------------------------------- gunship chatter
@@ -1781,14 +2406,18 @@ end
 -- server takes no more than 128 from one, Skyhammer_Server MAX_IDS); the ones it has had for a
 -- while are forgotten (dead by now, or refused and fair game again)
 local KILL_CHUNK = 100
-local function sendKills()
-    local n = #killBatch
+local function sendBatch(batch, seat)
+    local n = #batch
     for first = 1, n, KILL_CHUNK do
         local ids = {}
-        for i = first, math.min(n, first + KILL_CHUNK - 1) do ids[#ids + 1] = killBatch[i] end
-        send("kill", { ids = ids })
+        for i = first, math.min(n, first + KILL_CHUNK - 1) do ids[#ids + 1] = batch[i] end
+        send("kill", { ids = ids, seat = seat })
     end
-    if n > 0 then killBatch = {} end
+    return n > 0
+end
+local function sendKills()
+    if sendBatch(killBatch) then killBatch = {} end
+    if sendBatch(seatKillBatch, true) then seatKillBatch = {} end
 end
 local function forgetDoomed(now)
     for z, upTo in pairs(doomedOnline) do
@@ -1825,6 +2454,7 @@ local function onTick()
             if craft == "ac130" then
                 gun.nextBurstMs = combat + 2500
                 gun.chat.nextMs, gun.chat.lastShotMs = combat + CHAT.firstMs, combat
+                AG.arrive(combat)
             end
             -- a short flight in can beat its own call exchange: what of it is not on the air yet is
             -- overtaken by the arrival
@@ -1836,6 +2466,7 @@ local function onTick()
         if change then hook("change", craft, change) end
     end
     if S.Phase("gun") == "ON_STATION" and S.Ammo("gun") > 0 then gunTick(combat) end
+    AG.tick(combat)
     gunChatter(combat)
     local dt = math.min(500, now - (engine.lastMs or now))
     gunshipEngine(combat, dt)
@@ -1845,7 +2476,7 @@ end
 
 -- what Skyhammer_Escort (the Apache and the ground team) builds on
 S.Kit = {
-    after = after, square = square, outdoors = outdoors, alive = alive, dist = dist,
+    after = after, square = square, outdoors = outdoors, alive = alive, dist = dist, launch = launch,
     soundAt = soundAt, attract = attract, takeDown = takeDown, vaporize = vaporize, zombiesNear = zombiesNear,
     exposed = exposed, hurtPlayer = hurtPlayer, blast = blast, scorch = scorch, boom = boom, fx = fx,
     wreck = wreck, wreckLine = wreckLine, killCount = killCount, killCall = killCall,
@@ -1910,7 +2541,7 @@ local function onShot(p, weapon)
 end
 
 local INBOUND_TEXT = { apache = "IGUI_SH_PvPInbound_apache", ac130 = "IGUI_SH_PvPInbound_ac130", b2 = "IGUI_SH_PvPInbound_b2",
-    a10 = "IGUI_SH_PvPInbound_a10" }
+    a10 = "IGUI_SH_PvPInbound_a10", f22 = "IGUI_SH_PvPInbound_f22" }
 local function halo(p, key, good, ...)
     if not HaloTextHelper or p:isDead() then return end
     local text = getText(key, ...)
@@ -2045,13 +2676,15 @@ Events.OnKeyPressed.Add(onKey)
 Events.OnPreUIDraw.Add(drawAim)
 Events.OnPreUIDraw.Add(drawEffects)
 Events.OnGameStart.Add(function()
+    AG.st = { sortie = nil }          -- (the last game's aggressive fire, see AG.sortie)
     dying, dyingHead = {}, 1          -- (the kill queue holds the last world's infected)
+    pendingDeaths, lastKillError = {}, -10000
     stopFlyover()
     engineStop(); engine = { lastMs = nil }
     bombPulses = {}
     pending, effects, aiming = {}, {}, nil
     SkyhammerCraters.reset()
-    doomedOnline, killBatch = {}, {}
+    doomedOnline, killBatch, seatKillBatch = {}, {}, {}
     heBusy, strike = false, false
     resetGun()         -- (after the combat clock is back: the chatter waits from now)
     gun.hold = S.SavedHold("ac130")

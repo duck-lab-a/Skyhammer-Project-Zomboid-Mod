@@ -1,0 +1,96 @@
+/* (2026-10-24, the user) The AC-130 gunner seat's and the gunship's own sounds: one WAV a slot in
+   media/sound/skyhammer_seat (mono 44.1 kHz 16-bit), replaced there by name. Kept apart from
+   Skyhammer_Sounds.txt, which source/build.js writes; source/make_seat_placeholders.py fills any
+   slot still empty from Skyhammer's other sounds. Played by Skyhammer_SeatShotAudio (the seat:
+   2D, the impacts at their point) and Skyhammer_Ops (the engines, 2D). */
+module Base
+{
+    sound SH_Seat_Fire25
+    {
+        category = World,
+        loop = true,
+        is3D = false,
+        clip { file = media/sound/skyhammer_seat/sh_seat_25mm_fire_loop.wav, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SH_Seat_Tail25
+    {
+        category = World,
+        clip { file = media/sound/skyhammer_seat/sh_seat_25mm_tail.wav, distanceMin = 20, distanceMax = 600, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SH_Seat_Shot40
+    {
+        category = World,
+        clip { file = media/sound/skyhammer_seat/sh_seat_40mm_fire.wav, distanceMin = 20, distanceMax = 600, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SH_Seat_Shot105
+    {
+        category = World,
+        clip { file = media/sound/skyhammer_seat/sh_seat_105mm_fire.wav, distanceMin = 20, distanceMax = 600, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SH_Seat_Impact40
+    {
+        category = World,
+        clip { file = media/sound/skyhammer_seat/sh_seat_40mm_impact_1.wav, distanceMin = 20, distanceMax = 700, reverbFactor = 0, volume = 1.0, }
+        clip { file = media/sound/skyhammer_seat/sh_seat_40mm_impact_2.wav, distanceMin = 20, distanceMax = 700, reverbFactor = 0, volume = 1.0, }
+        clip { file = media/sound/skyhammer_seat/sh_seat_40mm_impact_3.wav, distanceMin = 20, distanceMax = 700, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SH_Seat_Impact105
+    {
+        category = World,
+        clip { file = media/sound/skyhammer_seat/sh_seat_105mm_impact_1.wav, distanceMin = 20, distanceMax = 700, reverbFactor = 0, volume = 1.0, }
+        clip { file = media/sound/skyhammer_seat/sh_seat_105mm_impact_2.wav, distanceMin = 20, distanceMax = 700, reverbFactor = 0, volume = 1.0, }
+        clip { file = media/sound/skyhammer_seat/sh_seat_105mm_impact_3.wav, distanceMin = 20, distanceMax = 700, reverbFactor = 0, volume = 1.0, }
+        clip { file = media/sound/skyhammer_seat/sh_seat_105mm_impact_4.wav, distanceMin = 20, distanceMax = 700, reverbFactor = 0, volume = 1.0, }
+        clip { file = media/sound/skyhammer_seat/sh_seat_105mm_impact_5.wav, distanceMin = 20, distanceMax = 700, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SH_Seat_Reload40
+    {
+        category = World,
+        clip { file = media/sound/skyhammer_seat/sh_seat_40mm_reload.wav, distanceMin = 20, distanceMax = 600, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SH_Seat_Reload105
+    {
+        category = World,
+        clip { file = media/sound/skyhammer_seat/sh_seat_105mm_reload.wav, distanceMin = 20, distanceMax = 600, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SH_Seat_Hitmarker
+    {
+        category = World,
+        clip { file = media/sound/skyhammer_seat/sh_seat_hitmarker.wav, distanceMin = 20, distanceMax = 600, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SH_Seat_Entry
+    {
+        category = World,
+        clip { file = media/sound/skyhammer_seat/sh_seat_entry.wav, distanceMin = 30, distanceMax = 2000, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SH_Seat_EntryNight
+    {
+        category = World,
+        clip { file = media/sound/skyhammer_seat/sh_seat_entry_night.wav, distanceMin = 30, distanceMax = 2000, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SH_AC130_EngineLoop
+    {
+        loop = true,
+        category = World,
+        clip { file = media/sound/skyhammer_seat/sh_ac130_engine_loop.wav, distanceMin = 30, distanceMax = 2000, reverbFactor = 0, volume = 0.7, }
+    }
+    sound SH_AC130_EngineDepart
+    {
+        category = World,
+        clip { file = media/sound/skyhammer_seat/sh_ac130_engine_depart.wav, distanceMin = 30, distanceMax = 2000, reverbFactor = 0, volume = 0.7, }
+    }
+    sound SH_25mm_Rotary_Local
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer_seat/sh_25mm_rotary_local.wav, distanceMin = 40, distanceMax = 380, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SH_25mm_Rotary_Loop_Local
+    {
+        category = Object,
+        loop = true,
+        is3D = false,
+        clip { file = media/sound/skyhammer_seat/sh_25mm_rotary_loop_local.wav, reverbFactor = 0, volume = 1.0, }
+    }
+}

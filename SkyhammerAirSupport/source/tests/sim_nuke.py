@@ -23,7 +23,7 @@ next = nil
 ENGINE = {}
 for k in ([[addSound getFileReader HaloTextHelper isGamePaused IsoWorld UIFont]]):gmatch("%S+") do ENGINE[k] = true end
 OPTIONAL = {}
-for k in ([[Viewpoint SkyhammerAircraft SkyhammerNukeZones ProjectALife SkyhammerVehicleDamage SkyhammerRadiation]]):gmatch("%S+") do OPTIONAL[k] = true end
+for k in ([[Viewpoint SkyhammerAircraft SkyhammerNukeZones ProjectALife RNPC SkyhammerVehicleDamage SkyhammerRadiation]]):gmatch("%S+") do OPTIONAL[k] = true end
 MISSING = {}
 setmetatable(_G, { __index = function(_, k)
     if OPTIONAL[k] then return nil end
@@ -502,7 +502,10 @@ def radio_world():
         PLAYS, STOPS, STARTED = {}, {}, {}
         local h = 0
         local EMIT = { setPos = function() end, tick = function() end, setVolume = function() end, set3D = function() end,
-            playSound = function(_, snd) h = h + 1; PLAYS[#PLAYS + 1] = { snd = snd, h = h }; return h end,
+            -- (2026-10-25) the voice is the player's alone: the local playSoundImpl; the emitter's
+            -- networked playSound would be heard by the players around
+            playSoundImpl = function(_, snd) h = h + 1; PLAYS[#PLAYS + 1] = { snd = snd, h = h }; return h end,
+            playSound = function() error('networked playSound for the radio voice') end,
             stopSound = function(_, id) STOPS[#STOPS + 1] = id end }
         IsoWorld = { instance = { getFreeEmitter = function() return EMIT end } }
         local gt = getText

@@ -3,13 +3,14 @@
 -- they do to the shared world comes here as client commands (module "SkyhammerAirSupport"):
 --   kill    { ids }              the infected a blast or a round brought down: online only the
 --                                server can kill a zombie (it then turns it into a corpse for
---                                every player); the sender is told how many it killed ("kills")
+--                                every player); the sender is told how many it killed ("kills").
+--                                Friendly NPCs are spared unless `seat` (the gunner seat's rounds)
 --   noise   { x, y, z, r }       the noise the infected hear from a blast
 --   scorch  { x, y, z, core, edge }  a crater (Skyhammer_Craters), burnt for everyone
 --   fx      { x, y, z, b | s }   a blast (b: its size, v: drawn bigger) or a sound (s, r) passed on to the other
 --                                players near it, who see and hear it in their own view
---   wreck   { x, y, z, k [, x2, y2] }  the vehicles a blast of weapon k ("he", "bomb"; "a10": its
---                                line of fire to x2, y2) damaged (Skyhammer_VehicleDamage), here
+--   wreck   { x, y, z, k [, x2, y2] }  the vehicles a blast of weapon k ("he", "bomb", "raid" (the
+--                                F-22's); "a10": its line of fire to x2, y2) damaged (Skyhammer_VehicleDamage), here
 --                                so every player sees the same; only with the sandbox's
 --                                VehicleDamage (the nuke's are done by its own command)
 --   relay   { x, y, z }          bring the Haven relay at a dish online (the unlock quest,
@@ -47,6 +48,7 @@ require "Skyhammer_Craters"
 require "Skyhammer_Relay"
 require "Skyhammer_PvP"
 require "Skyhammer_NukeZones"
+require "Skyhammer_NukeLevel"
 require "Skyhammer_Radiation"
 require "Skyhammer_VehicleDamage"
 
@@ -106,15 +108,29 @@ local function stayWithMe(z)
     end)
     return ok and f == true
 end
+-- Roaming Survivors (Workshop 3797874733; 2026-11-01, the user): its people are infected bodies
+-- too, marked RNPCHuman (or stamped in mod data before the variable arrives). Friendly unless RS's
+-- own rule makes them hostile to `player`. Any error leaves them as targets, as before.
+local function rsFriendly(z, player)
+    local R = RNPC
+    if type(R) ~= "table" or not player then return false end
+    local ok, f = pcall(function()
+        if z:getVariableBoolean("RNPCHuman") ~= true
+            and not (z:hasModData() and z:getModData().RNPC) then return false end
+        local rec = R.recFor(z)
+        return rec ~= nil and not R.hostileToUser(rec, player)
+    end)
+    return ok and f == true
+end
 -- friendly NPCs (a Bandits companion or friendly clan: brain.hostile == false, the Wraith Team
 -- included; an A-Life person friendly to `player`, the one who called the strike; a Stay With Me
--- companion) are never hit
+-- companion; an RS person not hostile to `player`) are never hit
 local function friendly(z, player)
     local ok, f = pcall(function()
         local brain = z:getModData().brain
         return type(brain) == "table" and brain.hostile == false
     end)
-    return (ok and f == true) or stayWithMe(z) or alifeFriendly(z, player)
+    return (ok and f == true) or stayWithMe(z) or alifeFriendly(z, player) or rsFriendly(z, player)
 end
 
 -- Diagnosis (two reports, 2026-10-08: online, once a second player joined, air support stopped
@@ -148,7 +164,8 @@ local function kill(player, args)
         if z and want[z:getOnlineID()] and not z:isDead() then
             diag.found = diag.found + 1
             if not near(player, z:getX(), z:getY(), REACH) then diag.far = diag.far + 1
-            elseif friendly(z, player) then diag.friendly = diag.friendly + 1
+            -- (2026-10-25, the user) the gunner seat's rounds (seat) hit friendly NPCs too
+            elseif not args.seat and friendly(z, player) then diag.friendly = diag.friendly + 1
             else
                 -- the way the game's own hits finish a zombie on a server: the killer is noted
                 -- (it is attributed the kill), then die() makes the corpse and tells every player
@@ -221,10 +238,11 @@ local function scorch(player, args)
     if not (x and y and z and core and edge) or not near(player, x, y, REACH) then return end
     core, edge = math.max(0, math.min(core, 4)), math.min(edge, 6)
     if edge <= core then return end
-    SkyhammerCraters.add(x, y, z, core, edge)
+    -- (2026-11-25) the player's options: burn (craters; a client from before sends none = on) and fell (trees)
+    SkyhammerCraters.add(x, y, z, core, edge, args.burn ~= false, args.fell == true)
 end
 
-local WRECK_KINDS = { he = true, bomb = true, a10 = true }
+local WRECK_KINDS = { he = true, bomb = true, raid = true, a10 = true }
 local WRECK_LINE = 60      -- the longest gun run line taken (the A-10's is 40 tiles)
 local function wreck(player, args)
     local VD = SkyhammerVehicleDamage
@@ -465,7 +483,7 @@ end
 
 -- support called: the other side within reach hears an enemy aircraft is on its way
 local INBOUND_REACH = 200
-local CRAFTS = { apache = true, ac130 = true, b2 = true, a10 = true }
+local CRAFTS = { apache = true, ac130 = true, b2 = true, a10 = true, f22 = true }
 local function inbound(player, args)
     if not PvP.Live() or not CRAFTS[args.craft] then return end
     local me = PvP.Username(player)
@@ -562,6 +580,7 @@ local NUKE_SHARE = 1500    -- tiles from the blast within which the other player
 local NUKE_PER_TICK = 40   -- the infected dealt with in one tick
 local FAR_CHUNK, FAR_SWEEP_MS = 8, 1500
 local nukeAt = {}          -- username -> when (ms) their last nuke was taken
+local vaporBodies = {}     -- corpse refs, removed after death packets have reached clients
 local nukeJobs = {}        -- { items = { { z, d } } nearest first, i, by = username }
 local nukeFar = {}         -- "cx,cy" -> { x, y, by }: chunks of a blast not loaded at it
 local nukeSweeps = {}      -- { key, due }: loaded far chunks waiting for their sweep
@@ -593,21 +612,49 @@ end
 local function strike(t, by)
     local z = t.z
     local okD, dead = pcall(function() return z:isDead() end)
-    if not okD or dead or friendly(z, by) then return false end
+    if not okD or dead or z:getOnlineID() ~= t.id or friendly(z, by) then return false end
     local band = Zones.Band(t.d)
     if band == "edge" and not roll(Zones.EdgeChance(t.d)) then knockDown(z); return false end
-    if band == "vaporize" then
-        local ok, err = pcall(function() z:removeFromWorld(); z:removeFromSquare() end)
-        if not ok then log("nuke: vaporize failed: " .. tostring(err)) end
-        return ok
-    elseif band then
-        -- (as the kill command does it: the caller noted as the killer, then the corpse)
+    if band then
+        -- Raw removeFromWorld skips IsoZombie.onDied -> ZombieDeath in B42.21.
+        -- Always kill through die(), then remove ONLY the corpse this death created.
+        local sq, before
+        if band == "vaporize" then
+            local okBefore, errBefore = pcall(function()
+                sq = z:getCurrentSquare()
+                if not sq then return end
+                before = {}
+                local bodies = sq:getDeadBodys()
+                for i = 0, bodies:size() - 1 do before[bodies:get(i)] = true end
+            end)
+            if not okBefore then
+                before = nil
+                log("nuke: corpse snapshot failed (damage continues): " .. tostring(errBefore))
+            end
+        end
         local ok, err = pcall(function()
             if by then z:setAttackedBy(by) end
             z:die()
         end)
-        if not ok then log("nuke: kill failed: " .. tostring(err)) end
-        return ok
+        if not ok then log("nuke: kill failed: " .. tostring(err)); return false end
+        local okDead, isDead = pcall(function() return z:isDead() end)
+        if not okDead or not isDead then
+            log("nuke: death not confirmed for online ID " .. tostring(t.id))
+            return false
+        end
+        if band == "vaporize" and sq and before then
+            local okBody, errBody = pcall(function()
+                local bodies = sq:getDeadBodys()
+                for i = 0, bodies:size() - 1 do
+                    local body = bodies:get(i)
+                    if not before[body] and body:getCharacterOnlineID() == t.id then
+                        vaporBodies[#vaporBodies + 1] = { body = body, due = getTimestampMs() + 10000 }
+                    end
+                end
+            end)
+            if not okBody then log("nuke: corpse cleanup queued failed: " .. tostring(errBody)) end
+        end
+        return true
     end
     return false
 end
@@ -622,9 +669,14 @@ local function nukeWork()
             local t = job.items[job.i]
             job.i = job.i + 1
             n = n + 1
-            if strike(t, by) then credit[job.by] = (credit[job.by] or 0) + 1 end
+            local ok, hit = pcall(strike, t, by)
+            if not ok then log("nuke: target failed: " .. tostring(hit))
+            elseif hit then credit[job.by] = (credit[job.by] or 0) + 1; job.killed = job.killed + 1 end
         end
-        if job.i > #job.items then table.remove(nukeJobs, 1) end
+        if job.i > #job.items then
+            log(string.format("nuke: damage complete for %s: %d/%d killed", job.by, job.killed, #job.items))
+            table.remove(nukeJobs, 1)
+        end
     end
     for name, k in pairs(credit) do
         local p = byName(name)
@@ -639,11 +691,11 @@ local function addJob(by, pick)
     for i = 0, all:size() - 1 do
         local z = all:get(i)
         local d = z and pick(z)
-        if d and Zones.Band(d) and not z:isDead() and not friendly(z, caller) then items[#items + 1] = { z = z, d = d } end
+        if d and Zones.Band(d) and not z:isDead() and not friendly(z, caller) then items[#items + 1] = { z = z, d = d, id = z:getOnlineID() } end
     end
     if #items == 0 then return 0 end
     table.sort(items, function(a, b) return a.d < b.d end)
-    nukeJobs[#nukeJobs + 1] = { items = items, i = 1, by = by }
+    nukeJobs[#nukeJobs + 1] = { items = items, i = 1, by = by, killed = 0 }
     return #items
 end
 
@@ -665,7 +717,7 @@ onSquareLoaded = function(sq)
     local key = chunkKey(sq:getX(), sq:getY())
     if nukeFar[key] and not swept[key] then
         swept[key] = true
-        nukeSweeps[#nukeSweeps + 1] = { key = key, due = getTimestampMs() + FAR_SWEEP_MS }
+        nukeSweeps[#nukeSweeps + 1] = { key = key, due = getTimestampMs() + FAR_SWEEP_MS, pass = 1 }
     end
 end
 -- the chunks within the edge of (x, y) not loaded now
@@ -693,7 +745,10 @@ local function sweepFar(now)
             table.remove(nukeSweeps, i)
             swept[s.key] = nil
             if nukeFar[s.key] then due[s.key] = nukeFar[s.key]; n = n + 1 end
-            nukeFar[s.key] = nil
+            if nukeFar[s.key] and (s.pass or 1) < 4 then
+                swept[s.key] = true
+                nukeSweeps[#nukeSweeps + 1] = { key = s.key, due = now + FAR_SWEEP_MS, pass = (s.pass or 1) + 1 }
+            else nukeFar[s.key] = nil end
         end
     end
     if n > 0 then
@@ -714,6 +769,19 @@ local function sweepFar(now)
 end
 
 local function nukeTick(now)
+    local removed = 0
+    for i = #vaporBodies, 1, -1 do
+        local e = vaporBodies[i]
+        if now >= e.due and removed < NUKE_PER_TICK then
+            table.remove(vaporBodies, i)
+            removed = removed + 1
+            local ok, err = pcall(function()
+                local sq = e.body:getSquare()
+                if sq then sq:removeCorpse(e.body, false) end
+            end)
+            if not ok then log("nuke: corpse cleanup failed: " .. tostring(err)) end
+        end
+    end
     if #nukeSweeps > 0 then sweepFar(now) end
     if #nukeJobs > 0 then nukeWork() end
 end
@@ -750,6 +818,13 @@ local function nuke(player, args)
             if SkyhammerRadiation.ServerHook then pcall(SkyhammerRadiation.ServerHook) end
         elseif not okR then log("nuke: fallout failed: " .. tostring(zone)) end
     end
+    -- (the buildings: Skyhammer_NukeLevel. Should it not have loaded, the infected below are still
+    -- struck: the blast never stops at the demolition)
+    if SkyhammerNukeLevel then
+        local okL, queued = pcall(SkyhammerNukeLevel.Add, x, y, z, Zones.ZONE.fireball)
+        if not okL then log("nuke: server demolition failed: " .. tostring(queued))
+        elseif queued then log("nuke: server demolition queued") end
+    else log("nuke: server demolition not loaded") end
     -- the infected (every floor), the loaded ones now and the rest as they load
     local n = addJob(name, function(zb)
         local dx, dy = zb:getX() - x, zb:getY() - y
@@ -805,7 +880,7 @@ Events.OnTick.Add(function()
     local okG, errG = pcall(diagnose, getTimestampMs())
     if not okG then log("kill diagnosis failed: " .. tostring(errG)) end
     -- (a nuke's infected: nothing to do between blasts)
-    if #nukeJobs > 0 or #nukeSweeps > 0 then
+    if #nukeJobs > 0 or #nukeSweeps > 0 or #vaporBodies > 0 then
         local okN, errN = pcall(nukeTick, getTimestampMs())
         if not okN then log("nuke failed: " .. tostring(errN)) end
     end

@@ -1,0 +1,5 @@
+Viewpoint 0.1.7
+- Checked against the official Viewpoint 0.1.7 release: Skyhammer works with it unchanged (the 0.1.7 gunner-seat view fix came in the 4 November update). The mod info now says Project Zomboid 42.22 / Viewpoint 0.1.7.
+--
+Viewpoint 0.1.7
+- Viewpoint 0.1.7 정식판: 정식판 기준으로 확인했고, 스카이해머는 그대로 동작합니다(0.1.7용 사수석 시점 수정은 11월 4일 업데이트에 들어갔습니다). 모드 안내의 기준 버전을 좀보이드 42.22 / Viewpoint 0.1.7로 바꿨습니다.

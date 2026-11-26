@@ -129,6 +129,34 @@ module Base
         is3D = true,
         clip { file = media/sound/skyhammer/sh_a10_flyby.wav, distanceMin = 60, distanceMax = 700, reverbFactor = 0, volume = 1.0, }
     }
+    sound SH_F22_Flyby
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/sh_f22_flyby.wav, distanceMin = 60, distanceMax = 700, reverbFactor = 0, volume = 1.4, }
+    }
+    sound SH_F22_Flyby2
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/sh_f22_flyby2.wav, distanceMin = 60, distanceMax = 700, reverbFactor = 0, volume = 1.4, }
+    }
+    sound SH_F22_Flyby3
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/sh_f22_flyby3.wav, distanceMin = 60, distanceMax = 700, reverbFactor = 0, volume = 1.4, }
+    }
+    sound SH_F22_Boom
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/sh_f22_boom.wav, distanceMin = 120, distanceMax = 900, reverbFactor = 0, volume = 1.6, }
+    }
     sound SH_Nuke_Incoming
     {
         category = Object,
@@ -178,6 +206,34 @@ module Base
         loop = false,
         is3D = true,
         clip { file = media/sound/skyhammer/sh_reload_105.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SH_Reload_105_Gunner
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/sh_reload_105.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 2.0, }
+    }
+    sound SH_Gunner_Alert
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/sh_gunner_alert.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SH_Gunner_Flare
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/sh_gunner_flare.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SH_Gunner_Static
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/sh_gunner_static.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
     }
     sound SH_Incoming_105
     {
@@ -795,6 +851,13 @@ module Base
         is3D = true,
         clip { file = media/sound/skyhammer/shv_qcontact4.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
     }
+    sound SHV_QContact6
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/shv_qcontact6.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
+    }
     sound SHV_QContact5
     {
         category = Object,
@@ -1039,5 +1102,96 @@ module Base
         loop = false,
         is3D = true,
         clip { file = media/sound/skyhammer/shv_napalmdone.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SHV_F22Call
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/shv_f22call.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SHV_F22CallAck
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/shv_f22callack.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SHV_F22OnStation
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/shv_f22onstation.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SHV_F22Mark
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/shv_f22mark.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SHV_F22RollIn
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/shv_f22rollin.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SHV_F22Release
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/shv_f22release.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SHV_F22Off
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/shv_f22off.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SHV_F22Winchester
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/shv_f22winchester.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SHV_F22DangerClose
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/shv_f22dangerclose.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SHV_F22Bingo
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/shv_f22bingo.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SHV_F22Rtb
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/shv_f22rtb.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SHV_F22RtbAck
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/shv_f22rtback.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
+    }
+    sound SHV_PtsF22
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip { file = media/sound/skyhammer/shv_ptsf22.wav, distanceMin = 40, distanceMax = 80, reverbFactor = 0, volume = 1.0, }
     }
 }

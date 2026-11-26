@@ -68,6 +68,14 @@ option Skyhammer.EnableNuke
     translation = Skyhammer_EnableNuke,
 }
 
+option Skyhammer.NukeDestroyBuildings
+{
+    type = boolean,
+    default = true,
+    page = Skyhammer,
+    translation = Skyhammer_NukeDestroyBuildings,
+}
+
 option Skyhammer.NukePvP
 {
     type = boolean,

@@ -27,25 +27,27 @@ def world(defined=("SH_Reload_105", "SH_Incoming_105")):
     function E:set3D(id, v) assert(v == false) end
     function E:tick() end
     IsoWorld = { instance = { getFreeEmitter = function() return E end } }
-    -- find a local among the Ops upvalues
-    local seen = {}
-    local find
+    -- find a local among the Ops upvalues: breadth first over the tables and functions reachable
+    -- from v (2026-11-14: the old depth-first recursion over the same graph grew deep as Ops grew,
+    -- and under lupa then now and then crashed the process or left a world whose timed jobs never
+    -- ran; the same function found this way works every time)
     function scan(v, wanted)
-        if wanted ~= LASTW then seen = {}; LASTW = wanted end
-        if type(v) == "function" then return find(v, wanted) end
-        if type(v) == "table" and not seen[v] then
-            seen[v] = true
-            for _, x in pairs(v) do local r = scan(x, wanted); if r then return r end end
-        end
-    end
-    find = function(fn, wanted)
-        if seen[fn] then return nil end
-        seen[fn] = true
-        for i = 1, 255 do
-            local k, v = debug.getupvalue(fn, i)
-            if not k then break end
-            if k == wanted then return v end
-            local r = scan(v, wanted); if r then return r end
+        local seen, queue, head = { [v] = true }, { v }, 1
+        while queue[head] do
+            local o = queue[head]; head = head + 1
+            local function push(x)
+                if (type(x) == "table" or type(x) == "function") and not seen[x] then seen[x] = true; queue[#queue + 1] = x end
+            end
+            if type(o) == "function" then
+                for i = 1, 255 do
+                    local k, x = debug.getupvalue(o, i)
+                    if not k then break end
+                    if k == wanted then return x end
+                    push(x)
+                end
+            elseif type(o) == "table" then
+                for _, x in pairs(o) do push(x) end
+            end
         end
     end
     RS = scan(HANDLERS, "reloadSound") or scan(S, "reloadSound")

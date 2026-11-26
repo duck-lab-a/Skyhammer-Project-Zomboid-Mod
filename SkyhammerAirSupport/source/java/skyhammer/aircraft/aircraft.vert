@@ -10,8 +10,8 @@ out vec4 vCurrent, vPrevious;
 flat out float vPart;
 vec3 rotateProp(vec3 p,float angle,bool position) {
     if(aPart<.5 || aPart>4.5) return p;
-    float centers[4]=float[4](-12.,-6.,6.,12.);
-    vec3 center=vec3(centers[int(aPart)-1],.9,7.6);
+    float centers[4]=float[4](-9.825,-4.925,4.925,9.825);
+    vec3 center=vec3(centers[int(aPart)-1],2.52,5.16);
     if(position)p-=center;
     float c=cos(angle),s=sin(angle);
     p.xy=mat2(c,s,-s,c)*p.xy;

@@ -1,6 +1,7 @@
 # Radio "ahead" lines (2026-10-21): S.Say(id, nil, { ahead = true }) goes in front of the ordinary
 # lines waiting and cuts an ordinary line on the air, but never a priority line or a mark prompt,
-# and drops nothing (the AC-130 angel flares call, which the busy radio used to drop). Also the
+# and drops nothing (made for the AC-130 angel flares call, which the busy radio used to drop; that
+# call went silent 2026-11-14, the user, so an ordinary crew line stands in for it here). Also the
 # terminal's up/down weapon cycling wraps both ways (Kahlua's % kept a negative index: tabs[0]).
 # Real Comms.lua and Lines.lua in the stub world of sim_shake.py.
 # Run: <codex python> -I source/tests/runsim.py source/tests/sim_radio_ahead.py
@@ -50,8 +51,8 @@ def ahead_cuts_ordinary_chatter_and_goes_first():
     L = world()
     L.execute('S.Say("GunOrbitWatch"); S.Say("GunQuietSector"); S.Say("GunKeepScanning")')
     check(cur(L) == "GunOrbitWatch", "chatter on the air")
-    L.execute('S.Say("GunAngelFlares", nil, { ahead = true })')
-    check(cur(L) == "GunAngelFlares", f"cuts the chatter on the air: {cur(L)}")
+    L.execute('S.Say("GunGoodKill", nil, { ahead = true })')
+    check(cur(L) == "GunGoodKill", f"cuts the chatter on the air: {cur(L)}")
     check(ids(L) == "GunQuietSector,GunKeepScanning", f"the rest wait, nothing dropped: {ids(L)}")
 
 
@@ -60,9 +61,9 @@ def ahead_waits_for_a_priority_line_and_queued_priority():
     L = world()
     L.execute('S.Say("HeShot", nil, { priority = true }); S.Say("GunOrbitWatch"); S.Say("HeDone", nil, { priority = true })')
     check(cur(L) == "HeShot", "a priority line on the air")
-    L.execute('S.Say("GunAngelFlares", nil, { ahead = true })')
+    L.execute('S.Say("GunGoodKill", nil, { ahead = true })')
     check(cur(L) == "HeShot", "never cuts a priority line")
-    check(ids(L) == "HeDone,GunAngelFlares,GunOrbitWatch", f"behind the priority lines, before the chatter: {ids(L)}")
+    check(ids(L) == "HeDone,GunGoodKill,GunOrbitWatch", f"behind the priority lines, before the chatter: {ids(L)}")
 
 
 @test
@@ -72,17 +73,17 @@ def ahead_never_cuts_a_prompt_or_drops_one():
     check(prompt, "a mark prompt exists in the line table")
     L.execute(f'S.Say("{prompt}"); S.Say("GunOrbitWatch")')
     check(cur(L) == prompt, "a prompt on the air")
-    L.execute('S.Say("GunAngelFlares", nil, { ahead = true })')
+    L.execute('S.Say("GunGoodKill", nil, { ahead = true })')
     check(cur(L) == prompt, "never cuts a prompt")
     L.execute(f'S.Say("GunHoldOverwatch"); S.Say("{prompt}")')   # (already on air: the second is queued)
-    check("GunAngelFlares" in ids(L).split(",")[0], f"first in line: {ids(L)}")
+    check("GunGoodKill" in ids(L).split(",")[0], f"first in line: {ids(L)}")
 
 
 @test
 def priority_still_goes_before_ahead():
     L = world()
-    L.execute('S.Say("GunOrbitWatch"); S.Say("GunAngelFlares", nil, { ahead = true })')
-    check(cur(L) == "GunAngelFlares", "on the air")
+    L.execute('S.Say("GunOrbitWatch"); S.Say("GunGoodKill", nil, { ahead = true })')
+    check(cur(L) == "GunGoodKill", "on the air")
     L.execute('S.Say("HeShot", nil, { priority = true })')
     check(cur(L) == "HeShot", "a priority line still breaks in (as it does for any ordinary line)")
 

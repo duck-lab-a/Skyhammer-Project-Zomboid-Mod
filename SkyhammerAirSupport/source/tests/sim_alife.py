@@ -28,6 +28,7 @@ SandboxVars = { Skyhammer = {} }
 ME = { name = "me" }
 getPlayer = function() return ME end
 getSpecificPlayer = getPlayer
+RNPC = false
 ProjectALife = false   -- (nil would read as the do-nothing object here; in the game it is nil)
 function body(md, var)
     return { getModData = function() return md end,
@@ -94,6 +95,29 @@ def alife_errors_mean_hit():
     L = world()
     L.execute("ProjectALife = { ActorRegistry = { peek = function() error('boom') end }, Relations = {} }")
     eq(L.eval("S.IsFriendlyNPC(body({ ProjectALifeUID = 'a1' }))"), False, "an A-Life error never stops a strike")
+
+
+@test
+def roaming_survivors_friend_spared_foe_hit():
+    # (2026-11-01) RS people are infected bodies too: their own rule says who is hostile to this player
+    L = world()
+    L.execute("""RECS = { a = { hostile = false }, b = { hostile = true } }
+        RNPC = { recFor = function(z) return z.rec end,
+                 hostileToUser = function(rec, player) ASKED = player; return rec.hostile end }
+        function rs(rec, var, md)
+            return { rec = rec, getModData = function() return md or {} end, hasModData = function() return md ~= nil end,
+                     getVariableString = function() return '' end,
+                     getVariableBoolean = function(_, k) return k == 'RNPCHuman' and var == true end } end""")
+    eq(L.eval("S.IsFriendlyNPC(rs(RECS.a, true))"), True, "a person not hostile to the player: spared")
+    eq(L.eval("ASKED == ME"), True, "asked about the local player")
+    eq(L.eval("S.IsFriendlyNPC(rs(RECS.b, true))"), False, "raiders and enemies: hit")
+    eq(L.eval("S.IsFriendlyNPC(rs(RECS.a, false, { RNPC = 'r1' }))"), True, "stamped this frame: spared")
+    eq(L.eval("S.IsFriendlyNPC(rs(nil, true))"), False, "no record: a target, as before")
+    eq(L.eval("S.IsFriendlyNPC(rs(RECS.a, false, {}))"), False, "a plain infected is not even asked")
+    L.execute("RNPC.recFor = function() error('boom') end")
+    eq(L.eval("S.IsFriendlyNPC(rs(RECS.a, true))"), False, "an RS error never stops a strike")
+    src = io.open(os.path.join(LUA, "server", "Skyhammer_Server.lua"), encoding="utf-8").read()
+    if "rsFriendly(z, player)" not in src: raise AssertionError("the server copy has the rule too")
 
 
 @test

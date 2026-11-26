@@ -1,0 +1,9 @@
+AC-130 gunner seat in multiplayer (experimental)
+- The gunner seat now works online too. On a server it shows the thermal map instead of the real view, and your body stays where you left it, so keep it somewhere safe. Its hits go through the server like the other weapons.
+- Server admins can still turn it off with the "AC-130 gunner seat" sandbox option.
+- With PvP on, the 25mm only hits the infected. The 40mm and 105mm hit players as before.
+--
+AC-130 사수석 멀티플레이 지원(실험적)
+- 이제 사수석을 멀티에서도 쓸 수 있습니다. 서버에서는 실제 화면 대신 열상 지도로 보이고, 캐릭터는 그 자리에 그대로 남으니 안전한 곳에서 들어가세요. 사수석의 공격은 다른 무기처럼 서버를 거쳐 처리됩니다.
+- 서버 관리자는 샌드박스 옵션 "AC-130 사수석"으로 끌 수 있습니다.
+- PvP를 켜면 25mm는 좀비만 맞힙니다. 40mm와 105mm는 지금처럼 플레이어도 맞힙니다.

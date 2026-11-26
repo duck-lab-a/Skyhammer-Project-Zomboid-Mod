@@ -57,31 +57,34 @@ function F:loadMap()
 end
 
 -- A white-hot thermal palette instead of the paper map: trees and water cool and dark, roads
--- and rails warm, buildings the hottest of the ground.
-function F:whiteHotStyle()
-    local g = GREYS
+-- and rails warm, buildings the hottest of the ground. Black-hot (the gunner seat's other
+-- polarity, 2026-10-24) turns every grey over: hot is dark on a light ground.
+function F.ThermalGrey(g, black) return black and 255 - g or g end
+function F:whiteHotStyle() self:thermalStyle(false) end
+function F:thermalStyle(black)
+    local function grey(name) return F.ThermalGrey(GREYS[name], black) end
     local api = self.javaObject:getAPIv1()
     local style = api:getStyleAPI()
     api:setBoolean("ColorblindPatterns", false)
-    api:setBackgroundRGBA(g.ground / 255, g.ground / 255, g.ground / 255, 1)
-    api:setUnvisitedRGBA(g.unvisited / 255, g.unvisited / 255, g.unvisited / 255, 1)
-    api:setUnvisitedGridRGBA(g.grid / 255, g.grid / 255, g.grid / 255, 1)
+    api:setBackgroundRGBA(grey("ground") / 255, grey("ground") / 255, grey("ground") / 255, 1)
+    api:setUnvisitedRGBA(grey("unvisited") / 255, grey("unvisited") / 255, grey("unvisited") / 255, 1)
+    api:setUnvisitedGridRGBA(grey("grid") / 255, grey("grid") / 255, grey("grid") / 255, 1)
     style:clear()
-    local function layer(name, key, value, minZoom, grey)
+    local function layer(name, key, value, minZoom, g)
         local l = style:newPolygonLayer(name)
         l:setMinZoom(minZoom)
         l:setFilter(key, value)
-        l:addFill(0, grey, grey, grey, 255)
-        l:addFill(24, grey, grey, grey, 255)
+        l:addFill(0, g, g, g, 255)
+        l:addFill(24, g, g, g, 255)
     end
-    layer("forest", "natural", "forest", 13.5, g.forest)
-    layer("water", "water", "river", 0, g.water)
-    layer("road-trail", "highway", "trail", 12, g.trail)
-    layer("road-tertiary", "highway", "tertiary", 11, g.tertiary)
-    layer("road-secondary", "highway", "secondary", 11, g.secondary)
-    layer("road-primary", "highway", "primary", 11, g.primary)
-    layer("railway", "railway", "*", 14, g.railway)
-    layer("building", "building", "*", 13, g.building)
+    layer("forest", "natural", "forest", 13.5, grey("forest"))
+    layer("water", "water", "river", 0, grey("water"))
+    layer("road-trail", "highway", "trail", 12, grey("trail"))
+    layer("road-tertiary", "highway", "tertiary", 11, grey("tertiary"))
+    layer("road-secondary", "highway", "secondary", 11, grey("secondary"))
+    layer("road-primary", "highway", "primary", 11, grey("primary"))
+    layer("railway", "railway", "*", 14, grey("railway"))
+    layer("building", "building", "*", 13, grey("building"))
 end
 
 -- How far out the wheel goes: 16, unless the terminal's selected tab allows further (minZoom,
@@ -139,13 +142,14 @@ function F:prerender()
     self:fitAim(p)
 end
 
--- the infected on the player's floor, gathered at most ten times a second, so a big map does
--- not mean more walks over the zombie list. Friendly people the Bandits mod drives (a team
--- called in, companions) are kept apart and drawn as friends.
+-- the infected on the player's floor (or on `floor`: the gunner seat looks at the ground),
+-- gathered at most ten times a second, so a big map does not mean more walks over the zombie
+-- list. Friendly people the Bandits mod drives (a team called in, companions) are kept apart and
+-- drawn as friends.
 local contacts = { n = 0, at = 0, z = nil, friends = {} }
 local friendPool = {}
-local function nearbyContacts(p)
-    local now, pz = S.now(), math.floor(p:getZ())
+local function nearbyContacts(p, floor)
+    local now, pz = S.now(), floor or math.floor(p:getZ())
     if now - contacts.at < 100 and contacts.z == pz then return contacts end
     contacts.at, contacts.z, contacts.n = now, pz, 0
     local friends, friendCount = contacts.friends, 0
@@ -257,6 +261,36 @@ local function runLine(self, api, ax, ay, bx, by, c)
     end
 end
 
+-- a dotted box round the line a -> b (world tiles): `half` to each side of it and `ext` past each
+-- end. (2026-11-23, the user: the F-22's mark shows the area it bombs, not the line alone)
+local function stripBox(self, api, ax, ay, bx, by, half, ext, c)
+    local dx, dy = bx - ax, by - ay
+    local len = math.sqrt(dx * dx + dy * dy)
+    if len < 1e-6 then return end
+    local ux, uy = dx / len, dy / len
+    local rx, ry = -uy * half, ux * half
+    local sx, sy, ex, ey = ax - ux * ext, ay - uy * ext, bx + ux * ext, by + uy * ext
+    local pts = { sx + rx, sy + ry, ex + rx, ey + ry, ex - rx, ey - ry, sx - rx, sy - ry }
+    for i = 1, 4 do
+        local j = i == 4 and 1 or i + 1
+        local x1, y1 = api:worldToUIX(pts[i * 2 - 1], pts[i * 2]), api:worldToUIY(pts[i * 2 - 1], pts[i * 2])
+        local x2, y2 = api:worldToUIX(pts[j * 2 - 1], pts[j * 2]), api:worldToUIY(pts[j * 2 - 1], pts[j * 2])
+        local n = math.min(400, math.max(1, math.floor(math.sqrt((x2 - x1) ^ 2 + (y2 - y1) ^ 2) / 6)))
+        for k = 0, n - 1 do
+            local x, y = x1 + (x2 - x1) * k / n, y1 + (y2 - y1) * k / n
+            self:drawRect(x - 2, y - 2, 4, 4, 0.5, 0, 0, 0)
+            self:drawRect(x - 1, y - 1, 2, 2, 1, c[1], c[2], c[3])
+        end
+    end
+end
+-- a line mark's strip (spec.width) and a blast's reach past it (spec.edge), dimmer
+local function strip(self, api, ax, ay, bx, by, width, edge, c)
+    if not tonumber(width) then return end
+    edge = tonumber(edge) or 0
+    if edge > 0 then stripBox(self, api, ax, ay, bx, by, width / 2 + edge, edge, { c[1] * 0.6, c[2] * 0.6, c[3] * 0.6 }) end
+    stripBox(self, api, ax, ay, bx, by, width / 2, 0, c)
+end
+
 -- is an aircraft overhead to feed the picture (the AC-130, the B-2 and the Apache each carry
 -- sensors; an add-on support with def.sensor() true does too), and is the sensor switched on
 local SENSOR_CRAFT = { "ac130", "apache", "a10", "b2" }
@@ -328,7 +362,10 @@ function F:drawAimGhost(p)
     if spec and spec.preview then
         local ok, ax, ay, bx, by = pcall(spec.preview, wx, wy, 0)
         local c = (ok and ax) and WHITE or WARN
-        if ok and ax then runLine(self, api, ax, ay, bx, by, c) end
+        if ok and ax then
+            strip(self, api, ax, ay, bx, by, spec.width, spec.edge, c)
+            runLine(self, api, ax, ay, bx, by, c)
+        end
         hudLine(self, mx - 10, my, mx + 11, my, 1, c); hudLine(self, mx, my - 10, mx, my + 11, 1, c)
         hudText(self, getText(spec.label or ""), mx + 14, my + 10, UIFont.Small, c)
         return
@@ -347,8 +384,8 @@ function F:drawAimGhost(p)
     local label
     if spec then label = getText(spec.label or "")
     elseif kind == "he" then
-        -- the shells this mark will fire (Mod Options: per mark, fewer when fewer are left)
-        local per, left = math.max(1, math.floor(S.opt("heRounds"))), S.Ammo("he")
+        -- the shells this mark will fire (fewer when fewer are left)
+        local per, left = S.HeRounds and S.HeRounds() or 2, S.Ammo("he")
         label = getText("IGUI_SH_MapMarkHe", left > 0 and math.min(per, left) or per)
     else label = getText("IGUI_SH_MapMarkB2") end
     hudText(self, label, mx + 14, my + 10, UIFont.Small, c)
@@ -406,6 +443,13 @@ function F:render()
         -- the A-10's next gun run (Skyhammer_A10): its line, in the weapon colour
         local run = S.A10Track and S.A10Track()
         if run then runLine(self, api, run[1], run[2], run[3], run[4], { 0.93, 0.43, 0.25 }) end
+        -- the F-22 flight's line and the strip it bombs, until its bombs are down (Skyhammer_F22)
+        local raid = S.F22Track and S.F22Track()
+        if raid then
+            local pink = { 1.0, 0.49, 0.78 }
+            strip(self, api, raid[1], raid[2], raid[3], raid[4], raid[5], raid[6], pink)
+            runLine(self, api, raid[1], raid[2], raid[3], raid[4], pink)
+        end
         -- blasts: a white bloom that fades
         local spark = getTexture("media/ui/SH_FX_Spark.png")
         local now = S.now()
@@ -499,6 +543,11 @@ function S.ToggleFeed()
     local p = getSpecificPlayer(0)
     if p then HaloTextHelper.addText(p, getText(S.opt("sensorFeed") and "IGUI_SH_FeedOn" or "IGUI_SH_FeedOff")) end
 end
+
+-- what the gunner seat (Skyhammer_Gunner) draws with: the same contacts, palette and strokes
+F.Contacts = nearbyContacts
+F.draw = { hudLine = hudLine, hudText = hudText, textW = textW, ring = ring, diamond = diamond,
+    WHITE = WHITE, WARN = WARN, FAR = FAR }
 
 -- the sensor map inside the terminal, created by the terminal (it owns and adds it as a child)
 function S.NewEmbeddedFeed(x, y, w, h)

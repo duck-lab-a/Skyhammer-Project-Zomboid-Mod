@@ -1,0 +1,17 @@
+AC-130 Gunner Seat
+- New night entry video, played from 22:00 to 6:00 with its own sound.
+- 40mm rounds hit a slightly wider area.
+- Each gun now always opens at its own zoom: after a quick weapon switch the view no longer stays at the previous gun's zoom.
+- No more false 'body under attack' alerts: your own rounds and fallout under the seat's camera no longer count against your body, and infected drawn by the blasts no longer come to bite at the camera.
+
+Unlock quest
+- The A-10 (Valkyrie) now checks in on the first contact too.
+--
+AC-130 사수석
+- 밤(22시~6시)용 진입 영상을 새로 넣었습니다. 영상 자체 소리도 함께 나옵니다.
+- 40mm 탄의 피해 범위를 조금 넓혔습니다.
+- 무기를 빠르게 바꿔도 항상 그 무기의 줌으로 맞춰집니다. 이전 무기 줌에 머무르던 문제를 고쳤습니다.
+- 몸이 공격받는다는 잘못된 경고를 고쳤습니다. 조준 지점에 쏜 포탄이나 낙진이 몸 피격으로 처리되지 않고, 폭발 소리에 끌려온 감염자가 카메라 위치의 허공을 물지 않습니다.
+
+퀘스트
+- 첫 교신에 A-10(발키리)도 참여합니다.

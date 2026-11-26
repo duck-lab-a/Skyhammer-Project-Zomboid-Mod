@@ -1,0 +1,27 @@
+New: F-22 flight strike (Raven One-One)
+- A new tab on the terminal, between the AC-130 and the B-2. Killstreak price: 200 points.
+- Mark one point, on the map or eyes-on. The flight lead lays a 70-tile line through it along the most infected, never within 10 tiles of you (36 with "Protect the player" off). The sensor map shows the line and the 70 x 40 strip it bombs, from before you click until the bombs are down.
+- Then ten F-22s go over one at a time, 0.4 s apart, at Mach speed. Each drops two 1,000 lb bombs on the next stretch of the line: 20 bombs flatten a 70 x 40 tile strip, each as strong as a B-2 bomb.
+- Every jet has its own roar and sonic boom, and its shadow races over the ground. The sounds are real jet recordings (CC0).
+- Mod Options: strikes per sortie (1-3), bombs per strike (6-40), inbound time, cooldown. The sandbox option "F-22 (Raven) available" turns it off. On a PvP server these options stay at their defaults.
+
+New aircraft models
+- The Apache has a new, more detailed model. The ground shadows of the other aircraft were remade from their new models.
+- Models (CC BY 4.0): "F22", "B2", "A10", "Ah64" by manilov.ap and "Lockheed AC-130 Hercules" by helijah. Also listed in CREDITS.txt.
+
+Terminal
+- Click the aircraft picture on a tab to look it over in 3D. It turns by itself; drag or scroll to turn it, and click the picture again or X to close.
+--
+신규: F-22 편대 폭격 (레이븐 원-원)
+- 단말기에 새 탭이 생겼습니다(AC-130과 B-2 사이). 킬스트릭 가격: 200포인트.
+- 지도나 육안으로 지점 하나를 지정하면, 편대장이 그 지점을 지나는 70타일 직선을 좀비가 가장 많은 방향으로 정합니다. 플레이어로부터 10타일 안을 지나는 방향은 고르지 않습니다('플레이어 보호'를 끄면 36타일). 감지 지도에는 클릭하기 전부터 폭탄이 다 떨어질 때까지 직선과 함께 폭격될 70 x 40타일 범위가 표시됩니다.
+- 이어서 F-22 10대가 마하 속도로 0.4초 간격을 두고 한 대씩 지나가며, 기체마다 1,000파운드 폭탄 2발을 직선의 다음 구간에 떨어뜨립니다. 폭탄 20발이 70 x 40타일 지대를 초토화하며, 한 발 한 발이 B-2 폭탄만큼 강합니다.
+- 기체마다 굉음과 소닉붐이 따로 나고, 그림자가 땅 위를 스쳐 갑니다. 소리는 실제 제트기 녹음(CC0)입니다.
+- 모드 옵션: 출격당 폭격 횟수(1~3), 폭격당 폭탄 수(6~40), 진입 시간, 쿨타임. 샌드박스 옵션 "F-22(레이븐) 사용"으로 끌 수 있습니다. PvP 서버에서는 이 옵션들이 기본값으로 고정됩니다.
+
+새 기체 모델
+- 아파치가 더 정밀한 새 모델로 바뀌었습니다. 다른 기체의 땅 그림자도 새 모델에서 다시 만들었습니다.
+- 모델(CC BY 4.0): manilov.ap의 "F22", "B2", "A10", "Ah64", helijah의 "Lockheed AC-130 Hercules". CREDITS.txt에도 적었습니다.
+
+단말기
+- 탭의 기체 그림을 누르면 3D로 둘러볼 수 있습니다. 혼자 돌아가며, 드래그나 휠로 돌릴 수 있고, 그림을 다시 누르거나 X를 누르면 닫힙니다.

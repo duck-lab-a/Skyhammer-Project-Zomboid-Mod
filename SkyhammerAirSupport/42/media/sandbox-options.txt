@@ -42,6 +42,14 @@ option Skyhammer.EnableAC130
     translation = Skyhammer_EnableAC130,
 }
 
+option Skyhammer.EnableF22
+{
+    type = boolean,
+    default = true,
+    page = Skyhammer,
+    translation = Skyhammer_EnableF22,
+}
+
 option Skyhammer.EnableB2
 {
     type = boolean,
@@ -56,6 +64,14 @@ option Skyhammer.VehicleDamage
     default = true,
     page = Skyhammer,
     translation = Skyhammer_VehicleDamage,
+}
+
+option Skyhammer.GunnerSeat
+{
+    type = boolean,
+    default = true,
+    page = Skyhammer,
+    translation = Skyhammer_GunnerSeat,
 }
 
 option Skyhammer.Radiation

@@ -25,10 +25,10 @@ def load(name):
     return a[:, 0:3].astype(float), a[:, 9].astype(int)
 
 
-for name in (sys.argv[1:] or ("ac130", "b2", "apache", "uh60", "a10")):
+for name in (sys.argv[1:] or ("ac130", "b2", "apache", "uh60", "a10", "f22")):
     P, part = load(name)
     E = float(np.abs(P[:, [0, 2]]).max()) * 1.06
-    if name == "a10": E = math.ceil(E * 10) / 10  # exactly 9.3, matching the Lua contract
+    if name in ("a10", "f22"): E = math.ceil(E * 10) / 10  # exactly 9.3 / 10.2, matching the Lua contract
     px = lambda x, z: ((x / E + 1) / 2 * SIZE, (1 - (z / E + 1) / 2) * SIZE)   # +X right, +Z (nose) up
     body = Image.new("L", (SIZE, SIZE), 0)
     d = ImageDraw.Draw(body)
@@ -58,6 +58,6 @@ for name in (sys.argv[1:] or ("ac130", "b2", "apache", "uh60", "a10")):
     a = np.maximum(np.asarray(body, float), np.asarray(discs, float))
     rgba = np.zeros((SIZE, SIZE, 4), np.uint8)
     rgba[..., 3] = a.astype(np.uint8)
-    out = os.path.join(OUT, "SH_Shadow_" + {"ac130": "AC130", "b2": "B2", "apache": "Apache", "uh60": "UH60", "a10": "A10"}[name] + ".png")
+    out = os.path.join(OUT, "SH_Shadow_" + {"ac130": "AC130", "b2": "B2", "apache": "Apache", "uh60": "UH60", "a10": "A10", "f22": "F22"}[name] + ".png")
     Image.fromarray(rgba, "RGBA").save(out)
     print(f"{os.path.basename(out)}: half-extent E = {E:.2f} tiles")

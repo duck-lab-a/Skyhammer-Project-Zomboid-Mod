@@ -1,0 +1,7 @@
+Multiplayer fix
+- Fixed aircraft that never arrived on some servers, with every call showing as "sortie 1". When another mod on the server sent your character's data, the game cleared everything Skyhammer was keeping for you, including an aircraft already on its way. Your aircraft, killstreak points and unlock quest progress now stay through that.
+- Thanks for the detailed bug report!
+--
+멀티플레이 수정
+- 일부 서버에서 비행기가 끝내 도착하지 않고, 부를 때마다 "sortie 1"로 나오던 문제를 고쳤습니다. 서버의 다른 모드가 캐릭터 데이터를 보내면 게임이 스카이해머가 들고 있던 정보를 모두 지웠고, 이미 오고 있던 비행기도 사라졌습니다. 이제 그때도 비행기, 킬스트릭 포인트, 해금 퀘스트 진행이 그대로 남습니다.
+- 자세한 버그 제보 감사합니다!

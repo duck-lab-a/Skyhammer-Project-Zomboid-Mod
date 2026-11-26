@@ -39,6 +39,7 @@ public final class AircraftRenderer {
         BomberRenderer.drawSafely(frame);
         BombPayloadRenderer.drawSafely(frame);
         StraferRenderer.drawSafely(frame);
+        RaptorRenderer.drawSafely(frame);
     }
     public static void drawSafely(FrameContext frame) {
         if (failed || !Main.supported) return;

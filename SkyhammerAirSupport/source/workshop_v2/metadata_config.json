@@ -1,0 +1,18 @@
+{
+  "main": {
+    "item_id": 3813483790,
+    "mod_id": "SkyhammerAirSupport",
+    "titles": {
+      "koreana": "[B42/ViewPoint] 스카이해머 항공 지원 - 아파치, A-10, AC-130, F-22 & B-2",
+      "english": "[B42/ViewPoint] Skyhammer Air Support - Apache, A-10, AC-130, F-22 & B-2"
+    }
+  },
+  "vanilla": {
+    "item_id": 3813973682,
+    "mod_id": "SkyhammerAirSupportVanilla",
+    "titles": {
+      "koreana": "[B42/MP] 스카이해머 바닐라 - 아파치, A-10, AC-130, F-22 & B-2",
+      "english": "[B42/MP] Skyhammer Vanilla - Apache, A-10, AC-130, F-22 & B-2"
+    }
+  }
+}

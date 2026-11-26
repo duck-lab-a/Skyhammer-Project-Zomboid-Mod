@@ -141,6 +141,30 @@ local function strafer(b)
         S.opt("a10VisAlt"), S.opt("a10VisSize"), finite(run.sortie) or start)
 end
 
+-- The F-22 flight (Skyhammer_F22, Raptor.java): the strike's saved line and clock; the ten jets'
+-- places are the Java part's own (Raptor.JETS, the same as S.F22.jets)
+local function raptors(b)
+    if not b.f22Tick then return end
+    local store = S.Store()
+    local run = store.f22VisualRun
+    local function clear()
+        store.f22VisualRun = nil
+        if b.f22Clear then b.f22Clear() end
+    end
+    if type(run) ~= "table" then if b.f22Clear then b.f22Clear() end; return end
+    local function finite(v)
+        v = tonumber(v)
+        return v and v == v and math.abs(v) < math.huge and v or nil
+    end
+    local start = finite(run.startedMs)
+    local x, y, z, heading = finite(run.x), finite(run.y), finite(run.z), finite(run.heading)
+    if not (start and x and y and z and heading) then clear(); return end
+    local e = (S.combatMs() - start) / 1000
+    local F = S.F22
+    if not finite(e) or e < 0 or e >= ((F and F.endS) or 13.0) then clear(); return end
+    b.f22Tick(e, x, y, z, heading, S.opt("f22VisAlt"), S.opt("f22VisSize"), finite(run.sortie) or start)
+end
+
 local function nuke(b)
     if not b.nukeTick then return end
     local store = S.Store()
@@ -190,6 +214,7 @@ local function update()
     if b.apacheTick and S.ApacheOrbit then apache(b, dt, player) end
     bomber(b)
     strafer(b)
+    raptors(b)
     nuke(b)
     -- Ferryman, the Wraith add-on's transport: V.ferryTarget(player) -> wanted, x, y, z
     if b.ferryTick then

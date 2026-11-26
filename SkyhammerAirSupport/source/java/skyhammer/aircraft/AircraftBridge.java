@@ -27,7 +27,7 @@ public final class AircraftBridge {
     public static void reset() {
         flares.reset();
         flight.reset(); sample = null; flashUntil = 0; BombPayloads.clear();
-        hover.reset(); apache = null; ferryHover.reset(); ferry = null; bomber = null; strafer = null; nuke = null;
+        hover.reset(); apache = null; ferryHover.reset(); ferry = null; bomber = null; strafer = null; raptor = null; nuke = null;
     }
 
     /** Visual-only; Lua supplies combat seconds, exact phase, sortie and existing FX quality. */
@@ -36,6 +36,12 @@ public final class AircraftBridge {
         if(s==null||!Double.isFinite(phase+sortie+quality)){flares.reset();return;}
         flares.tick(combatSeconds,phase==2,(long)sortie,(int)quality,s.pose(),s.scale());
     }
+    /** Gunner seat: Viewpoint's own isometric <-> 3D switch is there (see ViewSwitchBridge). */
+    public static boolean viewKnown(){return ViewSwitchBridge.known();}
+    /** Gunner seat: Viewpoint's 3D view is on. */
+    public static boolean view3D(){return ViewSwitchBridge.on3D();}
+    /** Gunner seat: asks Viewpoint for its 3D view (true) or its isometric one (false). */
+    public static boolean viewSet(boolean want3D){return ViewSwitchBridge.set(want3D);}
     /** The next flare release (combat seconds), NaN while none is due: Lua's radio call. */
     public static double ac130FlaresNext(){return flares.nextRelease();}
 
@@ -102,6 +108,18 @@ public final class AircraftBridge {
         strafer=p.visible()?new StraferSample(p,System.nanoTime(),clamp(size,.3,2),(long)sortie,true,x,y,z,heading,len,altitude):null;
     }
     public static void a10Clear(){strafer=null;}
+
+    // F-22 flight (Raptor): the strike's saved clock and line; the ten jets' places are Raptor.JETS.
+    public record RaptorSample(double elapsed,long at,double x,double y,double floor,double heading,
+                               double altitude,double scale,long run) {}
+    public static volatile RaptorSample raptor;
+    /** elapsed: seconds since the mark; (x, y, z) the line's start (z in storeys); heading in tile space. */
+    public static void f22Tick(double elapsed,double x,double y,double z,double heading,
+                               double altitude,double size,double sortie){
+        if(!Double.isFinite(elapsed+x+y+z+heading+altitude+size+sortie)||elapsed<0||elapsed>=Raptor.END){raptor=null;return;}
+        raptor=new RaptorSample(elapsed,System.nanoTime(),x,y,z,heading,altitude,clamp(size,.3,2),(long)sortie);
+    }
+    public static void f22Clear(){raptor=null;}
 
     public record NukeSample(double elapsed,double x,double y,double z,double size,long at) {}
     public static volatile NukeSample nuke;

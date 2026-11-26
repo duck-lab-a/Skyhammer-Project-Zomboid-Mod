@@ -67,6 +67,11 @@ const CAST = {
   VALKYRIE: { engine: 'chatterbox', ref: 'piper_kristin.wav', ex: 0.45, cfg: 0.4, style: 'crew_jet' },
   // the Apache pilot (a British voice: the British Army flies the Apache too)
   HELLHOUND: { engine: 'chatterbox', ref: 'kokoro_bm_george.wav', ex: 0.45, cfg: 0.4, style: 'crew_rotor' },
+  // the F-22 flight lead, Raven One-One (2026-11-23, the user: "a low, cold man's voice, really like US fighter
+  // pilots on the radio"): a Kokoro blend of two low American voices, am_echo 0.6 + am_onyx 0.4
+  // (about 100 Hz, little rise and fall; onyx alone is Titan's), read deadpan, on the fighter's
+  // oxygen-mask radio (crew_mask)
+  RAVEN: { engine: 'chatterbox', ref: 'kokoro_echo_onyx.wav', ex: 0.3, cfg: 0.5, style: 'crew_mask' },
   WRAITH:    { voice: 'en_US-joe-medium',   scale: 0.96, expr: 0.6, rhythm: 0.75, style: 'tactical' },
   FERRYMAN:  { voice: 'en_US-john-medium',  scale: 0.88, expr: 0.667, rhythm: 0.8, style: 'rotor' },
   // (Wraith add-on) the operators' own shouts in the field, no radio: three voices, quick and hard
@@ -436,11 +441,72 @@ function crewRadio(src, rate, seed, bed) {
   for (let i = 0; i < n; i++) out[i] *= k;
   return out;
 }
+// fighter radio (2026-11-23, the F-22 flight lead; the user: "a low, cold man's voice, really
+// like US fighter pilots talking on the radio"). A fighter pilot talks into the mic inside his
+// oxygen mask: the mask seals most of the cockpit's roar out (a faint whisper of it gets in),
+// the rubber cup around the mic colours the voice (boxy: a resonance near 850 Hz, a bite near
+// 2.3 kHz, a short comb from the cup's own reflection), and the regulator's breath is in the mic:
+// an inhale just before he talks, a soft exhale after. Over UHF AM: carrier hiss while keyed,
+// the key-up click, and a short pop on release instead of an FM squelch tail.
+// (the breath is mixed in after the leveller, at a set level under the voice: levelled with the
+// voice, the leveller brought it up louder than the words)
+const MASK_BREATH_DB = -14, MASK_EXHALE_DB = -20;
+function maskRadio(src, rate, seed) {
+  const rnd = rng(seed ^ 0x3c3c), rnd01 = () => (rnd() + 1) / 2;
+  const ms = n => Math.round(rate * n / 1000);
+  let peak = 0; for (const v of src) peak = Math.max(peak, Math.abs(v));
+  const g = peak > 0.01 ? 0.8 / peak : 0;
+  const lead0 = ms(40), inhale = ms(300 + rnd01() * 120), gapIn = ms(80);
+  const pre = lead0 + inhale + gapIn, exhale = ms(240), post = ms(40) + exhale + ms(50);
+  const n = pre + src.length + post;
+  const maskMic = () => [biquad('hp', 250, rate), peaking(850, 6, 1.6, rate), peaking(2300, 4, 2.5, rate)];
+  // the voice: the mask mic, the cup's reflection, a whisper of the cockpit, the leveller
+  const bed = crewBed(n, rate, seed, 'jet');
+  const mic = maskMic(), cup = Math.max(1, Math.round(rate * 0.00055)), lp = biquad('lp', 3400, rate);
+  const shaped = new Float32Array(n);
+  for (let i = 0; i < n; i++) {
+    const j = i - pre;
+    shaped[i] = mic.reduce((v, f) => f(v), j >= 0 && j < src.length ? src[j] * g : 0);
+  }
+  const band = bandpass(rate, 300, 3000), voice = new Float32Array(n);
+  let env = 0.05;
+  for (let i = 0; i < n; i++) {
+    let x = lp(shaped[i] + (i >= cup ? shaped[i - cup] * 0.35 : 0)) + bed[i] * 0.02;
+    const a = Math.abs(x);
+    env = a > env ? env + (a - env) * 0.2 : env + (a - env) * 0.002;
+    x *= Math.min(3.5, 0.42 / Math.max(env, 0.02));
+    voice[i] = band(Math.tanh(2.6 * x) / Math.tanh(2.6));
+  }
+  // the regulator's breath through the same mask: an inhale before the words, an exhale after
+  const shape = new Float32Array(n);
+  for (let i = 0; i < inhale; i++) shape[lead0 + i] = Math.pow(Math.sin(Math.PI * i / inhale), 1.4);
+  const e0 = pre + src.length + ms(40), exK = Math.pow(10, (MASK_EXHALE_DB - MASK_BREATH_DB) / 20);
+  for (let i = 0; i < exhale; i++) { const t = i / exhale; shape[e0 + i] = exK * 2.6 * Math.sin(Math.PI * t) * (1 - t); }
+  const bmic = maskMic(), bbp = bandpass(rate, 700, 3800), bband = bandpass(rate, 300, 3000);
+  const breath = new Float32Array(n);
+  for (let i = 0; i < n; i++) breath[i] = bband(bmic.reduce((v, f) => f(v), bbp(rnd()))) * shape[i];
+  const rms = (x, a, b) => { let s = 0; for (let i = a; i < b; i++) s += x[i] * x[i]; return Math.sqrt(s / Math.max(1, b - a)); };
+  const bk = rms(voice, pre, pre + src.length) * Math.pow(10, MASK_BREATH_DB / 20) / Math.max(1e-6, rms(breath, lead0, lead0 + inhale));
+  // over UHF AM: carrier hiss while keyed, the key-up click, a short pop on release
+  const hbp = bandpass(rate, 350, 3000), out = new Float32Array(n), r0 = n - ms(50);
+  for (let i = 0; i < n; i++) {
+    const keyed = i < r0 ? Math.min(1, i / ms(6)) : 0;
+    out[i] = (voice[i] + breath[i] * bk + hbp(rnd()) * 0.012) * keyed;
+  }
+  for (let i = 0; i < ms(5); i++) out[i] += (i < 2 ? 0.3 : 0) + rnd() * 0.08;
+  for (let i = 0; i < ms(12); i++) out[r0 + i] += (i < 2 ? -0.22 : 0) + hbp(rnd()) * 0.15 * Math.exp(-i / ms(3));
+  let p = 0, sq = 0; for (const v of out) { p = Math.max(p, Math.abs(v)); sq += v * v; }
+  let k = 0.1 / Math.max(Math.sqrt(sq / n), 1e-6);
+  if (p * k > 0.8) k = 0.8 / p;
+  for (let i = 0; i < n; i++) out[i] *= k;
+  return out;
+}
 Object.assign(TREAT, {
   crew_base: (s, r, seed) => crewRadio(s, r, seed, 'base'),
   crew_prop: (s, r, seed) => crewRadio(s, r, seed, 'prop'),
   crew_jet: (s, r, seed) => crewRadio(s, r, seed, 'jet'),
   crew_rotor: (s, r, seed) => crewRadio(s, r, seed, 'rotor'),
+  crew_mask: maskRadio,
 });
 // node build.js --treat <spec.json>: [{ "in", "out", "style", "seed" }] run through TREAT only
 // (to audition a voice engine's raw takes through the radio without a build)
@@ -845,6 +911,39 @@ function a10Flyby(seconds, seed) {
   return normalize(out, 0.85);
 }
 
+// The F-22 flight going over at Mach (2026-11-23; the user: "like CoD", then "real jet recordings
+// are fine"): a real F-18 low pass (FreqMan, Freesound 135496, CC0). The jets outrun their own
+// noise, so it is cut to nothing before the pass: the roar slams in a quarter second before they
+// are overhead and tears away for four seconds, falling in pitch (the recording's own Doppler drop),
+// a deep rumble rolling under it. Loudest F22_FLYBY_PEAK seconds in: Skyhammer_F22 starts each
+// jet's roar (F.flybyPeakS) that long before it passes. The three files play the recording at other
+// speeds (pitch), taken in turn, so the jets one after another sound like different jets.
+const F22_FLYBY_PEAK = 2.0;
+const F18_PASS_S = 26.8;   // in the recording: the F-18 nearest the microphone (its Doppler drop)
+function f22Flyby(seconds, seed, pitch) {
+  const src = resample(decoded('fs135496_f18_pass_freqman'), pitch);
+  const lead = msx(250), at = Math.round(SR * F18_PASS_S / pitch) - lead;
+  const n = Math.round(SR * seconds), out = new Float32Array(n), off = Math.round(SR * F22_FLYBY_PEAK) - lead;
+  for (let i = 0; off + i < n && at + i < src.length; i++)
+    out[off + i] = src[at + i] * Math.min(1, i / msx(60)) * Math.min(1, (n - off - i) / msx(1200));
+  normalize(out, 1);
+  const r = rumble(seconds - F22_FLYBY_PEAK, seed + 1), o = Math.round(SR * F22_FLYBY_PEAK);
+  for (let i = 0; i < r.length && o + i < n; i++) out[o + i] += r[i] * 0.3 * Math.min(1, (n - o - i) / msx(1200));
+  return loud(out, 1.6);
+}
+// The sonic boom of the flight going over (2026-11-23): a real one, a jet fighter's double crack
+// ("ba-boom", 0.2 s apart) and its roar tearing away behind it (qubodup, Freesound 182050, CC0,
+// from a US government video), a deep rumble under it and a sky echo. The first crack is 0.08 s in
+// (Skyhammer_F22 plays it as the lead passes nearest the player).
+const BOOM_REC_S = 0.70;   // in the recording: just before its first crack (0.78 s)
+function sonicBoom(seed) {
+  const src = decoded('fs182050_sonic_boom_qubodup'), a = Math.round(SR * BOOM_REC_S);
+  const n = Math.round(SR * 3.6), s = new Float32Array(n);
+  for (let i = 0; i < n && a + i < src.length; i++) s[i] = src[a + i] * Math.min(1, i / msx(10)) * Math.min(1, (n - i) / msx(1200));
+  normalize(s, 1);
+  return loud(skyTail(mixInto(s, rumble(3.0, seed + 1), 0.45), 1.6, seed + 2, 0.4), 1.8);
+}
+
 const INCOMING_SECONDS = 2.2;   // keep equal to WHISTLE_LEAD_MS in Skyhammer_Ops.lua
 const EFFECTS = [];
 // Approved processed 105mm/B-2 impacts and A-10 pass, 2026-10-18.
@@ -935,12 +1034,25 @@ function buildEffects() {
   // (2026-10-20, the user: "the brrrt is too quiet": played at 1.6 like the B-2's bombs)
   [0, 1].forEach(i => effect('SH_GAU8', `sh_gau8_${i + 1}.wav`, gau8(1.9, 5100 + i * 7), { distanceMin: 160, distanceMax: 1000, volume: 1.6 }));
   effect('SH_A10_Flyby', 'sh_a10_flyby.wav', a10Flyby(6, 5200), { distanceMin: 60, distanceMax: 700 });
+  // the F-22 flight going over (Skyhammer_F22 plays it in three layers along the line)
+  effect('SH_F22_Flyby', 'sh_f22_flyby.wav', f22Flyby(6, 5300, 1), { distanceMin: 60, distanceMax: 700, volume: 1.4 });
+  effect('SH_F22_Flyby2', 'sh_f22_flyby2.wav', f22Flyby(6, 5310, 0.94), { distanceMin: 60, distanceMax: 700, volume: 1.4 });
+  effect('SH_F22_Flyby3', 'sh_f22_flyby3.wav', f22Flyby(6, 5320, 1.06), { distanceMin: 60, distanceMax: 700, volume: 1.4 });
+  effect('SH_F22_Boom', 'sh_f22_boom.wav', sonicBoom(5400), { distanceMin: 120, distanceMax: 900, volume: 1.6 });
   buildNapalmNukeEffects();
   // (2026-10-21, the user) the AC-130 crew reloading the 105: the first 1.0 s of the synthesized
   // take (synth_reload/make_reload_105.py, then make_reload_radio.py "first1s": cut and quieter;
   // played to the player alone, not in 3D: Skyhammer_Ops reloadSound), and the 105 round coming in
   // (incoming_105/make_incoming_105.py, INCOMING_SECONDS long, ending at the impact)
   fixedEffect('SH_Reload_105', 'sh_reload_105.wav', 'synth_reload/sh_reload_105.wav', { distanceMin: 40, distanceMax: 80 });
+  // (2026-10-24, the user: "louder reload in the gunner seat") the same take at twice the volume,
+  // played only from the seat (Skyhammer_Ops reloadSound(kind, inSeat))
+  fixedEffect('SH_Reload_105_Gunner', 'sh_reload_105.wav', 'synth_reload/sh_reload_105.wav', { distanceMin: 40, distanceMax: 80, volume: 2.0 });
+  // the gunner seat's warning when the body on the ground is hit (synth_alert/make_gunner_alert.py)
+  fixedEffect('SH_Gunner_Alert', 'sh_gunner_alert.wav', 'synth_alert/sh_gunner_alert.wav', { distanceMin: 40, distanceMax: 80 });
+  // the seat's entry: a flare going off the gunship, and the cut to the sensor (synth_alert/make_gunner_fx.py)
+  fixedEffect('SH_Gunner_Flare', 'sh_gunner_flare.wav', 'synth_alert/sh_gunner_flare.wav', { distanceMin: 40, distanceMax: 80 });
+  fixedEffect('SH_Gunner_Static', 'sh_gunner_static.wav', 'synth_alert/sh_gunner_static.wav', { distanceMin: 40, distanceMax: 80 });
   fixedEffect('SH_Incoming_105', 'sh_incoming_105.wav', 'incoming_105/sh_incoming_105.wav', { distanceMin: 8, distanceMax: 200 });
 }
 

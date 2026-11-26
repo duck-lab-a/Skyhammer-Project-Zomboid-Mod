@@ -1,0 +1,7 @@
+AC-130 Gunner Seat
+- New 25mm firing sound: one continuous "brrrr" stream instead of a separate report for each round, with the barrels' spin-up at the start and a wind-down on release.
+- Your character can no longer be hurt during the entry video, while the screen is covered and movement is held.
+--
+AC-130 사수석
+- 25mm 사격음을 새로 만들었습니다. 발사마다 따로 나던 소리를 끊기지 않는 "브르르르" 연사음으로 바꾸고, 시작할 때 총열 회전음과 손을 뗄 때 감속음을 넣었습니다.
+- 진입 영상이 나오는 동안에는 캐릭터가 피해를 입지 않습니다. 화면이 가려지고 이동도 막혀 있던 구간입니다.

@@ -24,14 +24,19 @@ local S = Skyhammer
 -- their sound keep their own orbit.
 local KINDS = {
     -- (2026-10-18, the user: the Apache's shadow looked far smaller than the real one; 0.61 -> 0.85)
-    apache = { tex = "media/ui/SH_Shadow_Apache.png", half = 8.77 * 0.85, pull = 0.7 },  -- as its model (Skyhammer_ApacheModel.txt)
-    ac130  = { tex = "media/ui/SH_Shadow_AC130.png",  half = 21.20 * 0.85, pull = 0.7 },
-    b2     = { tex = "media/ui/SH_Shadow_B2.png",     half = 27.57 },
+    apache = { tex = "media/ui/SH_Shadow_Apache.png", half = 11.32 * 0.85, pull = 0.7 },  -- as its model (Skyhammer_ApacheModel.txt)
+    ac130  = { tex = "media/ui/SH_Shadow_AC130.png",  half = 21.35 * 0.85, pull = 0.7 },
+    b2     = { tex = "media/ui/SH_Shadow_B2.png",     half = 27.77 },
     -- A-10: a10.mesh at metre scale; E from make_shadows.py (9.2765 rounded up to 0.1)
     a10    = { tex = "media/ui/SH_Shadow_A10.png",    half = 9.3 },
     -- Ferryman: dedicated UH-60 mesh at metre scale; E from make_shadows.py.
     ferry  = { tex = "media/ui/SH_Shadow_UH60.png", half = 12.7518 },
 }
+-- the F-22 flight: ten shadows, one a jet (f22_1 .. f22_10), all of f22.mesh at metre scale; E
+-- from make_shadows.py
+local F22_JETS, F22_HALF = 10, 10.2
+for i = 1, F22_JETS do KINDS["f22_" .. i] = { tex = "media/ui/SH_Shadow_F22.png", half = F22_HALF } end
+local F22_FROM = 3.5       -- seconds into a strike its shadows appear (the lead 850 tiles out)
 local ALPHA = 0.42         -- peak darkness, before the daylight dim
 local MIN_DAYLIGHT = 0.3   -- below this, night: shadows only where the ground under them is lit
 local FADE_S = 1.5         -- fade in / out
@@ -132,6 +137,24 @@ local function strafePose()
     if t < 0 or t >= A10_SECONDS then return false end
     local along = (t - A10_OVER) * A10_SPEED
     return true, run.x + math.cos(run.heading) * along, run.y + math.sin(run.heading) * along, run.heading
+end
+
+-- The F-22 flight (Skyhammer_F22's S.F22, Raptor.java): ten jets straight along the strike's
+-- line at its speed, the lead over the line's start at overS, each at its place in the trail
+-- (tiles behind the lead, F.gapS apart; to its right). run: the save's f22VisualRun, read once a frame
+-- for all ten (not ten save lookups a frame while no strike is flying)
+local F22_KEYS = {}
+for i = 1, F22_JETS do F22_KEYS[i] = "f22_" .. i end
+local function raptorPose(i, run)
+    local F = S.F22
+    local start = F and type(run) == "table" and tonumber(run.startedMs) or nil
+    if not start or not (tonumber(run.x) and tonumber(run.y) and tonumber(run.heading)) then return false end
+    local t = (S.combatMs() - start) / 1000
+    if t < F22_FROM or t >= F.endS then return false end
+    local j = F.jets[i]
+    local co, si = math.cos(run.heading), math.sin(run.heading)
+    local along = (t - F.overS) * F.speed - j[1]
+    return true, run.x + co * along - si * j[2], run.y + si * along + co * j[2], run.heading
 end
 
 -- Ferryman flies the 3D one's flight (Hover.java, approach 45): in from 45 tiles out, braking
@@ -321,6 +344,8 @@ local function render()
     update(p, dt, "ac130", gunshipPose(p))
     update(p, dt, "b2", bomberPose())
     update(p, dt, "a10", strafePose())
+    local raid = S.Store().f22VisualRun
+    for i = 1, F22_JETS do update(p, dt, F22_KEYS[i], raptorPose(i, raid)) end
     update(p, dt, "ferry", ferryStep(p, dt))
     -- other players' Apaches (PvP, Skyhammer_Ops S.EnemyApaches): circling their owners, where
     -- their fire is aimed at; the circle is the owner's own, so no smoothing
@@ -346,6 +371,9 @@ local function render()
     if S.ApacheBodySync then S.ApacheBodySync(p, state.apache, math.floor(p:getZ())) end
 
     if not S.opt("groundShadows") or S.Viewpoint3D() then return end
+    -- (2026-10-24, the user: the AC-130's own shadow sat sharp on the gunner seat's thermal picture)
+    -- none while the seat is manned: the sensor sees heat, not the gunship's shade
+    if S.GunnerManned and S.GunnerManned() then return end
     local sq = p:getCurrentSquare()
     if not (sq and sq:isOutside()) then return end
     local light = daylight()

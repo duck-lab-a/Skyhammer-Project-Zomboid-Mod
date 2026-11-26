@@ -23,7 +23,7 @@ next = nil
 ENGINE = {}
 for k in ([[addSound getCore getSoundManager getTexture HaloTextHelper isGamePaused ISPanel UIManager]]):gmatch("%S+") do ENGINE[k] = true end
 OPTIONAL = {}
-for k in ([[Viewpoint SkyhammerAircraft ProjectALife SkyhammerVehicleDamage]]):gmatch("%S+") do OPTIONAL[k] = true end
+for k in ([[Viewpoint SkyhammerAircraft ProjectALife RNPC SkyhammerVehicleDamage]]):gmatch("%S+") do OPTIONAL[k] = true end
 MISSING = {}
 setmetatable(_G, { __index = function(_, k)
     if OPTIONAL[k] then return nil end

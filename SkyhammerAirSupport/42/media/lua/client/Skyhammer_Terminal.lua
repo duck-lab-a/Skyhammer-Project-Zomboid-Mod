@@ -19,6 +19,7 @@ require "Skyhammer_Ops"
 require "Skyhammer_Apache"
 require "Skyhammer_Feed"
 require "Skyhammer_AircraftDiagram"
+require "Skyhammer_Viewer"
 require "Skyhammer_Quest"
 require "Skyhammer_Journal"
 
@@ -35,10 +36,19 @@ local C = {
     -- an add-on's weapon buttons (ODIN's orbital laser, full power), and the same not ready
     weapon = rgb(236, 110, 64), weaponDim = rgb(112, 64, 50),
 }
+T.C = C              -- (the 3D look-around, Skyhammer_Viewer.lua, draws in the same colours)
 -- An add-on's tab may dress the terminal in its own look while it is selected (def.theme):
 -- colors = { accent = { r, g, b } (0-255), ... any key of C }, title / subtitle / channel /
 -- mapIdle text keys (the header's name, its link channel, the sensor map's name with no aircraft
 -- feeding it). ODIN's comes from its orbital station. Every frame starts from the base colours.
+-- (2026-10-24, the user's pick for the AC-130 GUNNER SEAT button: an amber icon panel, a dark
+-- grey body, a thin amber edge, one line of text; hover only lightens it, disabled is dark)
+local SEAT = {
+    panel = rgb(238, 163, 36), panelHi = rgb(255, 186, 64), panelOff = rgb(74, 60, 36),
+    body = rgb(21, 23, 24), bodyHi = rgb(36, 33, 27), bodyOff = rgb(18, 20, 21),
+    edge = rgb(226, 154, 38), edgeHi = rgb(255, 196, 92),
+    text = rgb(240, 236, 226),
+}
 local BASE = {}
 for k, v in pairs(C) do BASE[k] = v end
 local themed = {}
@@ -80,7 +90,12 @@ end
 for _, id in ipairs({ "IGUI_SH_Choice_Conv", "IGUI_SH_Loadout_nuke" }) do
     sideText = math.max(sideText, (tm:MeasureStringX(UIFont.Small, getText(id)) + 38) * 2 + 8)
 end
+-- The GUNNER SEAT button (half the row): its square icon panel as tall as the button (38 px, or
+-- the font's height + 10 when that is more), the gap after it and its whole text on one line.
+sideText = math.max(sideText, (tm:MeasureStringX(UIFont.Small, getText("IGUI_SH_Btn_Gunner"))
+    + math.max(38, tm:getFontHeight(UIFont.Small) + 10) + 12 + 8) * 2 + 8)
 local SIDE, MINI = math.max(258, math.ceil(sideText) + 32), 58
+T.SIDE = SIDE
 
 -- Header cells, measured: a fixed 110 / 120 px let "CH-07 / LINK" and "BAT 100%" run past
 -- their cells at a large UI font, and the debug / journal buttons were pushed over the title
@@ -270,7 +285,7 @@ end
 local function controlButtons(self)
     if self.controlButtons then return self.controlButtons end
     self.controlButtons = { self.callBtn, self.recallBtn, self.actBtn, self.eyeBtn, self.act2Btn, self.eye2Btn,
-        self.holdBtn, self.gunAimBtn, self.loadoutBtn, self.nukeLoadoutBtn }
+        self.holdBtn, self.gunAimBtn, self.loadoutBtn, self.nukeLoadoutBtn, self.aggroBtn }
     self.weaponButtons = { self.actBtn, self.eyeBtn, self.act2Btn, self.eye2Btn, self.holdBtn,
         self.gunAimBtn, self.loadoutBtn, self.nukeLoadoutBtn }
     self.loadoutButtons = { self.loadoutBtn, self.nukeLoadoutBtn }
@@ -365,6 +380,7 @@ local function details(key)
     local i1
     if armed == "nuke" then i1 = getText("IGUI_SH_Info1_" .. key .. "_" .. armed)
     elseif key == "b2" then i1 = getText("IGUI_SH_Info1_b2", math.floor(S.opt("b2Area")), math.floor(S.opt("b2Bombs2")))
+    elseif key == "f22" then i1 = getText("IGUI_SH_Info1_f22", math.floor(S.opt("f22Bombs")), math.floor(S.opt("f22Raids")))
     else i1 = getText("IGUI_SH_Info1_" .. key) end
     local suffix = ""
     -- (the A-10 with no napalm loaded: its own gun-only paragraphs)
@@ -433,9 +449,53 @@ local function weaponIcon(name)
     end
     return iconCache[name] or nil
 end
-local function iconRoom(b) return b.iconTex and (ICON_PX + 10) or 0 end
+-- The GUNNER SEAT button's room left of its text: the square amber panel (as tall as the
+-- button) and the gap after it. Its chevron (right) is drawn only when there is room for it.
+local SEAT_GAP, SEAT_CHEVRON = 12, 26
+local function iconRoom(b) return b.gunnerIcon and (b.height + SEAT_GAP) or b.iconTex and (ICON_PX + 10) or 0 end
 T.iconRoom, T.textW = iconRoom, textW
+local function seatHover(b)
+    local ok, over = pcall(function() return b.mouseOver or b:isMouseOver() end)
+    return ok and over == true
+end
+local function gunnerRender(b)
+    local w, h = b.width, b.height
+    local on = b.enable == true
+    local hi = on and seatHover(b)
+    local body = on and (hi and SEAT.bodyHi or SEAT.body) or SEAT.bodyOff
+    local edge = on and (hi and SEAT.edgeHi or SEAT.edge) or C.line
+    local panel = on and (hi and SEAT.panelHi or SEAT.panel) or SEAT.panelOff
+    local text = on and SEAT.text or C.dim
+    b:drawRect(0, 0, w, h, 1, body[1], body[2], body[3])
+    -- the amber panel and its icon: black on amber, the aircraft nose up in the broken diamond
+    b:drawRect(1, 1, h - 2, h - 2, 1, panel[1], panel[2], panel[3])
+    local tex = weaponIcon("SH_Btn_GunnerSeat")
+    if tex then
+        local s = math.max(12, h - 10)
+        b:drawTextureScaled(tex, math.floor((h - s) / 2), math.floor((h - s) / 2), s, s, on and 1 or 0.55, 0.04, 0.04, 0.04)
+    end
+    b:drawRect(h, 1, 1, h - 2, on and 0.9 or 0.5, edge[1], edge[2], edge[3])
+    -- the text, centred in what is left; the chevron only where it does not crowd the text
+    local font = b.font or UIFont.Small
+    local title = b.title or ""
+    local tw = textW(title, font)
+    local left = h + SEAT_GAP
+    local chevron = tw <= w - left - SEAT_CHEVRON - 8
+    local right = chevron and SEAT_CHEVRON or 6
+    local x = left + math.floor((w - left - right - tw) / 2)
+    b:drawText(title, math.max(left, x), math.floor((h - fontH(font)) / 2), text[1], text[2], text[3], 1, font)
+    if chevron then
+        local cx, cy = w - 15, math.floor(h / 2)
+        b:drawRect(w - SEAT_CHEVRON, 6, 1, h - 12, 0.45, edge[1], edge[2], edge[3])
+        for i = 0, 3 do
+            b:drawRect(cx - 3 + i, cy - 4 + i, 2, 2, on and 1 or 0.6, edge[1], edge[2], edge[3])
+            b:drawRect(cx - 3 + i, cy + 3 - i, 2, 2, on and 1 or 0.6, edge[1], edge[2], edge[3])
+        end
+    end
+    b:drawRectBorder(0, 0, w, h, 1, edge[1], edge[2], edge[3])
+end
 local function buttonRender(b)
+    if b.gunnerIcon then return gunnerRender(b) end
     if not b.iconTex then return ISButton.render(b) end
     local title = b.title
     b.title = ""
@@ -449,6 +509,7 @@ local function buttonRender(b)
     local x = room + math.floor((b.width - room - textW(title or "", font)) / 2)
     b:drawText(title or "", math.max(room, x), math.floor((b.height - fontH(font)) / 2), c.r, c.g, c.b, c.a or 1, font)
 end
+T.buttonRender = buttonRender
 
 -- flat buttons: graphite with a thin outline; the execute button gets the accent outline
 local function flatButton(self, x, y, w, h, title, fn, font)
@@ -520,6 +581,8 @@ function T:createChildren()
     self.loadoutBtn.internal = "conv"
     self.nukeLoadoutBtn = flatButton(self, bx, c.y, bw, bh, "", T.onLoadout, UIFont.Medium)
     self.nukeLoadoutBtn.internal = "nuke"
+    -- (2026-11-16, the user: "beside recall") the AC-130's aggressive-fire switch, beside its recall button
+    self.aggroBtn = flatButton(self, bx, c.y + c.h - 24 - bh * 2, bw, bh, "", T.onAggro, UIFont.Medium)
     self.loadoutInfoCache = nil
     self.btnX, self.btnW, self.btnH = bx, bw, bh
     -- the sensor map
@@ -672,7 +735,15 @@ local function mapMark(self, kind)
     else S.Aim(kind, true) end
 end
 function T:onAction() mapMark(self, markKind(self.key)) end
-function T:onEyes() eyesMark(self, markKind(self.key)) end
+-- (2026-10-24, the user) the AC-130's eyes-on 105 mark is the gunner seat (Skyhammer_Gunner) now,
+-- beside the map mark, unless the sandbox turned the seat off
+function T:onEyes()
+    if self.key == "ac130" and S.GunnerSeatOn() then
+        if self:signal() and S.EnterGunner then S.EnterGunner() end
+        return
+    end
+    eyesMark(self, markKind(self.key))
+end
 -- the second mark row's (the A-10's napalm)
 function T:onAction2() mapMark(self, markKind2(self.key)) end
 function T:onEyes2() eyesMark(self, markKind2(self.key)) end
@@ -703,6 +774,14 @@ function T:onRecall()
     if not self:signal() then return end
     S.Recall(self.key)
 end
+-- (2026-11-16) the AC-130 aggressive fire Mod Option, switched from the terminal; held at its
+-- default while PvP locks it
+local function aggroLocked() return SkyhammerPvP and SkyhammerPvP.Locked("ac130Aggressive") and S.PvP() end
+function T:onAggro()
+    if not self:signal() then return end
+    if aggroLocked() then return end
+    S.setOpt("ac130Aggressive", not S.Ac130Aggressive())
+end
 -- Select the clicked weapon, without cycling; no radio link is needed on the ground.
 function T:onLoadout(button)
     if not button or not S.SetLoadout then return end
@@ -728,6 +807,8 @@ end
 function S.TerminalHoldsMouse() return open ~= nil and open.holding == true end
 -- whether the terminal window is open (not folded into its icon)
 function S.TerminalOpen() return open ~= nil and not open.folded end
+-- (the gunner seat closes it as it is taken)
+function S.CloseTerminal() if open then open:onClose() end end
 
 -- header drag and unfold on a click while folded. Holding the mouse also brings clicks from
 -- outside the window here. While aiming: open, the mark is clicked on the sensor map only and
@@ -745,6 +826,11 @@ function T:onMouseDown(x, y)
     if self:onGrip(x, y) then
         self.resize = { w = self.W, h = self.H }
         self:setCapture(true)
+        return true
+    end
+    -- (the aircraft picture: opens or closes the 3D look-around on release)
+    if SkyhammerViewer.ArtHit(self, x, y) then
+        self.artDown = true
         return true
     end
     if self.folded or y < HEADER then
@@ -777,6 +863,11 @@ function T:onRightMouseUp(x, y)
 end
 function T:onMouseUp(x, y)
     if self.resize then self:endResize(); return true end
+    if self.artDown then
+        self.artDown = nil
+        if SkyhammerViewer.ArtHit(self, x, y) then SkyhammerViewer.Toggle(self) end
+        return true
+    end
     if not self.drag then
         if self:outside(x, y) and S.IsAiming() then
             if self.folded then S.ConfirmAim() end
@@ -789,6 +880,7 @@ function T:onMouseUp(x, y)
     if self.folded and moved < 5 then self:setFolded(false) else self:save() end
 end
 function T:onMouseUpOutside()
+    self.artDown = nil
     if self.resize then self:endResize()
     elseif self.drag then self.drag = nil; self:save()
     elseif S.IsAiming() and self.folded then S.ConfirmAim() end
@@ -933,6 +1025,8 @@ function T:drawControl(on, view3d, why)
     local bh, gap = self.btnH, 8
     local rowY = function(n) return c.y + c.h - 16 - bh * n - gap * (n - 1) end
     local rows = 2
+    -- (the AC-130's mark row: the 105's map mark and the gunner seat, while the sandbox allows it)
+    local seatRow = key == "ac130" and S.GunnerSeatOn()
     setUI(self.actBtn, "Visible", mark ~= nil); setUI(self.eyeBtn, "Visible", mark ~= nil)
     if mark then rows = rows + 1; setUI(self.actBtn, "Y", rowY(rows)); setUI(self.eyeBtn, "Y", rowY(rows)) end
     -- a second weapon's mark row on top of it (the A-10: GUN RUN below, NAPALM above)
@@ -959,10 +1053,15 @@ function T:drawControl(on, view3d, why)
     else
         setUI(self.holdBtn, "Width", self.btnW)
     end
-    if besideRecall then
+    -- (2026-11-16, the user: "beside recall") the AC-130's aggressive-fire switch takes the recall row's
+    -- right half, so no row is added and the art keeps its room
+    local aggro = key == "ac130" and self.aggroBtn ~= nil
+    if self.aggroBtn then setUI(self.aggroBtn, "Visible", aggro) end
+    if besideRecall or aggro then
+        local b = aggro and self.aggroBtn or self.gunAimBtn
         setUI(self.recallBtn, "Width", half)
-        setUI(self.gunAimBtn, "X", self.btnX + half + 8); setUI(self.gunAimBtn, "Width", self.btnW - half - 8)
-        setUI(self.gunAimBtn, "Y", rowY(2))
+        setUI(b, "X", self.btnX + half + 8); setUI(b, "Width", self.btnW - half - 8)
+        setUI(b, "Y", rowY(2))
     else
         setUI(self.recallBtn, "Width", self.btnW)
     end
@@ -1032,8 +1131,11 @@ function T:drawControl(on, view3d, why)
     local room = avail - rowsH() - fh - 8
     local artH = math.min(96, room)
     if artH < 44 and on and available then artH = math.min(44, room + fh) end
+    self.viewerArt = nil
     if artH >= 20 then
         SkyhammerAircraftDiagram.draw(self, key, x, y, w, artH, tint, idle and 0.6 or 0.92)
+        -- (a click on it opens the aircraft's 3D look-around over the map: Skyhammer_Viewer.lua)
+        SkyhammerViewer.ArtDrawn(self, key, x, y, w, artH)
         y = y + artH + 8
     else
         if rowsH() > avail then bars = false end
@@ -1082,6 +1184,7 @@ function T:drawControl(on, view3d, why)
     elseif phase == "REARM" then hint = getText("IGUI_SH_Hint_Rearm")
     elseif key == "apache" then hint = getText(S.ApacheHold() and "IGUI_SH_Hint_GunHold" or "IGUI_SH_Hint_Apache")
     elseif S.HeBusy() or S.StrikeActive() then hint = getText("IGUI_SH_Hint_Busy")
+    elseif key == "ac130" and S.GunnerSeatOn() then hint = getText("IGUI_SH_Hint_Gunner")
     else hint = getText("IGUI_SH_Hint_Mark") end
     local hintRows = math.max(0, math.min(2, math.floor((top - 10 - y) / fh)))
     if hintRows > 0 then
@@ -1098,6 +1201,10 @@ function T:drawControl(on, view3d, why)
     -- a recall sends the whole aircraft home, never in the middle of a fire mission or a strike
     self.recallBtn.enable = live and (phase == "INBOUND" or phase == "ON_STATION")
         and not (key == "b2" and S.StrikeActive()) and not (key == "ac130" and S.HeBusy())
+    if aggro then
+        setUI(self.aggroBtn, "Title", getText(S.Ac130Aggressive() and "IGUI_SH_Btn_AggroOn" or "IGUI_SH_Btn_AggroOff"))
+        self.aggroBtn.enable = live and not aggroLocked()
+    end
     -- a mark row: two ways to mark, side by side: on the sensor map, or eyes-on in the game view
     local function markRow(kind, act, eye, noTips)
         local half = math.floor((self.btnW - 8) / 2)
@@ -1128,6 +1235,13 @@ function T:drawControl(on, view3d, why)
         setUI(eye, "Tooltip", not noTips and getText("IGUI_SH_Tip_MarkEyes") or nil)
     end
     if mark then markRow(mark, self.actBtn, self.eyeBtn) end
+    if mark and seatRow then
+        setUI(self.eyeBtn, "Title", getText("IGUI_SH_Btn_Gunner"))
+        -- (no hover tooltip: none new on Skyhammer's buttons; the hint line says what it does)
+        setUI(self.eyeBtn, "Tooltip", nil)
+        local can = SkyhammerGunner and SkyhammerGunner.CanEnter(getSpecificPlayer(0))
+        self.eyeBtn.enable = live and phase == "ON_STATION" and not S.IsAiming() and can == true
+    end
     -- (the A-10's napalm row: no hover tips, the row above already explains marking)
     if mark2 then markRow(mark2, self.act2Btn, self.eye2Btn, true) end
     if orders then
@@ -1188,6 +1302,7 @@ function T:drawControl(on, view3d, why)
         for _, b in ipairs({ ... }) do tints[b], icons[b] = t, icon end
     end
     tintKind(mark, self.actBtn, self.eyeBtn)
+    if seatRow then tints[self.eyeBtn], icons[self.eyeBtn] = C.accent, nil end
     tintKind(mark2, self.act2Btn, self.eye2Btn)
     if not orders and key == "ac130" then tintKind("gun40", self.holdBtn, self.gunAimBtn)
     elseif not orders and key == "apache" then tintKind("gun30", self.holdBtn) end
@@ -1196,6 +1311,11 @@ function T:drawControl(on, view3d, why)
         tintKind("nuke", self.nukeLoadoutBtn)
     end
     for _, b in ipairs(all) do
+        b.gunnerIcon = b == self.eyeBtn and seatRow == true
+        if b == self.eyeBtn then
+            color(b, "backgroundColor", C.panel)
+            color(b, "backgroundColorMouseOver", C.panel, 1.5)
+        end
         b.iconName = icons[b]
         b.iconTex = weaponIcon(b.iconName)
         b.font = b.height >= fontH(UIFont.Medium) + 8 and textW(b.title or "", UIFont.Medium) <= b.width - iconRoom(b) - 12
@@ -1204,6 +1324,19 @@ function T:drawControl(on, view3d, why)
         color(b, "textColor", col)
         color(b, "borderColor", C.line)
     end
+    -- (2026-11-16, the user: "make it red") the aggressive-fire switch is red while it is on
+    if aggro then
+        local b = self.aggroBtn
+        local hot = b.enable and S.Ac130Aggressive()
+        if hot then
+            color(b, "textColor", C.warn)
+            color(b, "borderColor", C.warn)
+        end
+        color(b, "backgroundColor", hot and C.warn or C.panel, hot and 0.18 or 1)
+        -- (hovered: a little brighter, still red while on; the usual grey while off)
+        if hot then color(b, "backgroundColorMouseOver", C.warn, 0.28)
+        else color(b, "backgroundColorMouseOver", { 0.13, 0.15, 0.16 }) end
+    end
     -- (2026-10-17, the user: "105MM map mark" small beside a big "eyes-on") the two buttons of a row
     -- share one font: the small one when either needs it
     if loadout then pairFont(self.loadoutBtn, self.nukeLoadoutBtn) end
@@ -1211,6 +1344,7 @@ function T:drawControl(on, view3d, why)
     if mark2 then pairFont(self.act2Btn, self.eye2Btn) end
     if paired then pairFont(self.holdBtn, self.gunAimBtn) end
     if besideRecall then pairFont(self.recallBtn, self.gunAimBtn) end
+    if aggro then pairFont(self.recallBtn, self.aggroBtn) end
     -- (the user's screenshots: "NAPALM MAP ..." cut beside its icon) a title too long beside the
     -- icon takes its short form if it has one; then the icon goes rather than the words; never
     -- wider than the button: cut short only as a last resort
@@ -1246,6 +1380,7 @@ function T:drawControl(on, view3d, why)
         end
         if (weapon[b] or t) and not b.enable then color(b, "textColor", C.line) end
     end
+    -- (the GUNNER SEAT button draws its own colours: gunnerRender)
     if loadout then
         for _, b in ipairs(self.loadoutButtons) do
             local t = tints[b]
@@ -1301,6 +1436,8 @@ end
 
 function T:prerender()
     if syncTextCache() then self.loadoutInfoCache = nil end
+    -- (the 3D look-around: closed when folded or aiming, follows the tab and the map's size)
+    SkyhammerViewer.Sync(self)
     if self.folded then
         self:drawRect(0, 0, self.width, self.height, 0.95, C.bg[1], C.bg[2], C.bg[3])
         if self.icons[self.key] then self:drawTextureScaled(self.icons[self.key], 3, 3, self.width - 6, self.height - 6, 1) end
@@ -1399,6 +1536,8 @@ Events.OnKeyPressed.Add(function(key)
     if not key or key == 0 then return end
     local p = getSpecificPlayer(0)
     if not p or p:isDead() then return end
+    -- (in the gunner seat the keys are the seat's)
+    if S.GunnerManned and S.GunnerManned() then return end
     if key == S.opt("keyTerminal") then
         if open then open:onClose(); return end
         local radio = S.FindRadio(p)

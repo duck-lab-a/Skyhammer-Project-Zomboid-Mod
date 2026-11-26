@@ -86,6 +86,7 @@
   {"id": "QContact2", "speaker": "HELLHOUND", "en": "Hellhound One-One, up on your freq. Standing by.", "ko": "헬하운드 원-원, 귀측 주파수 접속. 대기한다.", "cn": "地狱犬 1-1，已在你的频率上。待命。"},
   {"id": "QContact3", "speaker": "BANSHEE", "en": "Banshee Two-One. The guns are yours when you need them.", "ko": "밴시 투-원. 필요할 때 화력을 지원한다.", "cn": "女妖 2-1。需要时火力随时支援。"},
   {"id": "QContact4", "speaker": "TITAN", "en": "Titan Zero-One, on call for the heavy work.", "ko": "타이탄 제로-원, 대규모 폭격 대기 중.", "cn": "泰坦 0-1，随时待命执行重型轰炸。"},
+  {"id": "QContact6", "speaker": "VALKYRIE", "en": "Valkyrie Two-Six. The Hog's on call. Gun's ready.", "ko": "발키리 투-식스. 워트호그 대기 중. 기관포 준비 완료.", "cn": "女武神 2-6。疣猪待命。机炮就绪。"},
   {"id": "QContact5", "speaker": "HAVEN", "en": "All units are on your channel. Call when you need us. Aegis, out.", "ko": "전 부대가 그쪽 채널에 있다. 필요하면 호출하라. 이지스, 이상.", "cn": "所有单位都在你的频道上。需要时呼叫我们。神盾，完毕。"},
   {"id": "A10Call", "speaker": "HAVEN", "en": "Valkyrie Two-Six, Aegis. Survivor requests a gun run. Grid follows.", "ko": "발키리 투-식스, 이지스. 생존자 기총소사 요청. 좌표 송신.", "cn": "女武神 2-6，神盾。幸存者请求扫射。坐标随后。"},
   {"id": "A10CallAck", "speaker": "VALKYRIE", "en": "Aegis, Valkyrie Two-Six. Copy. The Hog's inbound.", "ko": "이지스, 발키리 투-식스. 수신. 워트호그 진입 중.", "cn": "神盾，女武神 2-6。收到。疣猪正在赶来。"},
@@ -120,5 +121,18 @@
   {"id": "RadClear", "speaker": "HAVEN", "en": "Aegis. The fallout has cleared. Ground zero is safe.", "ko": "이지스. 낙진 소멸. 폭심 지역 안전하다.", "cn": "神盾。落尘已消散。爆心区域安全。"},
   {"id": "NapalmIn", "speaker": "VALKYRIE", "en": "Valkyrie Two-Six, in hot, napalm.", "ko": "발키리 투-식스, 공격 진입, 네이팜.", "cn": "女武神 2-6，进入攻击，凝固汽油弹。"},
   {"id": "NapalmAway", "speaker": "VALKYRIE", "en": "Napalm away. Four cans on the deck.", "ko": "네이팜 투하. 네 통 지면 투하.", "cn": "凝固汽油弹投下。四罐落地。"},
-  {"id": "NapalmDone", "speaker": "VALKYRIE", "en": "Burn complete. Valkyrie Two-Six, off.", "ko": "연소 완료. 발키리 투-식스, 이탈.", "cn": "燃烧完毕。女武神 2-6 脱离。"}
+  {"id": "NapalmDone", "speaker": "VALKYRIE", "en": "Burn complete. Valkyrie Two-Six, off.", "ko": "연소 완료. 발키리 투-식스, 이탈.", "cn": "燃烧完毕。女武神 2-6 脱离。"},
+  {"id": "F22Call", "speaker": "HAVEN", "en": "Raven One-One, Aegis. Survivor requests a flight strike. Grid follows.", "ko": "레이븐 원-원, 이지스. 생존자 편대 폭격 요청. 좌표 송신.", "cn": "渡鸦 1-1，神盾。幸存者请求编队轰炸。坐标随后。"},
+  {"id": "F22CallAck", "speaker": "RAVEN", "en": "Aegis, Raven One-One. Copy. Flight of ten, inbound.", "ko": "이지스, 레이븐 원-원. 수신. 10기 편대 진입 중.", "cn": "神盾，渡鸦 1-1。收到。十机编队正在赶来。"},
+  {"id": "F22OnStation", "speaker": "RAVEN", "en": "Raven One-One on station. Ten ships, bombs on board. Send your target.", "ko": "레이븐 원-원 현장 도착. 10기, 폭탄 탑재. 표적 보내라.", "cn": "渡鸦 1-1 到位。十架，挂弹完毕。发送目标。"},
+  {"id": "F22Mark", "speaker": "HAVEN", "en": "Send your target. Raven picks the run-in. Right-click or Escape to cancel.", "ko": "표적 보내라. 진입 방향은 레이븐이 정한다. 취소는 우클릭 또는 ESC.", "prompt": true, "cn": "发送目标。进入方向由渡鸦决定。右键或 ESC 取消。"},
+  {"id": "F22RollIn", "speaker": "RAVEN", "en": "Contact the mark. Raven flight, in hot.", "ko": "표적 확인. 레이븐 편대, 공격 진입.", "cn": "目视标记。渡鸦编队，进入攻击。"},
+  {"id": "F22Release", "speaker": "RAVEN", "en": "Pickle, pickle. Bombs away.", "ko": "투하, 투하. 폭탄 투하.", "cn": "投弹，投弹。炸弹已投下。"},
+  {"id": "F22Off", "speaker": "RAVEN", "en": "Raven, off target. Coming around for the next one.", "ko": "레이븐, 공격 이탈. 다음 공격 위해 선회한다.", "cn": "渡鸦，脱离目标。转弯准备下一次。"},
+  {"id": "F22Winchester", "speaker": "RAVEN", "en": "Raven One-One, Winchester. Flight is RTB.", "ko": "레이븐 원-원, 탄약 소진. 편대 복귀한다.", "cn": "渡鸦 1-1，弹药打光。编队返航。"},
+  {"id": "F22DangerClose", "speaker": "HAVEN", "en": "Negative, danger close. No safe run-in from there. Mark it farther from you.", "ko": "불가, 근접 위험. 그 위치로는 안전한 진입로가 없다. 더 멀리 지정하라.", "cn": "否定，危险距离。那里没有安全进入航线。标得离你远一点。"},
+  {"id": "F22Bingo", "speaker": "RAVEN", "en": "Raven One-One, bingo fuel. Flight is off station.", "ko": "레이븐 원-원, 연료 한계. 편대 현장 이탈.", "cn": "渡鸦 1-1，燃油告急。编队脱离阵位。"},
+  {"id": "F22Rtb", "speaker": "HAVEN", "en": "Raven, Aegis. You're released. RTB.", "ko": "레이븐, 이지스. 임무 해제. 기지 복귀하라.", "cn": "渡鸦，神盾。任务解除。返航。"},
+  {"id": "F22RtbAck", "speaker": "RAVEN", "en": "Copy released. Raven, RTB.", "ko": "임무 해제 수신. 레이븐, 복귀한다.", "cn": "收到解除。渡鸦返航。"},
+  {"id": "PtsF22", "speaker": "HAVEN", "en": "Raven is cleared for a strike. Call it in when ready.", "ko": "레이븐 폭격 가능. 필요 시 요청하라.", "cn": "渡鸦可以执行轰炸。需要时呼叫。"}
 ]

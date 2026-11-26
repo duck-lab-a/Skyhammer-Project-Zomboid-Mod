@@ -1,0 +1,9 @@
+AC-130 Gunship
+- New Mod Option "AC-130 aggressive fire" (off by default). When it is on and nobody sits in the gunner seat, the circling gunship fires the 25mm, 40mm and 105mm by itself and goes home once the rounds shown on the seat screen are spent. It fires in waves: 15 seconds of fire, then 5 seconds of rest. The 105mm only fires at groups of 3 or more infected, well away from you. With the option off, nothing changes.
+- The same switch is on the terminal's AC-130 tab, beside the recall button. It turns red while aggressive fire is on.
+- Angel flares now go out without the crew's radio call.
+--
+AC-130 건쉽
+- 새 모드 옵션 "AC-130 초토화 모드"(기본 꺼짐). 켜 두면 사수석이 비어 있을 때 선회하는 건쉽이 25mm·40mm·105mm를 모두 스스로 쏘고, 사수석 화면에 보이는 탄약을 다 쓰면 돌아갑니다. 15초 쏘고 5초 쉬는 리듬으로 쏩니다. 105mm는 플레이어와 충분히 떨어진, 3마리 이상 모인 무리에만 쏩니다. 끄면 예전과 같습니다.
+- 터미널 AC-130 탭의 귀환 버튼 옆에서도 켜고 끌 수 있습니다. 켜 두면 버튼이 빨간색이 됩니다.
+- 엔젤 플레어를 쏠 때 무전 대사 없이 플레어만 나갑니다.

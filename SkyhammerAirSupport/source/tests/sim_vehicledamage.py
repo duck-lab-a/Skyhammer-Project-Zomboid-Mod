@@ -213,6 +213,19 @@ def bomb_reaches_farther():
     check(L.eval("c(W, 'Engine')") == 0, "wrecked by a bomb at 4")
 
 @test
+def f22_raid_wrecks_farther_than_a_b2_bomb():
+    # (2026-11-24) the F-22's carpet flattens its strip: wrecked to 9 tiles, damaged to 14
+    L = unit_world()
+    L.execute("V = car(109, 100, 1, 1); VD.Around(100.5, 100.5, 0, 'raid')")   # 9 tiles
+    check(L.eval("c(V, 'Engine')") == 0 and L.eval("flat(V)") == 4, "wrecked by an F-22 bomb at 9")
+    L.execute("W = car(113, 100, 1, 1); VD.Around(100.5, 100.5, 0, 'raid')")   # 13 tiles
+    check(L.eval("flat(W)") == 2 and L.eval("c(W, 'Engine')") > 0, "damaged at 13")
+    L.execute("X = car(117, 100, 1, 1); VD.Around(100.5, 100.5, 0, 'raid')")   # 17 tiles
+    check(L.eval("untouched(X)"), "nothing past 14, the same reach as a B-2 bomb")
+    L.execute("B = car(109, 110, 1, 1); VD.Around(100.5, 110.5, 0, 'bomb')")   # a B-2 bomb at 9
+    check(L.eval("c(B, 'Engine')") > 0, "a B-2 bomb's own bands unchanged")
+
+@test
 def nuke_wrecks_the_fireball():
     L = unit_world()
     # (the fireball's squares are looked at two apart, a quarter of the work: every car is wider)
@@ -340,6 +353,9 @@ def strikes_are_wired():
     check('wreck(f.x, f.y, f.z, "bomb")' in bomb, "B-2 bomb wired")
     a10 = io.open(os.path.join(LUA, "client", "Skyhammer_A10.lua"), encoding="utf-8").read()
     check("K.wreckLine(" in a10, "A-10 gun run wired")
+    f22 = io.open(os.path.join(LUA, "client", "Skyhammer_F22.lua"), encoding="utf-8").read()
+    raid = re.search(r'S\.RegisterImpact\("raid", function\(f\)(.*?)\nend\)', f22, re.S).group(1)
+    check('K.wreck(f.x, f.y, f.z, "raid")' in raid, "F-22 bombs wired with their own bands")
     nuke = io.open(os.path.join(LUA, "client", "Skyhammer_Nuke.lua"), encoding="utf-8").read()
     det = re.search(r"function U\.Detonate\(rec\)(.*?)\nend", nuke, re.S).group(1)
     check("SkyhammerVehicleDamage.Around, x, y, z, \"nuke\"" in det, "nuke wired (single player)")
@@ -361,6 +377,12 @@ def server_wreck_command():
     L.execute("V = car(104, 100, 1, 1); cmd(A, 'wreck', { x = 103.5, y = 100.5, z = 0, k = 'he' })")
     check(L.eval("c(V, 'Engine')") == 0, "wrecked by the server")
     check("Engine" in list(L.eval("V.cond").values()), "and sent to every player")
+
+@test
+def server_wreck_raid_command():
+    L = server_world()
+    L.execute("V = car(112, 100, 1, 1); cmd(A, 'wreck', { x = 103.5, y = 100.5, z = 0, k = 'raid' })")   # 9 tiles
+    check(L.eval("c(V, 'Engine')") == 0, "the F-22's bomb wrecks it on the server")
 
 @test
 def server_wreck_line_command():

@@ -64,7 +64,9 @@ end
 
 local function canShoot(z, p)
     if not K.alive(z) or ah.doomed[z] or S.IsFriendlyNPC(z) then return false end
-    if math.floor(z:getZ()) ~= math.floor(p:getZ()) then return false end
+    -- (2026-10-22) infected on the player's floor or below: from an upper floor or a helicopter the
+    -- guns still reach the ground; never one above the player
+    if math.floor(z:getZ()) > math.floor(p:getZ()) then return false end
     local d = K.dist(z:getX(), z:getY(), p:getX(), p:getY())
     -- (an infected right on the player is left alone; a player target never is: PvP's lone test
     -- has the Apache hunt its own caller)
@@ -202,16 +204,16 @@ local function rocketTarget(p)
     local px, py, pz = p:getX(), p:getY(), math.floor(p:getZ())
     local range, need = S.opt("apacheRange"), S.opt("apacheRocketMin")
     local range2, r2, safe2 = range * range, AH.clusterRadius * AH.clusterRadius, AH.safeDistance * AH.safeDistance
-    local xs, ys = {}, {}
+    local xs, ys, zs = {}, {}, {}
     local list = getCell():getZombieList()
     for i = 0, list:size() - 1 do
         local z = list:get(i)
         local x, y = z:getX(), z:getY()
         local dx, dy = x - px, y - py
         -- the cheap tests first (distance, floor); the rest only for those in range
-        if dx * dx + dy * dy <= range2 and math.floor(z:getZ()) == pz and K.alive(z)
+        if dx * dx + dy * dy <= range2 and math.floor(z:getZ()) <= pz and K.alive(z)
             and not S.IsFriendlyNPC(z) and K.outdoors(z:getCurrentSquare()) then
-            xs[#xs + 1], ys[#ys + 1] = x, y
+            xs[#xs + 1], ys[#ys + 1], zs[#zs + 1] = x, y, math.floor(z:getZ())
         end
     end
     local count = #xs
@@ -220,18 +222,18 @@ local function rocketTarget(p)
     local step = math.max(1, math.floor(count / 48))
     local best, bestN = nil, 0
     for i = 1, count, step do
-        local cx, cy, n, sx, sy = xs[i], ys[i], 0, 0, 0
+        local cx, cy, cz, n, sx, sy = xs[i], ys[i], zs[i], 0, 0, 0
         for j = 1, count do
             local qx, qy = xs[j], ys[j]
             local dx, dy = qx - cx, qy - cy
-            if dx * dx + dy * dy <= r2 then n = n + 1; sx = sx + qx; sy = sy + qy end
+            if zs[j] == cz and dx * dx + dy * dy <= r2 then n = n + 1; sx = sx + qx; sy = sy + qy end
         end
         local gx, gy = sx / n, sy / n
         local ox, oy = gx - px, gy - py
-        if n > bestN and ox * ox + oy * oy >= safe2 then best, bestN = { gx, gy }, n end
+        if n > bestN and ox * ox + oy * oy >= safe2 then best, bestN = { gx, gy, cz }, n end
     end
     if not best or bestN < need then return nil end
-    return best[1], best[2], pz, bestN
+    return best[1], best[2], best[3], bestN
 end
 
 local function rocketImpact(x, y, z)
@@ -395,8 +397,12 @@ table.insert(S.Hooks.released, function(craft) if craft == "apache" then resetAp
 -- APACHE_LEAD seconds before it reports on station) until it has flown off after leaving.
 S.APACHE_LEAD = 12
 local ROTOR_TAIL_MS = 10000
-local rotorTick = K.engineLoop("SH_Rotor_Loop", "rotorVolume")   -- its own volume, not the AC-130's
+local rotorTick, rotorStop = K.engineLoop("SH_Rotor_Loop", "rotorVolume")   -- its own volume, not the AC-130's
 local rotorUntil = 0
+-- (2026-10-25, Codex's MP audio audit) stopped, its fly-off tail forgotten, when a game starts or
+-- the main menu opens, as the AC-130's engines are: the last world's loop never carries over
+local function rotorReset() rotorStop(); rotorUntil = 0 end
+if Events.OnMainMenuEnter then Events.OnMainMenuEnter.Add(rotorReset) end
 table.insert(S.Hooks.tick, function(combat, dtMs)
     local ph = S.Phase("apache")
     announce(ph == "ON_STATION")
@@ -409,6 +415,7 @@ table.insert(S.Hooks.tick, function(combat, dtMs)
     rotorTick(near or S.now() < rotorUntil, dtMs, 1.1)
 end)
 table.insert(S.Hooks.gameStart, function()
+    rotorReset()
     flaresOut()
     resetApache()
     announced = false

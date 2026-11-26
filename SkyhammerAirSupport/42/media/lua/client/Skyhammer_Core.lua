@@ -91,6 +91,10 @@ local OPTIONS = {
     "#IGUI_SH_OptGeneral",
     { "keyTerminal",  "OptKeyTerminal", "key", Keyboard.KEY_K },
     { "keyFeed",      "OptKeyFeed",  "key", Keyboard.KEY_F9 },
+    -- (2026-10-24) the gunner seat's weapon switch, besides 1 / 2 (Skyhammer_Gunner)
+    { "keyGunnerSwitch", "OptKeyGunnerSwitch", "key", Keyboard.KEY_Q },
+    -- (2026-10-24) and its white-hot / black-hot switch
+    { "keyGunnerPolarity", "OptKeyGunnerPolarity", "key", Keyboard.KEY_B },
     { "voiceVolume",  "OptVoice",    0, 1,    0.05, 0.8 },
     { "subtitles",    "OptSubtitles", true },
     -- (2026-10-20: the "mute the AC-130 engines" tick box went; this slider at 0 is the same)
@@ -105,6 +109,8 @@ local OPTIONS = {
     "#IGUI_SH_OptEffects",
     { "fxQuality",    "OptFx",       "combo", { "OptFxLow", "OptFxMed", "OptFxHigh" }, 3 },
     { "craters",      "OptCraters",  false },
+    -- (2026-11-25, a Workshop request) blasts knock the trees near them down, logs left (Skyhammer_Craters)
+    { "fellTrees",    "OptFellTrees", true },
     { "indoorHits",   "OptIndoor",   false },
     { "protectPlayer", "OptProtect", true },
     -- (2026-10-17) the player's view shaking when a 105mm round or a B-2 bomb lands nearby (Skyhammer_Ops shake)
@@ -129,6 +135,8 @@ local OPTIONS = {
     { "b2VisSize",    "OptVisB2Size",   0.3, 2, 0.05, 1 },
     { "a10VisAlt",    "OptVisA10Alt",   30, 150, 1,    60 },
     { "a10VisSize",   "OptVisA10Size",  0.3, 2, 0.05, 1 },
+    { "f22VisAlt",    "OptVisF22Alt",   30, 150, 1,    45 },   -- (a low pass, 2026-11-23; was 70)
+    { "f22VisSize",   "OptVisF22Size",  0.3, 2, 0.05, 1 },
     "#IGUI_SH_OptApache",
     { "apacheInboundSec", "OptInbound", 5, 300, 1,   20 },
     { "apacheStationMin", "OptStation", 1, 30,  0.5, 3 },
@@ -150,15 +158,17 @@ local OPTIONS = {
     -- (Task 10) the napalm runs the same sortie carries besides its gun runs (Skyhammer_A10)
     { "a10NapalmRuns", "OptNapalmRuns", 0, 4, 1,  1 },
     "#IGUI_SH_OptAc130",
+    -- (2026-11-14, the user) the gunship works all three guns on its own (Skyhammer_Ops AGGRO)
+    { "ac130Aggressive", "OptAc130Aggressive", false },
     { "ac130InboundSec", "OptInbound", 5, 300, 1,   20 },
     { "ac130StationMin", "OptStation", 1, 30,  0.5, 3 },
     { "ac130RearmMin",   "OptRearm",   0, 120, 1,   30 },
     { "gunAmmo2",     "OptAmmo",     30, 600, 30,   60 },
     { "gunInterval2", "OptInterval", 0.5, 30, 0.5,  10 },
     { "gunRange2",    "OptRange",    10, 80,  5,    30 },
-    -- (2026-10-15) the 105mm: rounds per sortie and rounds per mark (Skyhammer_Ops heCommit)
+    -- (2026-10-15) the 105mm: rounds per sortie (the "rounds per mark" option went 2026-10-24: the
+    -- gunner seat fires a shell a click, Skyhammer_Ops S.GunnerFire)
     { "heAmmo",       "OptHeAmmo",   1, 40,   1,    8 },
-    { "heRounds",     "OptHeRounds", 1, 8,    1,    2 },
     "#IGUI_SH_OptB2",
     { "b2InboundSec", "OptInbound",  5, 300,  1,    30 },
     { "b2StationMin", "OptStation",  1, 30,   0.5,  2 },
@@ -167,12 +177,18 @@ local OPTIONS = {
     { "b2NukeRearmMin", "OptNukeRearm", 10, 600, 10, 120 },
     { "b2Area",       "OptArea",     10, 80,  5,    30 },
     { "b2Bombs2",     "OptBombs",    6, 60,   2,    20 },
+    -- (2026-11-23) the F-22 flight strike (Skyhammer_F22): strikes a sortie, bombs a strike
+    "#IGUI_SH_OptF22",
+    { "f22InboundSec", "OptInbound", 5, 300, 1,   20 },
+    { "f22RearmMin",   "OptRearm",   0, 180, 1,   50 },
+    { "f22Raids",      "OptRaids",   1, 3,   1,   1 },
+    { "f22Bombs",      "OptF22Bombs", 6, 40, 2,   20 },
 }
 -- The Vanilla edition has no 3D aircraft, so its page leaves out their section; the shadows
 -- option then sits under the effects. (The values left out keep their defaults.)
 local ONLY_3D = { ["#IGUI_SH_OptVisualTitle"] = true, aircraftVisual = true, apacheVisAlt = true,
     apacheVisSize = true, visAltitude = true, visRadius = true, visSize = true, b2VisAlt = true, b2VisSize = true,
-    a10VisAlt = true, a10VisSize = true, impactShake = true, nukeVisSize = true }
+    a10VisAlt = true, a10VisSize = true, f22VisAlt = true, f22VisSize = true, impactShake = true, nukeVisSize = true }
 local defaults = {}
 local page = nil
 local function addOption(o)
@@ -364,28 +380,37 @@ end
 -- ---------------------------------------------------------------- aircraft
 -- Four supports, one terminal tab each: Banshee (the AC-130, carrying the 40mm and the 105mm),
 -- Titan (the B-2), Hellhound (an Apache escort: 30mm cannon, rockets and illumination rockets)
--- and Valkyrie (an A-10 carrying GAU-8 gun runs and napalm runs, Skyhammer_A10). Add-ons
+-- and Valkyrie (an A-10 carrying GAU-8 gun runs and napalm runs, Skyhammer_A10), and a flight of
+-- ten F-22s bombing a line (its strikes, "raid": Skyhammer_F22). Add-ons
 -- register more with S.RegisterSupport. The weapons ("gun", "he", "b2", "cannon", "rockets",
 -- "flares", "gau8", "napalm") each keep their own ammunition; the weapons of one aircraft share
 -- its call, arrival, time on station, return and rearm.
-S.ORDER = { "apache", "a10", "ac130", "b2" }      -- the terminal's tabs, in order (by price)
-S.CRAFT = { gun = "ac130", he = "ac130", ac130 = "ac130", b2 = "b2",
+S.ORDER = { "apache", "a10", "ac130", "f22", "b2" }   -- the terminal's tabs, in order (by price)
+S.CRAFT = { gun = "ac130", he = "ac130", gun25 = "ac130", ac130 = "ac130", b2 = "b2",
     cannon = "apache", rockets = "apache", flares = "apache", apache = "apache",
-    gau8 = "a10", napalm = "a10", a10 = "a10" }
+    gau8 = "a10", napalm = "a10", a10 = "a10", raid = "f22", f22 = "f22" }
 -- the A-10 stays until its runs are flown: time to send the first mark, then a turn per run of
 -- either weapon
 local function a10StationMin()
     return (180 + (math.floor(S.opt("a10Passes")) + math.floor(S.opt("a10NapalmRuns"))) * 25) / 60
 end
+-- the F-22 flight: time to send the first mark, then a turn per strike
+local function f22StationMin()
+    return (150 + math.floor(S.opt("f22Raids")) * 30) / 60
+end
 -- inbound in seconds, station and rearm in minutes: an option id of this mod, or a function
 -- (an add-on's own options). spare: weapons that do not keep the aircraft on station once the
 -- rest are spent (an Apache with only flares left goes home, S.CraftDry)
 S.Aircraft = {
-    ac130  = { inbound = "ac130InboundSec",  station = "ac130StationMin",  rearm = "ac130RearmMin",  weapons = { "gun", "he" } },
+    -- (2026-10-24, the user: the gunner seat's 25mm) gun25 is the seat's alone; spare like the
+    -- Apache's flares: it never keeps a gunship with its 40mm and 105 empty on station
+    ac130  = { inbound = "ac130InboundSec",  station = "ac130StationMin",  rearm = "ac130RearmMin",  weapons = { "gun", "he", "gun25" },
+        spare = { gun25 = true } },
     b2     = { inbound = "b2InboundSec",     station = "b2StationMin",     rearm = "b2RearmMin",     weapons = { "b2" } },
     apache = { inbound = "apacheInboundSec", station = "apacheStationMin", rearm = "apacheRearmMin", weapons = { "cannon", "rockets", "flares" },
         spare = { flares = true } },
     a10    = { inbound = "a10InboundSec",    station = a10StationMin,      rearm = "a10RearmMin",    weapons = { "gau8", "napalm" } },
+    f22    = { inbound = "f22InboundSec",    station = f22StationMin,      rearm = "f22RearmMin",    weapons = { "raid" } },
 }
 local function setting(craft, field)
     local v = S.Aircraft[craft][field]
@@ -406,11 +431,27 @@ function S.RegisterSupport(def)
 end
 -- The sandbox can take an aircraft out of the game (a server admin's choice): it cannot be
 -- called and its tab is not shown. Add-on supports are always in (their mod is the switch).
-local ENABLE = { apache = "EnableApache", ac130 = "EnableAC130", b2 = "EnableB2", a10 = "EnableA10" }
+local ENABLE = { apache = "EnableApache", ac130 = "EnableAC130", b2 = "EnableB2", a10 = "EnableA10", f22 = "EnableF22" }
 function S.Enabled(key)
     local name = ENABLE[S.CRAFT[key] or key]
     if not name then return true end
     local v = SandboxVars and SandboxVars.Skyhammer and SandboxVars.Skyhammer[name]
+    return v ~= false
+end
+-- the AC-130 gunner seat (Skyhammer_Gunner): on unless the sandbox (a server admin) turns it
+-- off; off, the terminal offers the old 105 marks instead
+-- (2026-10-24, the user: it ships single player only, online once it has been tested more)
+-- (2026-11-18, the user asked to try it) online too, in the Vanilla Edition: the thermal map instead
+-- of the real view (Skyhammer_Gunner G.RealViewAvailable), its guns through the server as the
+-- aimed 40mm and the 105 mission's (Skyhammer_Ops). Experimental.
+-- (2026-11-23, the user: leave it out of this update) held back again: online the seat stays off
+-- until GUNNER_SEAT_ONLINE is true. The online parts (here, Skyhammer_Ops' 25mm under PvP,
+-- Skyhammer_SeatShotAudio's online cues) stay in, unused until then;
+-- source/tests/kahlua/run_seat_online_test.cmd turns it on to test them.
+S.GUNNER_SEAT_ONLINE = false
+function S.GunnerSeatOn()
+    if S.Multiplayer() and not S.GUNNER_SEAT_ONLINE then return false end
+    local v = SandboxVars and SandboxVars.Skyhammer and SandboxVars.Skyhammer.GunnerSeat
     return v ~= false
 end
 -- the terminal's tabs: S.ORDER without the aircraft the sandbox has turned off
@@ -424,27 +465,52 @@ end
 local LOAD = {
     gun = function() return math.floor(S.opt("gunAmmo2")) end,
     he  = function() return math.floor(S.opt("heAmmo")) end,
+    gun25 = function() return 600 end,
     b2  = function() return 1 end,
     cannon  = function() return math.floor(S.opt("apacheAmmo")) end,
     rockets = function() return math.floor(S.opt("apacheRockets")) end,
     flares  = function() return math.floor(S.opt("apacheFlares")) end,
     gau8    = function() return math.floor(S.opt("a10Passes")) end,       -- gun runs
     napalm  = function() return math.floor(S.opt("a10NapalmRuns")) end,   -- napalm runs
+    raid    = function() return math.floor(S.opt("f22Raids")) end,        -- F-22 strikes
 }
 
+-- A table of this character's own in its mod data (the aircraft, the killstreak ledger, the quest).
+-- (2026-11-18, bug report on the Vanilla Edition: every call "sortie 1", aircraft never
+-- arriving.) Online the server never gets these, and whenever anything on the server sends the
+-- character's mod data (player:transmitModData(), common in server mods) the game wipes the
+-- client's table and loads the server's copy (42.22 ObjectModDataPacket): Skyhammer's state was
+-- gone mid-flight. So each table is also held here, per character, and put back whenever the mod
+-- data has lost it or holds another copy. A new character (a respawn) starts with its own.
+local held = {}
+function S.PlayerData(p, key)
+    if not p then return nil end
+    local md = p:getModData()
+    local mine = held[p]
+    if not mine then
+        -- (one entry per character this session: a handful at most, so none is ever dropped)
+        mine = {}
+        held[p] = mine
+    end
+    local t = mine[key]
+    if t == nil then
+        t = md[key]
+        if type(t) ~= "table" then t = {} end
+        mine[key] = t
+    end
+    if md[key] ~= t then md[key] = t end
+    return t
+end
+
 -- Single player keeps it in the save's ModData. Online the world's ModData is the server's, so
--- each player's own aircraft are kept with that player (their mod data is saved with them).
+-- each player's own aircraft are kept with that player (S.PlayerData above).
 local function store()
     local ok, d
     if S.Online() then
         -- (between a death and the respawn there is no player for a moment: memory till then)
         local p = getSpecificPlayer(0)
         if p then
-            ok, d = pcall(function()
-                local md = p:getModData()
-                md.SkyhammerAirSupport = md.SkyhammerAirSupport or {}
-                return md.SkyhammerAirSupport
-            end)
+            ok, d = pcall(function() return S.PlayerData(p, "SkyhammerAirSupport") end)
         end
     else
         ok, d = pcall(function() return ModData.getOrCreate("SkyhammerAirSupport") end)
@@ -685,9 +751,15 @@ end
 function S.Phase(key) return craftState(key).phase end
 function S.Ammo(weapon) local am = ammoState(weapon); return am.n or 0, am.cap or 0 end
 -- whether every weapon on the aircraft is empty (a ground team carries none it could run out of)
+-- (2026-11-14, the user) Mod Options "AC-130 aggressive fire": the gunship fires its 25mm, 40mm
+-- and 105 on its own (Skyhammer_Ops AGGRO); off under PvP (Skyhammer_PvP Locked)
+function S.Ac130Aggressive() return S.opt("ac130Aggressive") == true end
 function S.CraftDry(key)
     local a = S.Aircraft[S.CRAFT[key] or key]
     local weapons, spare = a.weapons, a.spare or {}
+    -- (the aggressive gunship fires its 25mm on its own: then it is a weapon like the others and
+    -- keeps the gunship up until it is spent too)
+    if a == S.Aircraft.ac130 and S.Ac130Aggressive() then spare = {} end
     if #weapons == 0 then return false end
     for _, w in ipairs(weapons) do
         if not spare[w] and ammoState(w).n > 0 then return false end

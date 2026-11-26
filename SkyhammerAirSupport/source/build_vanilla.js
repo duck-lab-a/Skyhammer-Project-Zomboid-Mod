@@ -54,7 +54,9 @@ const crlf = credits.includes('\r\n');
 credits = credits.replace(/\r\n/g, '\n');
 if (!credits.includes(REQUIRED)) throw new Error('CREDITS.txt: the required-projects lines changed; update build_vanilla.js');
 credits = credits.replace(REQUIRED, 'Required projects (separately installed, not redistributed here):\nProject Zomboid only; this edition needs no other mod.')
-  .replace('AC-130, Apache and B-2 aircraft geometry and Java integration:', 'AC-130, Apache and B-2 aircraft geometry (the ground shadows are drawn from it):');
+  // (this edition has no Java part: the MIT notice is for the UH-60 and napalm canister geometry alone)
+  .replace("The 3D aircraft's Java integration, the UH-60 and the napalm canister geometry:", 'The UH-60 and the napalm canister geometry:');
+if (!credits.includes('The UH-60 and the napalm canister geometry:')) throw new Error('CREDITS.txt: the aircraft licence lines changed; update build_vanilla.js');
 fs.writeFileSync(path.join(DST, 'common', 'CREDITS.txt'), crlf ? credits.replace(/\n/g, '\r\n') : credits);
 
 fs.writeFileSync(path.join(DST, '42', 'mod.info'), [
@@ -136,9 +138,14 @@ const CONTENT = path.join(STAGE, 'Contents', 'mods', 'SkyhammerAirSupportVanilla
 fs.mkdirSync(CONTENT, { recursive: true });
 mirror(path.join(DST, '42'), path.join(CONTENT, '42'), [], []);
 mirror(path.join(DST, 'common'), path.join(CONTENT, 'common'), [], []);
-fs.copyFileSync(path.join(ART, 'preview_vanilla_256.png'), path.join(STAGE, 'preview.png'));
+// (the Workshop thumbnail with the F-22, 2026-11-23: compose_thumbnail.py)
+fs.copyFileSync(path.join(ART, 'preview_vanilla_256_2026-11-23.png'), path.join(STAGE, 'preview.png'));
 
-const body = fs.readFileSync(path.join(ART, 'vanilla_en.txt'), 'utf8').replace(/\r\n/g, '\n').replace(/\n+$/, '');
+// (2026-10-25) vanilla_en.txt ends with the Workshop ID / Mod ID lines for the API uploader
+// (workshop_v2/upload_skyhammer.py); the game's own uploader adds those itself, so workshop.txt
+// leaves them out (else they show twice)
+const body = fs.readFileSync(path.join(ART, 'vanilla_en.txt'), 'utf8').replace(/\r\n/g, '\n')
+  .replace(/\n*Workshop ID: \d+\n(Mod ID: [^\n]*\n?)*$/, '').replace(/\n+$/, '');
 const txt = path.join(STAGE, 'workshop.txt');
 const old = fs.existsSync(txt) ? fs.readFileSync(txt, 'utf8').replace(/\r\n/g, '\n').split('\n') : [];
 let head = old.filter(l => /^(version|id|title)=/.test(l));

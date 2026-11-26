@@ -167,6 +167,20 @@ def dose_sickness_and_protection():
     ok(abs(L3.eval("ME.md.SkyhammerRadDose") - 10 * 1.5 * 0.5) < 1e-6, "no filter: nothing; under a roof: half")
 
 @test
+def the_gunner_seat_camera_takes_no_dose():
+    # (2026-10-25) in the gunner seat's real view the character is the camera; the dose is taken
+    # where the body stands (RAD.body.bodyPlace, set by the seat)
+    L = world()
+    L.execute("RAD.Detonated(100, 100, 0, 50); RAD.body.bodyPlace = function() return 900, 900, 0, nil end")
+    minutes(L, 10)
+    eq(L.eval("ME.md.SkyhammerRadDose or 0"), 0, "the camera over ground zero, the body far off: no dose")
+    L2 = world()
+    L2.execute("RAD.Detonated(100, 100, 0, 50); ME.x, ME.y = 900, 900; RAD.body.bodyPlace = function() return 100, 100, 0, nil end")
+    minutes(L2, 10)
+    ok((L2.eval("ME.md.SkyhammerRadDose") or 0) > 10, "the body at ground zero, the camera far off: the dose")
+
+
+@test
 def leaving_and_the_all_clear():
     L = world()
     L.execute("RAD.Detonated(100, 100, 0, 50)")

@@ -1,0 +1,486 @@
+15:05:58 | INFO: Data are loaded, start creating Blender stuff
+15:05:58 | INFO: Blender create Mesh node Nose_Wheel_Pnevmatic-FACES
+15:05:58 | INFO: Blender create Mesh node Box171-FACES
+15:05:58 | INFO: Blender create Mesh node Box114-FACES
+15:05:58 | INFO: Blender create Mesh node Box106-FACES
+15:05:58 | INFO: Blender create Mesh node Box115-FACES
+15:05:58 | INFO: Blender create Mesh node Box116-FACES
+15:05:58 | INFO: Blender create Mesh node Box117-FACES
+15:05:58 | INFO: Blender create Mesh node Box118-FACES
+15:05:58 | INFO: Blender create Mesh node Box119-FACES
+15:05:58 | INFO: Blender create Mesh node ILS-FACES
+15:05:58 | INFO: Blender create Mesh node Box120-FACES
+15:05:58 | INFO: Blender create Mesh node Cylinder09-FACES
+15:05:58 | INFO: Blender create Mesh node Cylinder10-FACES
+15:05:58 | INFO: Blender create Mesh node Cylinder11-FACES
+15:05:58 | INFO: Blender create Mesh node Cylinder12-FACES
+15:05:58 | INFO: Blender create Mesh node Box122-FACES
+15:05:58 | INFO: Blender create Mesh node Box123-FACES
+15:05:58 | INFO: Blender create Mesh node Box124-FACES
+15:05:58 | INFO: Blender create Mesh node Box125-FACES
+15:05:58 | INFO: Blender create Mesh node Box126-FACES
+15:05:58 | INFO: Blender create Mesh node Box127-FACES
+15:05:58 | INFO: Blender create Mesh node Box128-FACES
+15:05:58 | INFO: Blender create Mesh node Box129-FACES
+15:05:58 | INFO: Blender create Mesh node Box130-FACES
+15:05:58 | INFO: Blender create Mesh node Box131-FACES
+15:05:58 | INFO: Blender create Mesh node Box132-FACES
+15:05:58 | INFO: Blender create Mesh node Box133-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Main_Gear_Porshen03-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Main_Gear_Porshen03-FACES
+15:05:58 | INFO: Blender create Mesh node Box134-FACES
+15:05:58 | INFO: Blender create Mesh node Box135-FACES
+15:05:58 | INFO: Blender create Mesh node Box136-FACES
+15:05:58 | INFO: Blender create Mesh node Box137-FACES
+15:05:58 | INFO: Blender create Mesh node Box90-FACES
+15:05:58 | INFO: Blender create Mesh node Box91-FACES
+15:05:58 | INFO: Blender create Mesh node Box138-FACES
+15:05:58 | INFO: Blender create Mesh node Box139-FACES
+15:05:58 | INFO: Blender create Mesh node Box140-FACES
+15:05:58 | INFO: Blender create Mesh node Box141-FACES
+15:05:58 | INFO: Blender create Mesh node Nose_Wheel_Disk-FACES
+15:05:58 | INFO: Blender create Mesh node Nose_Gear_Holder02-FACES
+15:05:58 | INFO: Blender create Mesh node Box142-FACES
+15:05:58 | INFO: Blender create Mesh node Box143-FACES
+15:05:58 | INFO: Blender create Mesh node Box92-FACES
+15:05:58 | INFO: Blender create Mesh node Box93-FACES
+15:05:58 | INFO: Blender create Mesh node Box94-FACES
+15:05:58 | INFO: Blender create Mesh node Box95-FACES
+15:05:58 | INFO: Blender create Mesh node Box144-FACES
+15:05:58 | INFO: Blender create Mesh node Box145-FACES
+15:05:58 | INFO: Blender create Mesh node Box146-FACES
+15:05:58 | INFO: Blender create Mesh node Box147-FACES
+15:05:58 | INFO: Blender create Mesh node Box148-FACES
+15:05:58 | INFO: Blender create Mesh node Box149-FACES
+15:05:58 | INFO: Blender create Mesh node Box150-FACES
+15:05:58 | INFO: Blender create Mesh node Box151-FACES
+15:05:58 | INFO: Blender create Mesh node Box152-FACES
+15:05:58 | INFO: Blender create Mesh node Box153-FACES
+15:05:58 | INFO: Blender create Mesh node Box154-FACES
+15:05:58 | INFO: Blender create Mesh node Box155-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Main_Gear_Pnevmatic-FACES
+15:05:58 | INFO: Blender create Mesh node Box156-FACES
+15:05:58 | INFO: Blender create Mesh node Box157-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Main_Gear_Porshen03-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Main_Gear_Porshen03-FACES
+15:05:58 | INFO: Blender create Mesh node Box158-FACES
+15:05:58 | INFO: Blender create Mesh node Box159-FACES
+15:05:58 | INFO: Blender create Mesh node Box161-FACES
+15:05:58 | INFO: Blender create Mesh node Box96-FACES
+15:05:58 | INFO: Blender create Mesh node Box97-FACES
+15:05:58 | INFO: Blender create Mesh node Box98-FACES
+15:05:58 | INFO: Blender create Mesh node Box162-FACES
+15:05:58 | INFO: Blender create Mesh node Box163-FACES
+15:05:58 | INFO: Blender create Mesh node Box164-FACES
+15:05:58 | INFO: Blender create Mesh node Box99-FACES
+15:05:58 | INFO: Blender create Mesh node Box100-FACES
+15:05:58 | INFO: Blender create Mesh node Box101-FACES
+15:05:58 | INFO: Blender create Mesh node Box102-FACES
+15:05:58 | INFO: Blender create Mesh node Box165-FACES
+15:05:58 | INFO: Blender create Mesh node Box103-FACES
+15:05:58 | INFO: Blender create Mesh node Box166-FACES
+15:05:58 | INFO: Blender create Mesh node Box104-FACES
+15:05:58 | INFO: Blender create Mesh node Box105-FACES
+15:05:58 | INFO: Blender create Mesh node Box167-FACES
+15:05:58 | INFO: Blender create Mesh node Box168-FACES
+15:05:58 | INFO: Blender create Mesh node Box108-FACES
+15:05:58 | INFO: Blender create Mesh node Box169-FACES
+15:05:58 | INFO: Blender create Mesh node Box109-FACES
+15:05:58 | INFO: Blender create Mesh node Box110-FACES
+15:05:58 | INFO: Blender create Mesh node Box170-FACES
+15:05:58 | INFO: Blender create Mesh node Box111-FACES
+15:05:58 | INFO: Blender create Mesh node Box113-FACES
+15:05:58 | INFO: Blender create Mesh node Box112-FACES
+15:05:58 | INFO: Blender create Mesh node Box172-FACES
+15:05:58 | INFO: Blender create Mesh node Box175-FACES
+15:05:58 | INFO: Blender create Mesh node Box174-FACES
+15:05:58 | INFO: Blender create Mesh node Box173-FACES
+15:05:58 | INFO: Blender create Mesh node Nose_Gear_Cylinder02-FACES
+15:05:58 | INFO: Blender create Mesh node Nose_Gear_Cylinder02-FACES
+15:05:58 | INFO: Blender create Mesh node Pilot_Horizon-FACES
+15:05:58 | INFO: Blender create Mesh node ILS_Border-FACES
+15:05:58 | INFO: Blender create Mesh node Box89-FACES
+15:05:58 | INFO: Blender create Mesh node Box107-FACES
+15:05:58 | INFO: Blender create Mesh node Pilot_Fuel_Ctrl-FACES
+15:05:58 | INFO: Blender create Mesh node Box121-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Main_Gear_Cylinder03-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Main_Gear_Porshen02-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Main_Gear_Porshen02-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Main_Gear_Porshen01-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Main_Gear_Porshen01-FACES
+15:05:58 | INFO: Blender create Mesh node Nose_Gear_Holder01-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Display03-FACES
+15:05:58 | INFO: Blender create Mesh node Nose_Gear_Cylinder03-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Main_Gear_Porshen01-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Main_Gear_Porshen01-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Main_Gear_Porshen02-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Main_Gear_Porshen02-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Main_Gear_Cylinder03-FACES
+15:05:58 | INFO: Blender create Mesh node Nose_Gear_Cylinder04-FACES
+15:05:58 | INFO: Blender create Mesh node Nose_Gear_Cylinder04-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Main_Gear_Disk-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Display02-FACES
+15:05:58 | INFO: Blender create Mesh node OilTank02-FACES
+15:05:58 | INFO: Blender create Mesh node OilTank03-FACES
+15:05:58 | INFO: Blender create Mesh node OilTank04-FACES
+15:05:58 | INFO: Blender create Mesh node OilTank05-FACES
+15:05:58 | INFO: Blender create Mesh node OilTank06-FACES
+15:05:58 | INFO: Blender create Mesh node OilTank07-FACES
+15:05:58 | INFO: Blender create Mesh node OilTank08-FACES
+15:05:58 | INFO: Blender create Mesh node OilTank01-FACES
+15:05:58 | INFO: Blender create Mesh node Right_MGear_Door_Shtok04-FACES
+15:05:58 | INFO: Blender create Mesh node Right_MGear_Door_Shtok03-FACES
+15:05:58 | INFO: Blender create Mesh node Right_MGear_Door_Shtok02-FACES
+15:05:58 | INFO: Blender create Mesh node Right_MGear_Door_Shtok01-FACES
+15:05:58 | INFO: Blender create Mesh node Nose_Gear_Cylinder01-FACES
+15:05:58 | INFO: Blender create Mesh node Pilot_Seat-FACES
+15:05:58 | INFO: Blender create Mesh node Box160-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Main_Gear_Cylinder02-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Main_Gear_Cylinder02-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Main_Gear_Cylinder01-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Prewing-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Prewing-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Main_Gear_Cylinder01-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Eleron02-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Eleron02-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Eleron01-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Eleron01-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Back_Turbina-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Back_Turbina-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Main_Gear_Pnevmatic-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Main_Gear_Cylinder02-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Main_Gear_Cylinder02-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Main_Gear_Disk-FACES
+15:05:58 | INFO: Blender create Mesh node OilTank09-FACES
+15:05:58 | INFO: Blender create Mesh node OilTank10-FACES
+15:05:58 | INFO: Blender create Mesh node OilTank11-FACES
+15:05:58 | INFO: Blender create Mesh node OilTank12-FACES
+15:05:58 | INFO: Blender create Mesh node OilTank13-FACES
+15:05:58 | INFO: Blender create Mesh node OilTank14-FACES
+15:05:58 | INFO: Blender create Mesh node OilTank15-FACES
+15:05:58 | INFO: Blender create Mesh node OilTank16-FACES
+15:05:58 | INFO: Blender create Mesh node Left_MGear_Door_Shtok02-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Front_Turbina-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Front_Turbina-FACES
+15:05:58 | INFO: Blender create Mesh node Left_MGear_Door_Shtok03-FACES
+15:05:58 | INFO: Blender create Mesh node Left_MGear_Door_Shtok01-FACES
+15:05:58 | INFO: Blender create Mesh node Left_MGear_Door_Shtok04-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Back_Turbina-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Back_Turbina-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Ruler-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Eleron02-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Eleron02-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Eleron01-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Eleron01-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Prewing-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Prewing-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Ruler-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Front_Turbina-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Front_Turbina-FACES
+15:05:58 | INFO: Blender create Mesh node Control_Panel-FACES
+15:05:58 | INFO: Blender create Mesh node Cabin_Glass-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Intake-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Keel-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Keel-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Nozzle(Bottom_Part)-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Nozzle(Bottom_Part)-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Nozzle(Bottom_Part)-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Nozzle(Inner_Side)-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Nozzle(Top_Part)-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Nozzle(Top_Part)-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Nozzle(Top_Part)-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Rocket_Bay-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Rocket_Bay_Door-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Rocket_Bay_Door-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Stabilizer-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Stabilizer-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Intake-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Nozzle(Inner_Side)-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Rocket_Bay-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Rocket_Bay_Door-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Rocket_Bay_Door-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Stabilizer-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Stabilizer-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Wing-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Wing-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Main_Gear_Door01-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Main_Gear_Door01-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Main_Gear_Door02-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Main_Gear_Door02-FACES
+15:05:58 | INFO: Blender create Mesh node Line04-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Main_Gear_Bay-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Main_Gear_Door01-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Main_Gear_Door01-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Main_Gear_Door02-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Main_Gear_Door02-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Nose_Gear_Door-FACES
+15:05:58 | INFO: Blender create Mesh node Left_Nose_Gear_Door-FACES
+15:05:58 | INFO: Blender create Mesh node Nose_Gear_Bay-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Nose_Gear_Door-FACES
+15:05:58 | INFO: Blender create Mesh node Right_Nose_Gear_Door-FACES
+15:05:59 | INFO: Blender create Mesh node Left_Main_Gear_Bay-FACES
+15:05:59 | INFO: Blender create Mesh node Right_Keel-FACES
+15:05:59 | INFO: Blender create Mesh node Right_Keel-FACES
+15:05:59 | INFO: Blender create Mesh node Left_Wing-FACES
+15:05:59 | INFO: Blender create Mesh node Left_Wing-FACES
+15:05:59 | INFO: Blender create Mesh node Right_Nozzle(Top_Part)-FACES
+15:05:59 | INFO: Blender create Mesh node Right_Nozzle(Top_Part)-FACES
+15:05:59 | INFO: Blender create Mesh node Right_Nozzle(Top_Part)-FACES
+15:05:59 | INFO: Blender create Mesh node Right_Nozzle(Bottom_Part)-FACES
+15:05:59 | INFO: Blender create Mesh node Right_Nozzle(Bottom_Part)-FACES
+15:05:59 | INFO: Blender create Mesh node Right_Nozzle(Bottom_Part)-FACES
+15:05:59 | INFO: Blender create Mesh node Line01-FACES
+15:05:59 | INFO: Blender create Mesh node Line02-FACES
+15:05:59 | INFO: Blender create Mesh node Cabin_Inner_Side-FACES
+15:05:59 | INFO: Blender create Mesh node Line03-FACES
+15:05:59 | INFO: Blender create Mesh node Cabin_Carcas-FACES
+15:05:59 | INFO: Blender create Mesh node Fuselage-FACES
+15:05:59 | INFO: Blender create Mesh node Fuselage-FACES
+15:05:59 | INFO: Blender create Mesh node Fuselage-FACES
+15:05:59 | INFO: Blender create Mesh node Fuselage-FACES
+15:05:59 | INFO: Blender create Mesh node Fuselage-FACES
+15:05:59 | INFO: glTF import finished in 0.44s
+OBJ Nose_Wheel_Pnevmatic-FACES.0 parent=Nose_Wheel_Pnevmat tris=  1536  box=(-1.83,-3.15,-3.66)-(-1.39,-2.65,-3.07)  Left_Main_Gear_Pnevmatic-FACES col=(0.8, 0.8, 0.8)
+OBJ Box171-FACES.001             parent=Box171-FACES       tris=    12  box=(-3.21,-4.47,-1.13)-(-3.20,-4.46,-1.12)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box114-FACES.001             parent=Box114-FACES       tris=    12  box=(-3.06,-4.54,-0.93)-(-3.04,-4.52,-0.91)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box106-FACES.001             parent=Box106-FACES       tris=    12  box=(-3.03,-4.58,-1.30)-(-3.01,-4.56,-1.29)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box115-FACES.001             parent=Box115-FACES       tris=    12  box=(-3.06,-4.55,-0.96)-(-3.04,-4.53,-0.94)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box116-FACES.001             parent=Box116-FACES       tris=    12  box=(-2.92,-4.67,-0.96)-(-2.89,-4.65,-0.94)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box117-FACES.001             parent=Box117-FACES       tris=    12  box=(-2.91,-4.66,-0.93)-(-2.89,-4.64,-0.91)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box118-FACES.001             parent=Box118-FACES       tris=    12  box=(-2.92,-4.67,-0.99)-(-2.90,-4.65,-0.97)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box119-FACES.001             parent=Box119-FACES       tris=    12  box=(-3.07,-4.55,-0.99)-(-3.04,-4.53,-0.97)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ ILS-FACES.001                parent=ILS-FACES          tris=   432  box=(-3.19,-4.83,-0.80)-(-3.02,-4.67,-0.58)  ILS-FACES col=(0.8, 0.8, 0.8)
+OBJ Box120-FACES.001             parent=Box120-FACES       tris=    12  box=(-3.07,-4.58,-1.06)-(-3.03,-4.55,-1.04)  Box109-FACES col=(0.8, 0.8, 0.8)
+OBJ Cylinder09-FACES.001         parent=Cylinder09-FACES   tris=   180  box=(-2.98,-4.67,-1.04)-(-2.92,-4.61,-0.98)  Cylinder12-FACES col=(0.8, 0.8, 0.8)
+OBJ Cylinder10-FACES.001         parent=Cylinder10-FACES   tris=   180  box=(-3.06,-4.60,-1.04)-(-3.00,-4.55,-0.98)  Cylinder12-FACES col=(0.8, 0.8, 0.8)
+OBJ Cylinder11-FACES.001         parent=Cylinder11-FACES   tris=   140  box=(-2.94,-4.67,-1.06)-(-2.92,-4.64,-1.04)  Cylinder12-FACES col=(0.8, 0.8, 0.8)
+OBJ Cylinder12-FACES.001         parent=Cylinder12-FACES   tris=   140  box=(-3.02,-4.60,-1.06)-(-2.99,-4.57,-1.04)  Cylinder12-FACES col=(0.8, 0.8, 0.8)
+OBJ Box122-FACES.001             parent=Box122-FACES       tris=    12  box=(-2.92,-4.75,-0.86)-(-2.90,-4.73,-0.85)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box123-FACES.001             parent=Box123-FACES       tris=    12  box=(-2.90,-4.77,-0.86)-(-2.88,-4.75,-0.85)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box124-FACES.001             parent=Box124-FACES       tris=    12  box=(-2.88,-4.78,-0.86)-(-2.86,-4.76,-0.85)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box125-FACES.001             parent=Box125-FACES       tris=    12  box=(-2.86,-4.80,-0.86)-(-2.84,-4.78,-0.85)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box126-FACES.001             parent=Box126-FACES       tris=    12  box=(-2.84,-4.82,-0.86)-(-2.82,-4.80,-0.85)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box127-FACES.001             parent=Box127-FACES       tris=    12  box=(-2.82,-4.83,-0.86)-(-2.80,-4.81,-0.85)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box128-FACES.001             parent=Box128-FACES       tris=    12  box=(-2.92,-4.75,-0.88)-(-2.90,-4.73,-0.87)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box129-FACES.001             parent=Box129-FACES       tris=    12  box=(-2.90,-4.77,-0.88)-(-2.88,-4.75,-0.87)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box130-FACES.001             parent=Box130-FACES       tris=    12  box=(-2.88,-4.78,-0.88)-(-2.86,-4.76,-0.87)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box131-FACES.001             parent=Box131-FACES       tris=    12  box=(-2.86,-4.80,-0.88)-(-2.84,-4.78,-0.87)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box132-FACES.001             parent=Box132-FACES       tris=    12  box=(-2.84,-4.82,-0.88)-(-2.82,-4.80,-0.87)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box133-FACES.001             parent=Box133-FACES       tris=    12  box=(-2.82,-4.83,-0.88)-(-2.80,-4.81,-0.87)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Left_Main_Gear_Porshen03-FAC parent=Left_Main_Gear_Por tris=    22  box=(3.89,1.23,-2.13)-(3.91,1.26,-2.11)  Left_Main_Gear_Cylinder02-FACES col=(0.8, 0.8, 0.8)
+OBJ Left_Main_Gear_Porshen03-FAC parent=Left_Main_Gear_Por tris=    22  box=(3.72,1.16,-2.23)-(3.73,1.19,-2.20)  Left_Main_Gear_Cylinder02-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Box134-FACES.001             parent=Box134-FACES       tris=    12  box=(-2.92,-4.75,-0.90)-(-2.90,-4.73,-0.88)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box135-FACES.001             parent=Box135-FACES       tris=    12  box=(-2.90,-4.77,-0.90)-(-2.88,-4.75,-0.88)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box136-FACES.001             parent=Box136-FACES       tris=    12  box=(-2.88,-4.78,-0.90)-(-2.86,-4.76,-0.88)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box137-FACES.001             parent=Box137-FACES       tris=    12  box=(-2.86,-4.80,-0.90)-(-2.84,-4.78,-0.88)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box90-FACES.001              parent=Box90-FACES        tris=    12  box=(-3.07,-4.58,-1.25)-(-3.05,-4.56,-1.23)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box91-FACES.001              parent=Box91-FACES        tris=    12  box=(-2.97,-4.69,-1.19)-(-2.95,-4.68,-1.18)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box138-FACES.001             parent=Box138-FACES       tris=    12  box=(-2.84,-4.82,-0.90)-(-2.82,-4.80,-0.88)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box139-FACES.001             parent=Box139-FACES       tris=    12  box=(-2.82,-4.83,-0.90)-(-2.80,-4.81,-0.88)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box140-FACES.001             parent=Box140-FACES       tris=    12  box=(-2.92,-4.75,-0.92)-(-2.90,-4.73,-0.90)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box141-FACES.001             parent=Box141-FACES       tris=    12  box=(-2.90,-4.77,-0.92)-(-2.88,-4.75,-0.90)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Nose_Wheel_Disk-FACES.001    parent=Nose_Wheel_Disk-FA tris=  1184  box=(-1.75,-3.05,-3.51)-(-1.47,-2.75,-3.21)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Nose_Gear_Holder02-FACES.001 parent=Nose_Gear_Holder02 tris=   242  box=(-1.66,-2.94,-3.04)-(-1.39,-2.63,-2.89)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Box142-FACES.001             parent=Box142-FACES       tris=    12  box=(-2.88,-4.78,-0.92)-(-2.86,-4.76,-0.90)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box143-FACES.001             parent=Box143-FACES       tris=    12  box=(-2.86,-4.80,-0.92)-(-2.84,-4.78,-0.90)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box92-FACES.001              parent=Box92-FACES        tris=    12  box=(-2.96,-4.68,-1.22)-(-2.94,-4.67,-1.21)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box93-FACES.001              parent=Box93-FACES        tris=    12  box=(-2.95,-4.68,-1.25)-(-2.93,-4.66,-1.23)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box94-FACES.001              parent=Box94-FACES        tris=    12  box=(-2.95,-4.67,-1.27)-(-2.93,-4.65,-1.26)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box95-FACES.001              parent=Box95-FACES        tris=    12  box=(-2.94,-4.66,-1.30)-(-2.92,-4.64,-1.29)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box144-FACES.001             parent=Box144-FACES       tris=    12  box=(-2.84,-4.82,-0.92)-(-2.82,-4.80,-0.90)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box145-FACES.001             parent=Box145-FACES       tris=    12  box=(-2.82,-4.83,-0.92)-(-2.80,-4.81,-0.90)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box146-FACES.001             parent=Box146-FACES       tris=    12  box=(-2.80,-4.85,-0.90)-(-2.78,-4.83,-0.88)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box147-FACES.001             parent=Box147-FACES       tris=    12  box=(-2.80,-4.85,-0.92)-(-2.78,-4.83,-0.90)  Box147-FACES col=(0.8, 0.8, 0.8)
+OBJ Box148-FACES.001             parent=Box148-FACES       tris=    12  box=(-2.90,-4.73,-0.95)-(-2.88,-4.71,-0.94)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box149-FACES.001             parent=Box149-FACES       tris=    12  box=(-2.90,-4.73,-0.99)-(-2.88,-4.71,-0.98)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box150-FACES.001             parent=Box150-FACES       tris=    12  box=(-2.90,-4.73,-1.03)-(-2.88,-4.71,-1.01)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box151-FACES.001             parent=Box151-FACES       tris=    12  box=(-2.90,-4.73,-1.06)-(-2.88,-4.71,-1.05)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box152-FACES.001             parent=Box152-FACES       tris=    12  box=(-2.90,-4.73,-1.10)-(-2.88,-4.71,-1.09)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box153-FACES.001             parent=Box153-FACES       tris=    12  box=(-2.90,-4.73,-1.13)-(-2.88,-4.71,-1.12)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box154-FACES.001             parent=Box154-FACES       tris=    12  box=(-2.87,-4.75,-1.13)-(-2.86,-4.73,-1.12)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box155-FACES.001             parent=Box155-FACES       tris=    12  box=(-2.85,-4.77,-1.13)-(-2.83,-4.75,-1.12)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Right_Main_Gear_Pnevmatic-FA parent=Right_Main_Gear_Pn tris=  1280  box=(0.64,2.65,-3.66)-(1.27,3.37,-2.81)  Left_Main_Gear_Pnevmatic-FACES col=(0.8, 0.8, 0.8)
+OBJ Box156-FACES.001             parent=Box156-FACES       tris=    12  box=(-2.83,-4.78,-1.13)-(-2.81,-4.77,-1.12)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box157-FACES.001             parent=Box157-FACES       tris=    12  box=(-2.80,-4.80,-1.13)-(-2.79,-4.79,-1.12)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Right_Main_Gear_Porshen03-FA parent=Right_Main_Gear_Po tris=    22  box=(1.25,3.36,-2.13)-(1.28,3.37,-2.11)  Left_Main_Gear_Cylinder02-FACES col=(0.8, 0.8, 0.8)
+OBJ Right_Main_Gear_Porshen03-FA parent=Right_Main_Gear_Po tris=    22  box=(1.21,3.17,-2.23)-(1.24,3.19,-2.20)  Left_Main_Gear_Cylinder02-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Box158-FACES.001             parent=Box158-FACES       tris=    12  box=(-2.78,-4.82,-1.13)-(-2.76,-4.81,-1.12)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box159-FACES.001             parent=Box159-FACES       tris=    12  box=(-2.76,-4.84,-1.13)-(-2.74,-4.83,-1.12)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box161-FACES.001             parent=Box161-FACES       tris=    12  box=(-2.76,-4.84,-1.06)-(-2.74,-4.83,-1.05)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box96-FACES.001              parent=Box96-FACES        tris=    12  box=(-3.06,-4.57,-1.30)-(-3.04,-4.55,-1.29)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box97-FACES.001              parent=Box97-FACES        tris=    12  box=(-3.06,-4.57,-1.27)-(-3.04,-4.55,-1.26)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box98-FACES.001              parent=Box98-FACES        tris=    12  box=(-2.97,-4.70,-1.16)-(-2.95,-4.68,-1.15)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box162-FACES.001             parent=Box162-FACES       tris=    12  box=(-3.12,-4.55,-0.95)-(-3.10,-4.53,-0.94)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box163-FACES.001             parent=Box163-FACES       tris=    12  box=(-3.12,-4.55,-0.99)-(-3.10,-4.53,-0.98)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box164-FACES.001             parent=Box164-FACES       tris=    12  box=(-3.12,-4.55,-1.03)-(-3.10,-4.53,-1.01)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box99-FACES.001              parent=Box99-FACES        tris=    12  box=(-3.08,-4.59,-1.22)-(-3.06,-4.57,-1.21)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box100-FACES.001             parent=Box100-FACES       tris=    12  box=(-3.08,-4.60,-1.19)-(-3.07,-4.58,-1.18)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box101-FACES.001             parent=Box101-FACES       tris=    12  box=(-3.09,-4.60,-1.16)-(-3.07,-4.59,-1.15)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box102-FACES.001             parent=Box102-FACES       tris=    12  box=(-2.96,-4.64,-1.30)-(-2.94,-4.62,-1.29)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box165-FACES.001             parent=Box165-FACES       tris=    12  box=(-3.12,-4.55,-1.06)-(-3.10,-4.53,-1.05)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box103-FACES.001             parent=Box103-FACES       tris=    12  box=(-2.98,-4.63,-1.30)-(-2.96,-4.61,-1.29)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box166-FACES.001             parent=Box166-FACES       tris=    12  box=(-3.12,-4.55,-1.10)-(-3.10,-4.53,-1.09)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box104-FACES.001             parent=Box104-FACES       tris=    12  box=(-3.00,-4.61,-1.30)-(-2.98,-4.59,-1.29)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box105-FACES.001             parent=Box105-FACES       tris=    12  box=(-3.02,-4.60,-1.30)-(-3.00,-4.58,-1.29)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box167-FACES.001             parent=Box167-FACES       tris=    12  box=(-3.12,-4.55,-1.13)-(-3.10,-4.53,-1.12)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box168-FACES.001             parent=Box168-FACES       tris=    12  box=(-3.15,-4.53,-1.13)-(-3.13,-4.51,-1.12)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box108-FACES.001             parent=Box108-FACES       tris=    12  box=(-2.95,-4.62,-0.86)-(-2.92,-4.60,-0.84)  Box112-FACES col=(0.8, 0.8, 0.8)
+OBJ Box169-FACES.001             parent=Box169-FACES       tris=    12  box=(-3.17,-4.51,-1.13)-(-3.15,-4.49,-1.12)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box109-FACES.001             parent=Box109-FACES       tris=    12  box=(-2.99,-4.65,-1.06)-(-2.95,-4.62,-1.04)  Box109-FACES col=(0.8, 0.8, 0.8)
+OBJ Box110-FACES.001             parent=Box110-FACES       tris=    12  box=(-2.97,-4.61,-0.86)-(-2.94,-4.58,-0.84)  Box112-FACES col=(0.8, 0.8, 0.8)
+OBJ Box170-FACES.001             parent=Box170-FACES       tris=    12  box=(-3.19,-4.49,-1.13)-(-3.18,-4.48,-1.12)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box111-FACES.001             parent=Box111-FACES       tris=    12  box=(-2.98,-4.59,-0.86)-(-2.96,-4.57,-0.84)  Box112-FACES col=(0.8, 0.8, 0.8)
+OBJ Box113-FACES.001             parent=Box113-FACES       tris=    12  box=(-3.02,-4.56,-0.86)-(-2.99,-4.54,-0.84)  Box112-FACES col=(0.8, 0.8, 0.8)
+OBJ Box112-FACES.001             parent=Box112-FACES       tris=    12  box=(-3.00,-4.58,-0.86)-(-2.97,-4.55,-0.84)  Box112-FACES col=(0.8, 0.8, 0.8)
+OBJ Box172-FACES.001             parent=Box172-FACES       tris=    12  box=(-3.24,-4.45,-1.13)-(-3.22,-4.44,-1.12)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box175-FACES.001             parent=Box175-FACES       tris=    12  box=(-3.26,-4.43,-1.06)-(-3.25,-4.42,-1.05)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box174-FACES.001             parent=Box174-FACES       tris=    12  box=(-3.26,-4.43,-1.10)-(-3.25,-4.42,-1.09)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Box173-FACES.001             parent=Box173-FACES       tris=    12  box=(-3.26,-4.43,-1.13)-(-3.25,-4.42,-1.12)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Nose_Gear_Cylinder02-FACES.0 parent=Nose_Gear_Cylinder tris=    46  box=(-1.68,-2.97,-3.00)-(-1.55,-2.83,-2.58)  Left_Main_Gear_Cylinder02-FACES col=(0.8, 0.8, 0.8)
+OBJ Nose_Gear_Cylinder02-FACES.0 parent=Nose_Gear_Cylinder tris=  1605  box=(-1.73,-3.01,-3.37)-(-1.49,-2.79,-3.00)  Left_Main_Gear_Cylinder02-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Pilot_Horizon-FACES.001      parent=Pilot_Horizon-FACE tris=   180  box=(-3.20,-4.58,-0.92)-(-3.13,-4.51,-0.84)  Pilot_Fuel_Ctrl-FACES col=(0.8, 0.8, 0.8)
+OBJ ILS_Border-FACES.001         parent=ILS_Border-FACES   tris=   577  box=(-3.19,-4.83,-0.81)-(-3.02,-4.67,-0.58)  Cabin_Carcas-FACES col=(0.8, 0.8, 0.8)
+OBJ Box89-FACES.001              parent=Box89-FACES        tris=    68  box=(-3.11,-4.72,-1.32)-(-2.92,-4.54,-1.14)  Right_Display02-FACES col=(0.8, 0.8, 0.8)
+OBJ Box107-FACES.001             parent=Box107-FACES       tris=    68  box=(-3.13,-4.74,-1.07)-(-2.87,-4.51,-0.83)  Right_Display02-FACES col=(0.8, 0.8, 0.8)
+OBJ Pilot_Fuel_Ctrl-FACES.001    parent=Pilot_Fuel_Ctrl-FA tris=   180  box=(-3.26,-4.52,-0.91)-(-3.21,-4.47,-0.86)  Pilot_Fuel_Ctrl-FACES col=(0.8, 0.8, 0.8)
+OBJ Box121-FACES.001             parent=Box121-FACES       tris=    12  box=(-2.93,-4.88,-0.93)-(-2.75,-4.73,-0.84)  Right_Display02-FACES col=(0.8, 0.8, 0.8)
+OBJ Left_Main_Gear_Cylinder03-FA parent=Left_Main_Gear_Cyl tris=    92  box=(3.53,1.08,-2.34)-(3.76,1.21,-2.18)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Left_Main_Gear_Porshen02-FAC parent=Left_Main_Gear_Por tris=    22  box=(3.09,0.63,-2.41)-(3.14,0.68,-2.36)  Left_Main_Gear_Cylinder02-FACES col=(0.8, 0.8, 0.8)
+OBJ Left_Main_Gear_Porshen02-FAC parent=Left_Main_Gear_Por tris=    22  box=(3.21,0.79,-2.53)-(3.27,0.84,-2.48)  Left_Main_Gear_Cylinder02-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Left_Main_Gear_Porshen01-FAC parent=Left_Main_Gear_Por tris=    22  box=(3.08,0.62,-2.35)-(3.13,0.66,-2.29)  Left_Main_Gear_Cylinder02-FACES col=(0.8, 0.8, 0.8)
+OBJ Left_Main_Gear_Porshen01-FAC parent=Left_Main_Gear_Por tris=    22  box=(3.22,0.81,-2.35)-(3.28,0.85,-2.29)  Left_Main_Gear_Cylinder02-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Nose_Gear_Holder01-FACES.001 parent=Nose_Gear_Holder01 tris=   300  box=(-1.69,-2.97,-2.93)-(-1.37,-2.61,-2.53)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Right_Display03-FACES.001    parent=Right_Display03-FA tris=    68  box=(-3.30,-4.59,-1.15)-(-3.10,-4.42,-0.93)  Right_Display02-FACES col=(0.8, 0.8, 0.8)
+OBJ Nose_Gear_Cylinder03-FACES.0 parent=Nose_Gear_Cylinder tris=    60  box=(-1.90,-3.25,-2.43)-(-1.75,-3.08,-2.25)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Right_Main_Gear_Porshen01-FA parent=Right_Main_Gear_Po tris=    22  box=(0.82,2.44,-2.35)-(0.87,2.48,-2.29)  Left_Main_Gear_Cylinder02-FACES col=(0.8, 0.8, 0.8)
+OBJ Right_Main_Gear_Porshen01-FA parent=Right_Main_Gear_Po tris=    22  box=(0.97,2.63,-2.35)-(1.02,2.67,-2.29)  Left_Main_Gear_Cylinder02-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Right_Main_Gear_Porshen02-FA parent=Right_Main_Gear_Po tris=    22  box=(0.83,2.45,-2.41)-(0.89,2.50,-2.36)  Left_Main_Gear_Cylinder02-FACES col=(0.8, 0.8, 0.8)
+OBJ Right_Main_Gear_Porshen02-FA parent=Right_Main_Gear_Po tris=    22  box=(0.96,2.61,-2.53)-(1.01,2.66,-2.48)  Left_Main_Gear_Cylinder02-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Right_Main_Gear_Cylinder03-F parent=Right_Main_Gear_Cy tris=    92  box=(1.17,2.98,-2.34)-(1.26,3.22,-2.18)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Nose_Gear_Cylinder04-FACES.0 parent=Nose_Gear_Cylinder tris=    14  box=(-1.83,-3.17,-2.37)-(-1.80,-3.14,-2.34)  Left_Main_Gear_Cylinder02-FACES col=(0.8, 0.8, 0.8)
+OBJ Nose_Gear_Cylinder04-FACES.0 parent=Nose_Gear_Cylinder tris=    14  box=(-1.69,-2.99,-2.55)-(-1.66,-2.97,-2.52)  Left_Main_Gear_Cylinder02-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Right_Main_Gear_Disk-FACES.0 parent=Right_Main_Gear_Di tris=  1506  box=(0.73,2.77,-3.47)-(1.18,3.26,-3.00)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Right_Display02-FACES.001    parent=Right_Display02-FA tris=    68  box=(-2.93,-4.88,-1.15)-(-2.74,-4.71,-0.93)  Right_Display02-FACES col=(0.8, 0.8, 0.8)
+OBJ OilTank02-FACES.001          parent=OilTank02-FACES    tris=   192  box=(1.37,2.86,-2.11)-(1.46,2.96,-2.07)  OilTank16-FACES col=(0.8, 0.8, 0.8)
+OBJ OilTank03-FACES.001          parent=OilTank03-FACES    tris=   192  box=(1.36,2.86,-2.07)-(1.45,2.96,-2.03)  OilTank16-FACES col=(0.8, 0.8, 0.8)
+OBJ OilTank04-FACES.001          parent=OilTank04-FACES    tris=   192  box=(1.35,2.87,-2.02)-(1.44,2.97,-1.98)  OilTank16-FACES col=(0.8, 0.8, 0.8)
+OBJ OilTank05-FACES.001          parent=OilTank05-FACES    tris=   192  box=(1.05,3.03,-1.76)-(1.14,3.13,-1.72)  OilTank16-FACES col=(0.8, 0.8, 0.8)
+OBJ OilTank06-FACES.001          parent=OilTank06-FACES    tris=   192  box=(1.02,3.06,-1.76)-(1.11,3.16,-1.72)  OilTank16-FACES col=(0.8, 0.8, 0.8)
+OBJ OilTank07-FACES.001          parent=OilTank07-FACES    tris=   192  box=(0.98,3.09,-1.75)-(1.07,3.19,-1.72)  OilTank16-FACES col=(0.8, 0.8, 0.8)
+OBJ OilTank08-FACES.001          parent=OilTank08-FACES    tris=   192  box=(0.94,3.12,-1.75)-(1.03,3.22,-1.72)  OilTank16-FACES col=(0.8, 0.8, 0.8)
+OBJ OilTank01-FACES.001          parent=OilTank01-FACES    tris=   192  box=(1.38,2.85,-2.15)-(1.47,2.95,-2.12)  OilTank16-FACES col=(0.8, 0.8, 0.8)
+OBJ Right_MGear_Door_Shtok04-FAC parent=Right_MGear_Door_S tris=    52  box=(-0.00,3.09,-1.75)-(0.06,3.15,-1.73)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Right_MGear_Door_Shtok03-FAC parent=Right_MGear_Door_S tris=   116  box=(0.03,3.09,-2.10)-(0.06,3.12,-1.73)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Right_MGear_Door_Shtok02-FAC parent=Right_MGear_Door_S tris=   116  box=(0.53,3.71,-2.10)-(0.56,3.74,-1.73)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Right_MGear_Door_Shtok01-FAC parent=Right_MGear_Door_S tris=    52  box=(0.49,3.71,-1.75)-(0.56,3.77,-1.73)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Nose_Gear_Cylinder01-FACES.0 parent=Nose_Gear_Cylinder tris=  1463  box=(-1.81,-3.07,-2.80)-(-1.41,-2.73,-2.25)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Pilot_Seat-FACES.001         parent=Pilot_Seat-FACES   tris=  5270  box=(-3.27,-4.82,-1.71)-(-2.07,-3.60,-0.50)  Pilot_Seat-FACES col=(0.8, 0.8, 0.8)
+OBJ Box160-FACES.001             parent=Box160-FACES       tris=    12  box=(-2.76,-4.84,-1.10)-(-2.74,-4.83,-1.09)  Box173-FACES col=(0.8, 0.8, 0.8)
+OBJ Right_Main_Gear_Cylinder02-F parent=Right_Main_Gear_Cy tris=    81  box=(1.08,2.77,-3.19)-(1.24,2.93,-2.75)  Left_Main_Gear_Cylinder02-FACES col=(0.8, 0.8, 0.8)
+OBJ Right_Main_Gear_Cylinder02-F parent=Right_Main_Gear_Cy tris=   462  box=(0.85,2.76,-3.33)-(1.25,3.11,-3.15)  Left_Main_Gear_Cylinder02-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Right_Main_Gear_Cylinder01-F parent=Right_Main_Gear_Cy tris=  1476  box=(0.93,2.58,-2.91)-(1.30,3.04,-2.19)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Right_Prewing-FACES.001      parent=Right_Prewing-FACE tris=    60  box=(-2.56,1.33,-1.98)-(-1.24,7.57,-1.64)  Left_Prewing-FACES col=(0.8, 0.8, 0.8) tex=Image_22256x256
+OBJ Right_Prewing-FACES.003      parent=Right_Prewing-FACE tris=    44  box=(-2.56,1.33,-1.98)-(-1.24,7.57,-1.71)  Left_Prewing-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_23256x256
+OBJ Left_Main_Gear_Cylinder01-FA parent=Left_Main_Gear_Cyl tris=  1476  box=(3.19,0.77,-2.91)-(3.60,1.16,-2.19)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Right_Eleron02-FACES.001     parent=Right_Eleron02-FAC tris=    32  box=(-1.11,6.93,-1.87)-(0.71,8.09,-1.76)  Left_Eleron02-FACES col=(0.8, 0.8, 0.8) tex=Image_2664x64
+OBJ Right_Eleron02-FACES.003     parent=Right_Eleron02-FAC tris=   610  box=(-1.11,6.91,-1.94)-(0.71,8.09,-1.80)  Left_Eleron02-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_2764x64
+OBJ Right_Eleron01-FACES.001     parent=Right_Eleron01-FAC tris=    56  box=(-0.01,5.55,-1.85)-(2.83,7.52,-1.69)  Left_Eleron01-FACES col=(0.8, 0.8, 0.8) tex=Image_24128x128
+OBJ Right_Eleron01-FACES.003     parent=Right_Eleron01-FAC tris=   542  box=(-0.00,5.54,-1.91)-(2.83,7.52,-1.77)  Left_Eleron01-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_25128x128
+OBJ Right_Back_Turbina-FACES.001 parent=Right_Back_Turbina tris=  1760  box=(2.45,3.44,-2.27)-(3.20,4.07,-1.32)  Left_Front_Turbina-FACES col=(0.8, 0.8, 0.8) tex=Image_20512x256
+OBJ Right_Back_Turbina-FACES.003 parent=Right_Back_Turbina tris=   216  box=(2.66,3.62,-2.00)-(2.98,3.90,-1.59)  Left_Front_Turbina-FACES_0 col=(0.8, 0.8, 0.8)
+OBJ Left_Main_Gear_Pnevmatic-FAC parent=Left_Main_Gear_Pne tris=  1280  box=(3.30,0.51,-3.66)-(3.93,1.23,-2.81)  Left_Main_Gear_Pnevmatic-FACES col=(0.8, 0.8, 0.8)
+OBJ Left_Main_Gear_Cylinder02-FA parent=Left_Main_Gear_Cyl tris=    83  box=(3.32,0.96,-3.19)-(3.49,1.12,-2.75)  Left_Main_Gear_Cylinder02-FACES col=(0.8, 0.8, 0.8)
+OBJ Left_Main_Gear_Cylinder02-FA parent=Left_Main_Gear_Cyl tris=   460  box=(3.32,0.77,-3.33)-(3.72,1.12,-3.15)  Left_Main_Gear_Cylinder02-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Left_Main_Gear_Disk-FACES.00 parent=Left_Main_Gear_Dis tris=  1506  box=(3.40,0.62,-3.47)-(3.84,1.11,-3.00)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ OilTank09-FACES.001          parent=OilTank09-FACES    tris=   192  box=(3.36,1.25,-2.15)-(3.45,1.35,-2.12)  OilTank16-FACES col=(0.8, 0.8, 0.8)
+OBJ OilTank10-FACES.001          parent=OilTank10-FACES    tris=   192  box=(3.37,1.24,-2.11)-(3.46,1.34,-2.07)  OilTank16-FACES col=(0.8, 0.8, 0.8)
+OBJ OilTank11-FACES.001          parent=OilTank11-FACES    tris=   192  box=(3.38,1.24,-2.07)-(3.47,1.34,-2.03)  OilTank16-FACES col=(0.8, 0.8, 0.8)
+OBJ OilTank12-FACES.001          parent=OilTank12-FACES    tris=   192  box=(3.39,1.23,-2.02)-(3.48,1.33,-1.98)  OilTank16-FACES col=(0.8, 0.8, 0.8)
+OBJ OilTank13-FACES.001          parent=OilTank13-FACES    tris=   192  box=(3.61,0.97,-1.76)-(3.70,1.07,-1.72)  OilTank16-FACES col=(0.8, 0.8, 0.8)
+OBJ OilTank14-FACES.001          parent=OilTank14-FACES    tris=   192  box=(3.65,0.94,-1.76)-(3.74,1.04,-1.72)  OilTank16-FACES col=(0.8, 0.8, 0.8)
+OBJ OilTank15-FACES.001          parent=OilTank15-FACES    tris=   192  box=(3.68,0.91,-1.75)-(3.77,1.01,-1.72)  OilTank16-FACES col=(0.8, 0.8, 0.8)
+OBJ OilTank16-FACES.001          parent=OilTank16-FACES    tris=   192  box=(3.72,0.88,-1.75)-(3.81,0.98,-1.72)  OilTank16-FACES col=(0.8, 0.8, 0.8)
+OBJ Left_MGear_Door_Shtok02-FACE parent=Left_MGear_Door_Sh tris=   116  box=(3.89,-0.01,-2.10)-(3.91,0.01,-1.73)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Right_Front_Turbina-FACES.00 parent=Right_Front_Turbin tris=  1760  box=(-0.30,-0.46,-2.17)-(0.40,0.11,-1.29)  Left_Front_Turbina-FACES col=(0.8, 0.8, 0.8) tex=Image_20512x256
+OBJ Right_Front_Turbina-FACES.00 parent=Right_Front_Turbin tris=   216  box=(-0.08,-0.31,-1.92)-(0.20,-0.05,-1.54)  Left_Front_Turbina-FACES_0 col=(0.8, 0.8, 0.8)
+OBJ Left_MGear_Door_Shtok03-FACE parent=Left_MGear_Door_Sh tris=   116  box=(4.39,0.61,-2.10)-(4.41,0.63,-1.73)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Left_MGear_Door_Shtok01-FACE parent=Left_MGear_Door_Sh tris=    52  box=(4.38,0.57,-1.75)-(4.45,0.63,-1.73)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Left_MGear_Door_Shtok04-FACE parent=Left_MGear_Door_Sh tris=    52  box=(3.88,-0.04,-1.75)-(3.95,0.01,-1.73)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Left_Back_Turbina-FACES.001  parent=Left_Back_Turbina- tris=  1760  box=(3.57,2.55,-2.27)-(4.32,3.17,-1.32)  Left_Front_Turbina-FACES col=(0.8, 0.8, 0.8) tex=Image_20512x256
+OBJ Left_Back_Turbina-FACES.003  parent=Left_Back_Turbina- tris=   216  box=(3.78,2.72,-2.00)-(4.09,3.00,-1.59)  Left_Front_Turbina-FACES_0 col=(0.8, 0.8, 0.8)
+OBJ Right_Ruler-FACES.001        parent=Right_Ruler-FACES  tris=    72  box=(1.85,6.48,-1.36)-(4.32,7.15,1.35)  Left_Ruler-FACES col=(0.8, 0.8, 0.8) tex=Image_21128x128
+OBJ Left_Eleron02-FACES.001      parent=Left_Eleron02-FACE tris=    32  box=(7.60,-0.18,-1.87)-(8.94,1.58,-1.76)  Left_Eleron02-FACES col=(0.8, 0.8, 0.8) tex=Image_2664x64
+OBJ Left_Eleron02-FACES.003      parent=Left_Eleron02-FACE tris=   610  box=(7.59,-0.18,-1.94)-(8.94,1.58,-1.80)  Left_Eleron02-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_2764x64
+OBJ Left_Eleron01-FACES.001      parent=Left_Eleron01-FACE tris=    56  box=(5.75,0.70,-1.85)-(8.07,3.32,-1.69)  Left_Eleron01-FACES col=(0.8, 0.8, 0.8) tex=Image_24128x128
+OBJ Left_Eleron01-FACES.003      parent=Left_Eleron01-FACE tris=   542  box=(5.76,0.70,-1.91)-(8.07,3.32,-1.77)  Left_Eleron01-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_25128x128
+OBJ Left_Prewing-FACES.001       parent=Left_Prewing-FACES tris=    60  box=(2.52,-1.97,-1.98)-(8.75,-1.28,-1.64)  Left_Prewing-FACES col=(0.8, 0.8, 0.8) tex=Image_22256x256
+OBJ Left_Prewing-FACES.003       parent=Left_Prewing-FACES tris=    44  box=(2.52,-1.97,-1.98)-(8.75,-1.28,-1.71)  Left_Prewing-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_23256x256
+OBJ Left_Ruler-FACES.001         parent=Left_Ruler-FACES   tris=    72  box=(6.39,2.49,-1.36)-(7.34,5.03,1.35)  Left_Ruler-FACES col=(0.8, 0.8, 0.8) tex=Image_21128x128
+OBJ Left_Front_Turbina-FACES.001 parent=Left_Front_Turbina tris=  1760  box=(0.35,-0.98,-2.17)-(1.04,-0.41,-1.29)  Left_Front_Turbina-FACES col=(0.8, 0.8, 0.8) tex=Image_20512x256
+OBJ Left_Front_Turbina-FACES.003 parent=Left_Front_Turbina tris=   216  box=(0.56,-0.83,-1.92)-(0.85,-0.57,-1.54)  Left_Front_Turbina-FACES_0 col=(0.8, 0.8, 0.8)
+OBJ Control_Panel-FACES.001      parent=Control_Panel-FACE tris=   284  box=(-3.72,-5.50,-1.89)-(-2.75,-4.43,-0.74)  Cabin_Carcas-FACES col=(0.8, 0.8, 0.8)
+OBJ Cabin_Glass-FACES.001        parent=Cabin_Glass-FACES  tris=   588  box=(-3.70,-5.39,-1.07)-(-1.54,-2.96,-0.29)  Cabin_Glass-FACES col=(0.8, 0.8, 0.8)
+OBJ Left_Intake-FACES.001        parent=Left_Intake-FACES  tris=   784  box=(-1.42,-4.11,-2.62)-(0.94,-0.50,-1.34)  Cabin_Carcas-FACES col=(0.8, 0.8, 0.8)
+OBJ Left_Keel-FACES.001          parent=Left_Keel-FACES    tris=    84  box=(4.22,1.89,-1.80)-(6.95,5.36,1.38)  Left_Keel-FACES col=(0.8, 0.8, 0.8) tex=Image_18256x256
+OBJ Left_Keel-FACES.003          parent=Left_Keel-FACES.00 tris=    60  box=(4.22,1.89,-1.80)-(6.95,5.36,1.38)  Left_Keel-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_19256x256
+OBJ Left_Nozzle(Bottom_Part)-FAC parent=Left_Nozzle(Bottom tris=   260  box=(5.02,4.35,-2.20)-(6.20,5.51,-1.97)  Right_NozzleBottom_Part-FACES col=(0.8, 0.8, 0.8)
+OBJ Left_Nozzle(Bottom_Part)-FAC parent=Left_Nozzle(Bottom tris=   150  box=(4.92,4.22,-1.97)-(6.20,5.51,-1.97)  Right_NozzleBottom_Part-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_5256x256
+OBJ Left_Nozzle(Bottom_Part)-FAC parent=Left_Nozzle(Bottom tris=   140  box=(4.91,4.22,-2.24)-(5.77,5.01,-1.97)  Line03-FACES col=(0.8, 0.8, 0.8)
+OBJ Left_Nozzle(Inner_Side)-FACE parent=Left_Nozzle(Inner_ tris=    90  box=(3.56,2.54,-2.25)-(5.69,4.87,-1.34)  Cabin_Carcas-FACES col=(0.8, 0.8, 0.8)
+OBJ Left_Nozzle(Top_Part)-FACES. parent=Left_Nozzle(Top_Pa tris=   260  box=(5.03,4.35,-1.66)-(6.20,5.51,-1.44)  Right_NozzleBottom_Part-FACES col=(0.8, 0.8, 0.8)
+OBJ Left_Nozzle(Top_Part)-FACES. parent=Left_Nozzle(Top_Pa tris=   150  box=(4.94,4.22,-1.66)-(6.20,5.51,-1.66)  Right_NozzleBottom_Part-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_5256x256
+OBJ Left_Nozzle(Top_Part)-FACES. parent=Left_Nozzle(Top_Pa tris=   140  box=(4.94,4.22,-1.66)-(5.76,4.94,-1.41)  Line03-FACES col=(0.8, 0.8, 0.8)
+OBJ Left_Rocket_Bay-FACES.001    parent=Left_Rocket_Bay-FA tris=   339  box=(-0.58,-2.61,-2.77)-(2.66,1.12,-2.34)  Right_Rocket_Bay-FACES col=(0.8, 0.8, 0.8)
+OBJ Left_Rocket_Bay_Door-FACES.0 parent=Left_Rocket_Bay_Do tris=   665  box=(-0.57,-2.61,-2.79)-(2.66,1.12,-2.70)  Right_Nose_Gear_Door-FACES col=(0.8, 0.8, 0.8) tex=Image_1164x64
+OBJ Left_Rocket_Bay_Door-FACES.0 parent=Left_Rocket_Bay_Do tris=   228  box=(-0.46,-2.47,-2.76)-(2.55,0.99,-2.66)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Left_Stabilizer-FACES.001    parent=Left_Stabilizer-FA tris=    48  box=(6.02,3.32,-1.83)-(10.00,5.77,-1.72)  Left_Stabilizer-FACES col=(0.8, 0.8, 0.8) tex=Image_16256x128
+OBJ Left_Stabilizer-FACES.003    parent=Left_Stabilizer-FA tris=    32  box=(6.02,3.32,-1.83)-(10.00,5.77,-1.76)  Left_Stabilizer-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_17256x128
+OBJ Right_Intake-FACES.001       parent=Right_Intake-FACES tris=   784  box=(-3.13,-2.96,-2.62)-(0.30,0.02,-1.34)  Cabin_Carcas-FACES col=(0.8, 0.8, 0.8)
+OBJ Right_Nozzle(Inner_Side)-FAC parent=Right_Nozzle(Inner tris=    90  box=(2.45,3.44,-2.25)-(4.58,5.76,-1.34)  Cabin_Carcas-FACES col=(0.8, 0.8, 0.8)
+OBJ Right_Rocket_Bay-FACES.001   parent=Right_Rocket_Bay-F tris=   339  box=(-1.68,-1.73,-2.77)-(1.56,2.01,-2.34)  Right_Rocket_Bay-FACES col=(0.8, 0.8, 0.8)
+OBJ Right_Rocket_Bay_Door-FACES. parent=Right_Rocket_Bay_D tris=   587  box=(-1.67,-1.72,-2.79)-(1.55,2.00,-2.70)  Right_Nose_Gear_Door-FACES col=(0.8, 0.8, 0.8) tex=Image_1164x64
+OBJ Right_Rocket_Bay_Door-FACES. parent=Right_Rocket_Bay_D tris=   306  box=(-1.57,-1.57,-2.76)-(1.43,1.89,-2.66)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Right_Stabilizer-FACES.001   parent=Right_Stabilizer-F tris=    46  box=(2.16,5.89,-1.83)-(4.76,9.97,-1.72)  Right_Stabilizer-FACES col=(0.8, 0.8, 0.8) tex=Image_14256x128
+OBJ Right_Stabilizer-FACES.003   parent=Right_Stabilizer-F tris=    34  box=(2.16,5.89,-1.83)-(4.76,9.97,-1.74)  Right_Stabilizer-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_15256x128
+OBJ Right_Wing-FACES.001         parent=Right_Wing-FACES   tris=   182  box=(-2.28,1.72,-1.96)-(2.59,8.09,-1.62)  Right_Wing-FACES col=(0.8, 0.8, 0.8) tex=Image_12512x256
+OBJ Right_Wing-FACES.003         parent=Right_Wing-FACES.0 tris=  1201  box=(-2.23,1.72,-1.96)-(2.59,8.09,-1.78)  Right_Wing-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_13512x256
+OBJ Left_Main_Gear_Door01-FACES. parent=Left_Main_Gear_Doo tris=    78  box=(3.76,-0.09,-2.95)-(4.60,0.77,-1.80)  Right_Nose_Gear_Door-FACES col=(0.8, 0.8, 0.8) tex=Image_1164x64
+OBJ Left_Main_Gear_Door01-FACES. parent=Left_Main_Gear_Doo tris=   446  box=(3.75,-0.09,-2.96)-(4.60,0.78,-1.76)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Left_Main_Gear_Door02-FACES. parent=Left_Main_Gear_Doo tris=    18  box=(3.05,0.85,-3.24)-(3.61,1.55,-2.60)  Right_Nose_Gear_Door-FACES col=(0.8, 0.8, 0.8) tex=Image_1164x64
+OBJ Left_Main_Gear_Door02-FACES. parent=Left_Main_Gear_Doo tris=   763  box=(3.05,0.84,-3.24)-(3.62,1.55,-2.60)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Line04-FACES.001             parent=Line04-FACES       tris=   192  box=(3.57,4.78,-2.39)-(4.67,5.71,-2.04)  Line03-FACES col=(0.8, 0.8, 0.8)
+OBJ Right_Main_Gear_Bay-FACES.00 parent=Right_Main_Gear_Ba tris=  1753  box=(-0.01,2.27,-2.68)-(1.67,3.78,-1.68)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Right_Main_Gear_Door01-FACES parent=Right_Main_Gear_Do tris=    78  box=(-0.07,2.96,-2.95)-(0.67,3.92,-1.80)  Right_Nose_Gear_Door-FACES col=(0.8, 0.8, 0.8) tex=Image_1164x64
+OBJ Right_Main_Gear_Door01-FACES parent=Right_Main_Gear_Do tris=   446  box=(-0.07,2.95,-2.96)-(0.68,3.92,-1.76)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Right_Main_Gear_Door02-FACES parent=Right_Main_Gear_Do tris=    18  box=(1.05,2.46,-3.25)-(1.63,3.15,-2.59)  Right_Nose_Gear_Door-FACES col=(0.8, 0.8, 0.8) tex=Image_1164x64
+OBJ Right_Main_Gear_Door02-FACES parent=Right_Main_Gear_Do tris=   763  box=(1.04,2.46,-3.25)-(1.63,3.16,-2.59)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Left_Nose_Gear_Door-FACES.00 parent=Left_Nose_Gear_Doo tris=   196  box=(-2.21,-3.98,-2.79)-(-1.30,-2.95,-2.44)  Right_Nose_Gear_Door-FACES col=(0.8, 0.8, 0.8) tex=Image_1164x64
+OBJ Left_Nose_Gear_Door-FACES.00 parent=Left_Nose_Gear_Doo tris=   395  box=(-2.21,-3.97,-2.77)-(-1.32,-2.95,-2.46)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Nose_Gear_Bay-FACES.001      parent=Nose_Gear_Bay-FACE tris=    78  box=(-2.55,-3.97,-2.68)-(-1.32,-2.62,-2.14)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Right_Nose_Gear_Door-FACES.0 parent=Right_Nose_Gear_Do tris=   196  box=(-2.56,-3.71,-2.79)-(-1.72,-2.61,-2.44)  Right_Nose_Gear_Door-FACES col=(0.8, 0.8, 0.8) tex=Image_1164x64
+OBJ Right_Nose_Gear_Door-FACES.0 parent=Right_Nose_Gear_Do tris=   395  box=(-2.54,-3.71,-2.77)-(-1.72,-2.63,-2.46)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Left_Main_Gear_Bay-FACES.001 parent=Left_Main_Gear_Bay tris=  1753  box=(2.90,-0.04,-2.68)-(4.50,1.55,-1.68)  Left_Main_Gear_Bay-FACES col=(0.8, 0.8, 0.8) tex=Image_10128x128
+OBJ Right_Keel-FACES.001         parent=Right_Keel-FACES   tris=    84  box=(1.50,3.82,-1.80)-(4.65,7.15,1.38)  Right_Keel-FACES col=(0.8, 0.8, 0.8) tex=Image_8256x256
+OBJ Right_Keel-FACES.003         parent=Right_Keel-FACES.0 tris=    60  box=(1.50,3.82,-1.80)-(4.65,7.15,1.38)  Right_Keel-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_9256x256
+OBJ Left_Wing-FACES.001          parent=Left_Wing-FACES    tris=   182  box=(2.68,-1.58,-1.96)-(9.12,3.01,-1.62)  Left_Wing-FACES col=(0.8, 0.8, 0.8) tex=Image_6512x256
+OBJ Left_Wing-FACES.003          parent=Left_Wing-FACES.00 tris=  1201  box=(2.68,-1.58,-1.96)-(9.12,3.01,-1.78)  Left_Wing-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_7512x256
+OBJ Right_Nozzle(Top_Part)-FACES parent=Right_Nozzle(Top_P tris=   260  box=(3.90,5.25,-1.66)-(5.10,6.39,-1.44)  Right_NozzleBottom_Part-FACES col=(0.8, 0.8, 0.8)
+OBJ Right_Nozzle(Top_Part)-FACES parent=Right_Nozzle(Top_P tris=   150  box=(3.80,5.14,-1.66)-(5.10,6.39,-1.66)  Right_NozzleBottom_Part-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_5256x256
+OBJ Right_Nozzle(Top_Part)-FACES parent=Right_Nozzle(Top_P tris=   140  box=(3.80,5.14,-1.66)-(4.63,5.85,-1.41)  Line03-FACES col=(0.8, 0.8, 0.8)
+OBJ Right_Nozzle(Bottom_Part)-FA parent=Right_Nozzle(Botto tris=   260  box=(3.91,5.25,-2.20)-(5.10,6.39,-1.97)  Right_NozzleBottom_Part-FACES col=(0.8, 0.8, 0.8)
+OBJ Right_Nozzle(Bottom_Part)-FA parent=Right_Nozzle(Botto tris=   150  box=(3.80,5.12,-1.97)-(5.10,6.39,-1.97)  Right_NozzleBottom_Part-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_5256x256
+OBJ Right_Nozzle(Bottom_Part)-FA parent=Right_Nozzle(Botto tris=   140  box=(3.80,5.11,-2.24)-(4.69,5.86,-1.97)  Line03-FACES col=(0.8, 0.8, 0.8)
+OBJ Line01-FACES.001             parent=Line01-FACES       tris=   192  box=(4.58,3.97,-1.64)-(5.68,4.90,-1.31)  Line03-FACES col=(0.8, 0.8, 0.8)
+OBJ Line02-FACES.001             parent=Line02-FACES       tris=   192  box=(3.57,4.79,-1.64)-(4.67,5.72,-1.31)  Line03-FACES col=(0.8, 0.8, 0.8)
+OBJ Cabin_Inner_Side-FACES.001   parent=Cabin_Inner_Side-F tris=   234  box=(-3.79,-5.48,-1.72)-(-1.38,-2.79,-0.52)  Cabin_Carcas-FACES col=(0.8, 0.8, 0.8)
+OBJ Line03-FACES.001             parent=Line03-FACES       tris=   192  box=(4.58,3.97,-2.39)-(5.68,4.90,-2.04)  Line03-FACES col=(0.8, 0.8, 0.8)
+OBJ Cabin_Carcas-FACES.001       parent=Cabin_Carcas-FACES tris=  3038  box=(-3.79,-5.48,-1.20)-(-1.38,-2.79,-0.46)  Cabin_Carcas-FACES col=(0.8, 0.8, 0.8)
+OBJ Fuselage-FACES.001           parent=Fuselage-FACES     tris=  2080  box=(-5.24,-7.41,-1.85)-(7.94,8.27,-0.52)  Fuselage-FACES col=(0.8, 0.8, 0.8) tex=Image_01024x256
+OBJ Fuselage-FACES.003           parent=Fuselage-FACES.002 tris=  3847  box=(-2.36,-3.40,-2.77)-(7.94,8.27,-1.64)  Fuselage-FACES_0 col=(0.8, 0.8, 0.8) tex=Image_1512x256
+OBJ Fuselage-FACES.005           parent=Fuselage-FACES.004 tris=   762  box=(-3.13,-4.11,-2.75)-(5.97,5.82,-1.71)  Fuselage-FACES_1 col=(0.8, 0.8, 0.8) tex=Image_21024x128
+OBJ Fuselage-FACES.007           parent=Fuselage-FACES.006 tris=   320  box=(-5.24,-7.41,-2.72)-(-0.84,-2.18,-1.54)  Fuselage-FACES_2 col=(0.8, 0.8, 0.8) tex=Image_3512x128
+OBJ Fuselage-FACES.009           parent=Fuselage-FACES.008 tris=   320  box=(-5.24,-7.41,-2.72)-(-1.03,-2.02,-1.54)  Fuselage-FACES_3 col=(0.8, 0.8, 0.8) tex=Image_4512x128
+TOTAL tris=68816  box=(-5.24,-7.41,-3.66)-(10.00,9.97,1.38) size=(15.24,17.37,5.04)
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:37:04)
+
+Blender quit

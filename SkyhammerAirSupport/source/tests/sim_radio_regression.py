@@ -5,6 +5,8 @@
 #    the log) when no line uses ahead.
 # 2. Random traffic WITH ahead lines: ahead never cuts a priority line or a prompt, never removes
 #    a waiting line, always waits behind the priority lines, never errors.
+# The calls the user took off the air (Comms SILENT: the angel flares call, 2026-11-14) are not
+# said at all now, so they are left out of the traffic (sim_ac130_aggressive checks them).
 # Run: <codex python> -I source/tests/runsim.py source/tests/sim_radio_regression.py
 import io, os, random, sys
 from lupa import lua51
@@ -52,8 +54,16 @@ def world(comms_path):
     return L
 
 
-def line_ids(L):
+def silent_ids():
+    # the current Comms's SILENT table (its S.Say's upvalue)
+    L = world(os.path.join(LUA, "client", "Skyhammer_Comms.lua"))
+    t = L.eval("(function() for i = 1, 255 do local k, v = debug.getupvalue(S.Say, i); if not k then return {} end; if k == 'SILENT' then local o = {} for id in pairs(v) do o[#o + 1] = id end return o end end end)()")
+    return set(t.values())
+
+
+def line_ids(L, silent=frozenset()):
     ids = list(L.eval("(function() local t = {} for id in pairs(Skyhammer_Lines) do t[#t + 1] = id end table.sort(t) return t end)()").values())
+    ids = [i for i in ids if i not in silent]
     prompts = [i for i in ids if L.eval(f"Skyhammer_Lines['{i}'][4] == true")]
     return ids, prompts
 
@@ -81,11 +91,13 @@ def step_code(rng, ids, prompts, with_ahead):
 @test
 def same_trace_as_before_without_ahead():
     check(os.path.isfile(OLD_COMMS), "the 10-20 snapshot Comms is there")
+    silent = silent_ids()
+    check(silent == {"GunAngelFlares"}, f"the calls taken off the air: {silent}")
     runs = 0
     for seed in range(300):
         rng = random.Random(seed)
         A, B = world(OLD_COMMS), world(os.path.join(LUA, "client", "Skyhammer_Comms.lua"))
-        ids, prompts = line_ids(A)
+        ids, prompts = line_ids(A, silent)
         for n in range(150):
             code = step_code(rng, ids, prompts, with_ahead=False)
             A.execute(code); B.execute(code)
@@ -98,10 +110,11 @@ def same_trace_as_before_without_ahead():
 @test
 def ahead_rules_hold_in_random_traffic():
     calls = cuts = 0
+    silent = silent_ids()
     for seed in range(300):
         rng = random.Random(1000 + seed)
         L = world(os.path.join(LUA, "client", "Skyhammer_Comms.lua"))
-        ids, prompts = line_ids(L)
+        ids, prompts = line_ids(L, silent)
         for n in range(150):
             code = step_code(rng, ids, prompts, with_ahead=True)
             if "ahead = true" in code and "priority" not in code and "urgent" not in code:

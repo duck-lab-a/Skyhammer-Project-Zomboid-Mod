@@ -53,7 +53,7 @@ local ODIN = {
     liftMs = 3000,         -- J_Lift: gone into the sky
     killR = 6, knockR = 12, -- the landing's shockwave (tiles)
     noise = 120,           -- how far the landing draws the infected
-    -- guarding (source/jaeger_design.md "호위"; tiles and ms)
+    -- guarding (source/jaeger_design.md, escort section; tiles and ms)
     thinkMs = 2500,        -- how often it picks what to do, and the gap between two attacks
     -- the distance it keeps from the player: keepFar is the "follow distance" option (default
     -- 12), keepNear that times keepNearK (5 at the default)

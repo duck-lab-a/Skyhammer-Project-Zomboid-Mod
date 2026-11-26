@@ -6,7 +6,7 @@
   "Sandbox_Skyhammer_CallMode_option2": "Standard mode only",
   "Sandbox_Skyhammer_CallMode_option3": "Killstreak mode only",
   "Sandbox_Skyhammer_PointScale": "Killstreak point cost",
-  "Sandbox_Skyhammer_PointScale_tooltip": "Killstreak mode only. Scales every cost: Wraith Team 50, Apache 80, A-10 120, AC-130 150, B-2 300, tactical nuke 600 at 100%%.",
+  "Sandbox_Skyhammer_PointScale_tooltip": "Killstreak mode only. Scales every cost: Wraith Team 50, Apache 80, A-10 120, AC-130 150, F-22 200, B-2 300, tactical nuke 600 at 100%%.",
   "Sandbox_Skyhammer_PointScale_option1": "50%%",
   "Sandbox_Skyhammer_PointScale_option2": "75%%",
   "Sandbox_Skyhammer_PointScale_option3": "100%%",
@@ -40,7 +40,9 @@
   "Sandbox_Skyhammer_EnableB2": "B-2 (Titan) available",
   "Sandbox_Skyhammer_EnableB2_tooltip": "Off: the B-2 carpet bombing cannot be called and its tab is hidden in the terminal. One already out heads home.",
   "Sandbox_Skyhammer_VehicleDamage": "Strikes damage vehicles",
-  "Sandbox_Skyhammer_VehicleDamage_tooltip": "The AC-130's 105mm, the A-10's gun run, the B-2's bombs and the nuke damage nearby vehicles. The closest are wrecked (flat tyres, smashed glass, a dead engine); farther ones get flat tyres, cracked glass and dents.",
+  "Sandbox_Skyhammer_VehicleDamage_tooltip": "The AC-130's 105mm, the A-10's gun run, the B-2's bombs, the F-22 flight's bombs and the nuke damage nearby vehicles. The closest are wrecked (flat tyres, smashed glass, a dead engine); farther ones get flat tyres, cracked glass and dents.",
+  "Sandbox_Skyhammer_GunnerSeat": "AC-130 gunner seat",
+  "Sandbox_Skyhammer_GunnerSeat_tooltip": "On: the AC-130's terminal tab offers the gunner seat, where players fire its 40mm and 105mm by hand on the thermal sensor (their body stays where it is and can be attacked). Off: the 105mm is fired at marked points, as before.",
   "Sandbox_Skyhammer_Radiation": "Tactical nuke leaves fallout",
   "Sandbox_Skyhammer_Radiation_tooltip": "On: the nuke leaves a radioactive zone round ground zero, strongest at the centre. Staying in it makes you sick; a gas mask with its filter or a hazmat suit keeps most of it out, a roof halves it. It fades over the hours below. Shown on the sensor map.",
   "Sandbox_Skyhammer_RadiationHours": "Fallout lasts (game hours)",
@@ -77,5 +79,9 @@
   "Sandbox_Skyhammer_NukePvP": "Tactical nuke hurts players",
   "Sandbox_Skyhammer_NukePvP_tooltip": "Online only (Vanilla Edition), when the nuke is available. On: the blast kills players within 90 tiles of ground zero and hurts those out to 140 tiles. Off (default): only the infected are affected.",
   "Sandbox_Skyhammer_NukeCooldownMin": "B-2 rearm after a tactical nuke, online (real minutes)",
-  "Sandbox_Skyhammer_NukeCooldownMin_tooltip": "Multiplayer only. How long a player's B-2 rearms after a sortie that dropped the tactical nuke (10 to 1440). Single player uses the Mod Option. Killstreak mode ignores it: the nuke's 600-point price is the limit instead."
+  "Sandbox_Skyhammer_NukeCooldownMin_tooltip": "Multiplayer only. How long a player's B-2 rearms after a sortie that dropped the tactical nuke (10 to 1440). Single player uses the Mod Option. Killstreak mode ignores it: the nuke's 600-point price is the limit instead.",
+  "Sandbox_Skyhammer_NukeDestroyBuildings": "Nuclear blast destroys buildings",
+  "Sandbox_Skyhammer_NukeDestroyBuildings_tooltip": "Multiplayer only. The server demolishes buildings within 50 tiles of ground zero and synchronizes the changes to all players. Terrain changes persist in the world. Disabling this does not disable zombie damage or fallout.",
+  "Sandbox_Skyhammer_EnableF22": "F-22 (Raven) available",
+  "Sandbox_Skyhammer_EnableF22_tooltip": "Off: the F-22 flight strike cannot be called and its tab is hidden in the terminal. One already out heads home."
 }

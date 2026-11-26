@@ -93,19 +93,29 @@ function B.protection(c)
 end
 
 -- under a roof (the strikes' own test, Skyhammer_Ops): a room whose roof the nuke left standing
-local function underRoof(c)
-    local sq = c:getCurrentSquare()
+local function underRoof(sq)
     if not sq or sq:getRoom() == nil then return false end
     local ok, r = pcall(function() return sq:haveRoofFull() end)
     return not ok or r == true
 end
 
+-- where `c` stands: B.bodyPlace (set by the gunner seat, client) may answer x, y, z, square for a
+-- character that is the seat's camera (2026-10-25: its body stays where it was left)
+local function placeOf(c)
+    if B.bodyPlace then
+        local x, y, z, sq = B.bodyPlace(c)
+        if x then return x, y, z, sq end
+    end
+    return c:getX(), c:getY(), c:getZ(), c:getCurrentSquare()
+end
+
 -- what a minute where `c` stands adds to a dose (0 out of the zones), and the zone it is in
 function B.exposure(c, now)
-    local s, zone = RAD.At(c:getX(), c:getY(), now)
-    if s <= 0 or math.floor(c:getZ()) < 0 then return 0, nil end
+    local x, y, z, sq = placeOf(c)
+    local s, zone = RAD.At(x, y, now)
+    if s <= 0 or math.floor(z) < 0 then return 0, nil end
     s = s * RAD.StrengthMul()
-    if underRoof(c) then s = s * 0.5 end
+    if underRoof(sq) then s = s * 0.5 end
     return s * (1 - B.protection(c)) * DOSE_PER_MIN, zone
 end
 

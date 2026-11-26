@@ -30,7 +30,10 @@ local function playVoice(sound)
         -- one kept from an earlier line may already be in another sound's hands
         voice.emitter = IsoWorld.instance:getFreeEmitter()
         voice.emitter:setPos(player:getX(), player:getY(), player:getZ())
-        local h = voice.emitter:playSound(sound)
+        -- (2026-10-25, Codex's MP audio audit) for this player only: online the emitter's
+        -- playSound is sent to the players around too, whose copies this volume and stop never
+        -- reach (as the nuke siren's, 2026-10-18)
+        local h = voice.emitter:playSoundImpl(sound, false, nil)
         if h and h ~= 0 and h ~= -1 then
             -- heard the same anywhere: the radio is in the player's hand
             voice.emitter:setVolume(h, vol); voice.emitter:tick()
@@ -234,6 +237,8 @@ end
 local function ensureStrip()
     if strip then return end
     strip = SkyhammerCommsStrip:new()
+    -- (the gunner seat hides every other panel while manned: the crew's lines stay)
+    strip.skyhammerKeep = true
     strip:initialise(); strip:addToUIManager()
     -- clicks pass through the strip to whatever is under it (except a drag on a shown line, updateMouse)
     strip.javaObject:setConsumeMouseEvents(false)
@@ -302,7 +307,11 @@ end
 --                  off an ordinary line on the air, but never a priority line or a mark prompt,
 --                  and drops nothing
 -- A line already waiting is not queued twice.
+-- calls the user took off the air: asked for, they are simply not said
+-- (2026-11-14, the user: the angel flares go out with no "Flares away" call)
+local SILENT = { GunAngelFlares = true }
 function S.Say(id, onShow, opts)
+    if SILENT[id] then return end
     if not LINES[id] then S.log("no line " .. tostring(id)); return end
     for _, row in ipairs(queue) do if row.id == id then return end end
     local urgent = opts and opts.urgent or false

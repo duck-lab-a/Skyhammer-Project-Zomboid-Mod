@@ -20,6 +20,12 @@ local VD = SkyhammerVehicleDamage
 VD.BANDS = {
     he   = { wreck = 1.25, damage = 4.2, light = 7.0 },        -- the AC-130's 105mm
     bomb = { wreck = 4.5,  damage = 9.0, light = 14.0 },       -- a B-2 bomb
+    -- the F-22's JDAMs (2026-11-24, the user asked whether the F-22 breaks vehicles): its carpet
+    -- is to flatten the strip, but with a B-2 bomb's bands only about 60% of the strip was within
+    -- a wreck of a bomb (the rest dented, two tyres flat). Wrecked as far out as the blast kills
+    -- 95% of the infected (9 tiles: about 97% of the strip), damaged to its 70% edge; the reach
+    -- the same as before (14)
+    raid = { wreck = 9.0,  damage = 14.0 },
     a10  = { damage = 5.0, light = 8.0 },                      -- the A-10's gun run, along its line
     nuke = { wreck = 50, step = 2 },                           -- the fireball (SkyhammerNukeZones)
 }

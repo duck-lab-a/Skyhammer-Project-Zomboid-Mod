@@ -6,7 +6,7 @@
   "Sandbox_Skyhammer_CallMode_option2": "기본 모드 고정",
   "Sandbox_Skyhammer_CallMode_option3": "킬스트릭 모드 고정",
   "Sandbox_Skyhammer_PointScale": "킬스트릭 필요 포인트 배율",
-  "Sandbox_Skyhammer_PointScale_tooltip": "킬스트릭 모드에서만 적용됩니다. 모든 값에 곱합니다. 100%% 기준: 레이스 팀 50, 아파치 80, A-10 120, AC-130 150, B-2 300, 전술핵 600.",
+  "Sandbox_Skyhammer_PointScale_tooltip": "킬스트릭 모드에서만 적용됩니다. 모든 값에 곱합니다. 100%% 기준: 레이스 팀 50, 아파치 80, A-10 120, AC-130 150, F-22 200, B-2 300, 전술핵 600.",
   "Sandbox_Skyhammer_PointScale_option1": "50%%",
   "Sandbox_Skyhammer_PointScale_option2": "75%%",
   "Sandbox_Skyhammer_PointScale_option3": "100%%",
@@ -40,7 +40,9 @@
   "Sandbox_Skyhammer_EnableB2": "B-2(타이탄) 사용",
   "Sandbox_Skyhammer_EnableB2_tooltip": "끄면 B-2 융단폭격을 부를 수 없고 단말기에서 탭이 사라집니다. 이미 출격 중이면 귀환합니다.",
   "Sandbox_Skyhammer_VehicleDamage": "공습이 차량을 파손",
-  "Sandbox_Skyhammer_VehicleDamage_tooltip": "AC-130의 105mm, A-10 기총소사, B-2 폭탄과 전술핵이 근처 차량을 부숩니다. 가장 가까운 차는 완파되고(타이어 펑크, 유리 박살, 엔진 고장), 조금 먼 차는 타이어 펑크, 유리 금, 찌그러짐이 생깁니다.",
+  "Sandbox_Skyhammer_VehicleDamage_tooltip": "AC-130의 105mm, A-10 기총소사, B-2 폭탄, F-22 편대 폭격과 전술핵이 근처 차량을 부숩니다. 가장 가까운 차는 완파되고(타이어 펑크, 유리 박살, 엔진 고장), 조금 먼 차는 타이어 펑크, 유리 금, 찌그러짐이 생깁니다.",
+  "Sandbox_Skyhammer_GunnerSeat": "AC-130 사수석",
+  "Sandbox_Skyhammer_GunnerSeat_tooltip": "켜짐: 단말기의 AC-130 탭에서 사수석에 들어가 열상 센서 화면으로 40mm와 105mm를 직접 쏩니다 (몸은 그 자리에 남아 공격받을 수 있습니다). 꺼짐: 105mm는 예전처럼 지점을 지정해 쏩니다.",
   "Sandbox_Skyhammer_Radiation": "전술핵 방사능 낙진",
   "Sandbox_Skyhammer_Radiation_tooltip": "켜면 핵이 폭심 주변에 방사능 구역을 남깁니다. 중심일수록 강합니다. 구역 안에 머물면 몸이 아파집니다. 필터를 낀 방독면이나 방호복을 입으면 대부분 막고, 지붕 아래에서는 절반으로 줄어듭니다. 아래 시간에 걸쳐 약해지다 사라지며, 센서 지도에 표시됩니다.",
   "Sandbox_Skyhammer_RadiationHours": "낙진 지속 시간(게임 시간)",
@@ -77,5 +79,9 @@
   "Sandbox_Skyhammer_NukePvP": "전술핵이 플레이어에게 피해",
   "Sandbox_Skyhammer_NukePvP_tooltip": "멀티플레이 전용(바닐라 에디션), 전술핵을 쓸 수 있을 때만 해당합니다. 켜면 폭심에서 90타일 안의 플레이어는 죽고 140타일까지는 피해를 입습니다. 끄면(기본) 좀비에게만 영향이 갑니다.",
   "Sandbox_Skyhammer_NukeCooldownMin": "전술핵 투하 후 B-2 재무장 (멀티플레이, 분)",
-  "Sandbox_Skyhammer_NukeCooldownMin_tooltip": "멀티플레이 전용. 전술핵을 떨어뜨린 출격 뒤 B-2가 재무장하는 실제 시간(분)입니다(10~1440). 싱글플레이는 모드 옵션 값을 씁니다. 킬스트릭 모드에서는 적용되지 않고, 대신 전술핵의 600포인트 가격이 제한이 됩니다."
+  "Sandbox_Skyhammer_NukeCooldownMin_tooltip": "멀티플레이 전용. 전술핵을 떨어뜨린 출격 뒤 B-2가 재무장하는 실제 시간(분)입니다(10~1440). 싱글플레이는 모드 옵션 값을 씁니다. 킬스트릭 모드에서는 적용되지 않고, 대신 전술핵의 600포인트 가격이 제한이 됩니다.",
+  "Sandbox_Skyhammer_NukeDestroyBuildings": "핵폭발로 건물 파괴",
+  "Sandbox_Skyhammer_NukeDestroyBuildings_tooltip": "멀티플레이 전용. 핵폭발 중심에서 50타일 안의 건물을 서버가 철거하고 모든 플레이어에게 동기화합니다. 지형 변경은 월드에 저장됩니다. 꺼도 좀비 피해와 방사능은 유지됩니다.",
+  "Sandbox_Skyhammer_EnableF22": "F-22(레이븐) 사용",
+  "Sandbox_Skyhammer_EnableF22_tooltip": "끄면 F-22 편대 폭격을 부를 수 없고 단말기에서 탭이 사라집니다. 이미 출격 중이면 귀환합니다."
 }

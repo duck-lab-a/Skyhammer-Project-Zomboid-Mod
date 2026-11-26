@@ -9,7 +9,8 @@ Reads the renderer's triangle mesh source/java/skyhammer/aircraft/apache.mesh ("
 then per vertex: position, normal, colour, part; big-endian floats; Y up, +Z nose, +X starboard)
 and writes:
   42/media/models_X/Skyhammer/SH_ApacheAnimal.glb  skinned mesh + its animation "SH_ApacheFly"
-  42/media/textures/Body/Skyhammer/SH_Apache.png    the colours as a one-row palette
+  42/media/textures/Body/Skyhammer/SH_Apache.png    the colours as a palette, 16 a row (the CC-BY
+                                                    model's texture colours clustered to PALETTE)
 glTF is right-handed with +Z nose and Y up, so starboard is -X there: X is mirrored (and the
 triangle winding with it). Bones: Dummy01 > body > mainRotor / tailRotor, plus Translation_Data,
 the layout the game's animal models use. Parts 3 and 4 (turret, gun) ride on the body.
@@ -25,8 +26,9 @@ ACTION = "SH_ApacheFly"
 FPS, FRAMES = 30, 30            # one second, looped
 MAIN_REVS, TAIL_REVS = 2, 5     # turns per loop (kept under 180 degrees a frame)
 MAIN_PIVOT = (0.0, 2.65, -0.45)  # as in apache.vert, mesh space
-TAIL_PIVOT = (0.48, 1.05, -7.15)
+TAIL_PIVOT = (-1.015, 2.385, -9.31)   # (2026-11-23: the CC-BY mesh; was 0.48, 1.05, -7.15)
 CELL = 16                       # palette cell size in pixels
+PALETTE = 64                    # colours at most (2026-11-23: the CC-BY model has hundreds; k-means to these)
 
 args = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
 LIFT = float(args[0]) if args else 6.0
@@ -51,13 +53,19 @@ def srgb(c):
     return round(255 * c ** (1 / 2.2))
 
 
+def palette_rows(n):
+    return max(1, (n + 15) // 16)
+
+
 def write_png(path, cols):
-    w, h = CELL * 16, CELL
+    nrows = palette_rows(len(cols))
+    w, h = CELL * 16, CELL * nrows
     rows = []
-    for _ in range(h):
+    for y in range(h):
         row = bytearray([0])
         for i in range(16):
-            r, g, b = (srgb(c) for c in cols[i]) if i < len(cols) else (0, 0, 0)
+            k = (y // CELL) * 16 + i
+            r, g, b = (srgb(c) for c in cols[k]) if k < len(cols) else (0, 0, 0)
             row += bytes((r, g, b, 255)) * CELL
         rows.append(bytes(row))
     def chunk(tag, body):
@@ -68,16 +76,34 @@ def write_png(path, cols):
     path.write_bytes(png)
 
 
+def quantize(cols, k):
+    """Each vertex colour -> one of at most k palette colours (k-means, weighted by use). Returns
+    (palette, palette index per vertex)."""
+    import numpy as np
+    a = np.round(np.array(cols, dtype=float), 4)
+    u, inv = np.unique(a, axis=0, return_inverse=True)
+    inv = inv.ravel()
+    if len(u) <= k:
+        return [tuple(float(x) for x in c) for c in u], inv
+    w = np.bincount(inv, minlength=len(u)).astype(float)
+    order = np.argsort(u @ np.array([0.2126, 0.7152, 0.0722]))
+    centres = u[order[np.linspace(0, len(u) - 1, k).astype(int)]].copy()
+    for _ in range(25):
+        lab = np.argmin(((u[:, None, :] - centres[None, :, :]) ** 2).sum(2), 1)
+        for j in range(k):
+            m = lab == j
+            if m.any():
+                centres[j] = (u[m] * w[m, None]).sum(0) / w[m].sum()
+    lab = np.argmin(((u[:, None, :] - centres[None, :, :]) ** 2).sum(2), 1)
+    used = sorted(set(lab.tolist()))
+    remap = {j: i for i, j in enumerate(used)}
+    return [tuple(float(x) for x in centres[j]) for j in used], np.array([remap[j] for j in lab])[inv]
+
+
 def main():
     verts = read_mesh()
-    palette, index = [], {}
-    for v in verts:
-        key = tuple(round(c, 4) for c in v[6:9])
-        if key not in index:
-            index[key] = len(palette)
-            palette.append(key)
-    if len(palette) > 16:
-        raise SystemExit("more than 16 colours: %d" % len(palette))
+    palette, cell_of = quantize([v[6:9] for v in verts], PALETTE)
+    nrows = palette_rows(len(palette))
 
     bpy.ops.wm.read_factory_settings(use_empty=True)
     scene = bpy.context.scene
@@ -92,9 +118,9 @@ def main():
     uv = me.uv_layers.new(name="UVMap")
     for poly in me.polygons:
         for li in poly.loop_indices:
-            v = verts[me.loops[li].vertex_index]
-            cell = index[tuple(round(c, 4) for c in v[6:9])]
-            uv.data[li].uv = ((cell + 0.5) / 16.0, 0.5)
+            cell = int(cell_of[me.loops[li].vertex_index])
+            # (Blender's v runs up from the image's bottom; palette row 0 is the top one)
+            uv.data[li].uv = ((cell % 16 + 0.5) / 16.0, 1 - (cell // 16 + 0.5) / nrows)
     normals = []
     for loop in me.loops:
         n = verts[loop.vertex_index][3:6]

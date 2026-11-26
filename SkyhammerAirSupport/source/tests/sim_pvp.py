@@ -801,13 +801,15 @@ def server_nuke_kills_by_band():
         ZF = zed(5, 310, 100, { brain = { hostile = false } }); ZUP = zed(6, 340, 100, { z = 2 })
         nuke(A, 300, 100)""")
     L.execute("settle()")
-    eq((L.eval("Z30.gone == true"), L.eval("Z30.offSquare == true"), L.eval("Z30.dead")), (True, True, False), "30: vaporized, no body")
+    # (2026-10-24, Codex's MP fix: removing one from the world never told the clients it died) the
+    # fireball kills through die() like any other band, then takes away the body it made
+    eq(L.eval("Z30.dead"), True, "30: killed (its death reaches every client)")
     eq(L.eval("Z70.dead"), True, "70: killed")
     eq(L.eval("Z70.by == A"), True, "the caller is noted as the killer")
     eq(L.eval("Z120.dead"), True, "120: the edge's chance, rolled 0: killed")
     eq((L.eval("Z200.dead"), L.eval("Z200.gone")), (False, None), "200: untouched")
     eq((L.eval("ZF.dead"), L.eval("ZF.gone")), (False, None), "a friendly NPC is spared")
-    eq(L.eval("ZUP.gone == true"), True, "upstairs too")
+    eq(L.eval("ZUP.dead"), True, "upstairs too")
     eq("alice kills" in sent(L), True, "the caller is told its kills")
     # (2026-10-17, the user: some inside the ring lived) the edge kills them all: no roll to miss
     L = nuke_world()
@@ -838,10 +840,10 @@ def server_nuke_reach():
 def server_nuke_cooldown():
     L = nuke_world()
     L.execute("nuke(A, 300, 100); b2(A); SENT = {}; CLOCK = CLOCK + 1000; Z = zed(1, 330, 100); nuke(A, 300, 100); settle()")
-    eq((L.eval("Z.gone"), L.eval("fxTo()")), (None, ""), "the same player straight again: refused")
+    eq((L.eval("Z.dead"), L.eval("fxTo()")), (False, ""), "the same player straight again: refused")
     eq(L.eval("refusals()"), "alice nukeno NukeCooldown", "told why")
     L.execute("nuke(B, 300, 100); settle()")
-    eq(L.eval("Z.gone"), True, "another player's is their own")
+    eq(L.eval("Z.dead"), True, "another player's is their own")
     # the cooldown mode (no PvP): the sandbox's minutes, 120 by default, on the server's clock,
     # less a minute's slack (the client counts from the mark, the server blast to blast)
     L = nuke_world(b2=False)
@@ -867,13 +869,13 @@ def server_nuke_needs_a_b2():
     # (review: under PvP the nuke is the one round of a B-2 sortie the server saw called)
     L = nuke_world(b2=False)
     L.execute("Z = zed(1, 230, 100); nuke(C, 200, 100); settle()")
-    eq((L.eval("Z.gone"), L.eval("fxTo()"), L.eval("refusals()")), (None, "", "carol nukeno NukeNoSortie"), "no B-2 seen: refused")
+    eq((L.eval("Z.dead"), L.eval("fxTo()"), L.eval("refusals()")), (False, "", "carol nukeno NukeNoSortie"), "no B-2 seen: refused")
     L.execute("SENT = {}; cmd(C, 'inbound', { craft = 'ac130' }); CLOCK = CLOCK + 100000; SENT = {}; nuke(C, 200, 100)")
     eq(L.eval("refusals()"), "carol nukeno NukeNoSortie", "another aircraft's sortie is not one")
     L.execute("SENT = {}; b2(C); CLOCK = CLOCK + 10000; SENT = {}; nuke(C, 200, 100)")
     eq(L.eval("refusals()"), "carol nukeno NukeNoSortie", "a B-2 not over the field yet")
     L.execute("CLOCK = CLOCK + 80000; SENT = {}; nuke(C, 200, 100); settle()")
-    eq((L.eval("refusals()"), L.eval("Z.gone")), ("", True), "over the field: taken (the cooldown is not started by a refusal)")
+    eq((L.eval("refusals()"), L.eval("Z.dead")), ("", True), "over the field: taken (the cooldown is not started by a refusal)")
     L.execute("CLOCK = CLOCK + 90000; SENT = {}; nuke(C, 200, 100)")
     eq(L.eval("refusals()"), "carol nukeno NukeNoSortie", "past the cooldown, the same sortie: its one nuke is spent")
     # recalled during the countdown: the bomb is already falling (Skyhammer_Nuke), for 15 s
@@ -927,10 +929,12 @@ def server_nuke_far_chunks_on_load():
     L.execute("LOADMAX = 350; nuke(A, 300, 100); settle()")
     eq(L.eval("listeners('LoadGridsquare')"), 1, "listening while chunks of it wait")
     L.execute("LOADMAX = 1e9; Zf = zed(1, 360.5, 100.5); fire('LoadGridsquare', square(360, 100, 0)); settle(2)")
-    eq(L.eval("Zf.gone"), None, "a moment after the load, not at once")
+    eq(L.eval("Zf.dead"), False, "a moment after the load, not at once")
     L.execute("CLOCK = CLOCK + 1600; settle(2)")
     eq(L.eval("Zf.dead"), True, "struck once its chunk is in")
-    L.execute("for cx = 43, 56 do for cy = -6, 31 do fire('LoadGridsquare', square(cx * 8, cy * 8, 0)) end end; CLOCK = CLOCK + 1600; settle(2)")
+    # (each loaded chunk is swept up to four times, 1.6 s apart: the infected that load after it)
+    L.execute("for cx = 43, 56 do for cy = -6, 31 do fire('LoadGridsquare', square(cx * 8, cy * 8, 0)) end end")
+    L.execute("for i = 1, 5 do CLOCK = CLOCK + 1600; settle(2) end")
     eq(L.eval("listeners('LoadGridsquare')"), 0, "the listener goes with the last one")
 
 @test

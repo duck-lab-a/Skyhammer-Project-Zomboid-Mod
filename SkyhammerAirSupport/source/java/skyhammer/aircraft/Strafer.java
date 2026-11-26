@@ -3,7 +3,7 @@ package skyhammer.aircraft;
 /** Pure, saved-combat-clock A-10 pose. Tile XY is deliberately independent of pitch/bank. */
 public final class Strafer {
     public static final double DURATION=14, CENTER_TIME=7.6, SPEED=50;
-    public static final double GUN_X=-.18,GUN_Y=-.46,GUN_Z=7.56;
+    public static final double GUN_X=-.105,GUN_Y=-.46,GUN_Z=7.56;
     public record Pose(boolean visible,double x,double y,double height,double yaw,
                        double pitch,double bank,boolean firing,double spin,double elapsed) {}
     private Strafer() {}
@@ -25,7 +25,7 @@ public final class Strafer {
         double release=releaseTime(index),t=(e-release)/.6;
         Pose p=napalmPose(Math.min(e,release),x,y,floor,heading,len,altitude);
         if(!p.visible()||t>=1)return new Canister(false,false,0,0,0,0,0,0);
-        double lx=RACK_X[index]*scale,ly=-1.05*scale,lz=-.36*scale;
+        double lx=RACK_X[index]*scale,ly=-1.34*scale,lz=-.36*scale;
         double ry=ly*Math.cos(p.pitch())-lz*Math.sin(p.pitch());
         double rz=ly*Math.sin(p.pitch())+lz*Math.cos(p.pitch());
         double wx=lx*Math.cos(p.yaw())+rz*Math.sin(p.yaw());
